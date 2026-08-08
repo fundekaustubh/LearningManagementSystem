@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supply Chain and Operations Analytics | AnalyticsAdda</title>
+<meta name="description" content="Demand forecasting, safety stock, ABC/XYZ classification and the service-level trade-off that decides how much inventory to hold.">
+<meta property="og:title" content="Supply Chain and Operations Analytics | AnalyticsAdda">
+<meta property="og:description" content="Demand forecasting, safety stock, ABC/XYZ classification and the service-level trade-off that decides how much inventory to hold.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" open style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#be123c">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li><li aria-current="page">Supply Chain and Operations Analytics</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/domains/" style="--track-color:#be123c">
+          <span aria-hidden="true">💼</span> Applied</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 7 min read</span>
+      </div>
+      <h1>Supply Chain and Operations Analytics</h1>
+      <p class="lede">Demand forecasting, safety stock, ABC/XYZ classification and the service-level trade-off that decides how much inventory to hold.</p>
+      <div class="tag-row"><span class="tag">operations</span><span class="tag">supply-chain</span><span class="tag">inventory</span><span class="tag">applied</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/domains/supply-chain-analytics/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Supply chain analytics has an unusually clear objective function: meet demand at the lowest total cost. Both sides are measurable, the trade-offs are explicit, and the answers translate directly into money — which makes it one of the most satisfying domains for an analyst.</p><h2 id="the-central-trade-off">The central trade-off<a class="anchor" href="#the-central-trade-off" aria-label="Link to this section">#</a></h2><ul><li><strong>Too much inventory</strong> — capital tied up, warehousing costs, obsolescence, markdowns.</li><li><strong>Too little</strong> — stockouts, lost sales, expedited freight, damaged customer relationships.</li></ul><p>Every inventory decision sits on this line, and the optimum depends on the ratio of the two costs, not on either alone.</p><h2 id="key-metrics">Key metrics<a class="anchor" href="#key-metrics" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Metric</th><th style="text-align:left">Formula</th><th style="text-align:left">Meaning</th></tr></thead><tbody><tr><td style="text-align:left">Inventory turnover</td><td style="text-align:left">COGS ÷ average inventory</td><td style="text-align:left">How many times stock cycles per year</td></tr><tr><td style="text-align:left">Days inventory (DIO)</td><td style="text-align:left">365 ÷ turnover</td><td style="text-align:left">Days of stock on hand</td></tr><tr><td style="text-align:left">Fill rate</td><td style="text-align:left">Units shipped ÷ units ordered</td><td style="text-align:left">Demand met from stock</td></tr><tr><td style="text-align:left">On-time in-full (OTIF)</td><td style="text-align:left">Complete, on-time orders ÷ total</td><td style="text-align:left">The customer-facing service measure</td></tr><tr><td style="text-align:left">Stockout rate</td><td style="text-align:left">Out-of-stock SKU-days ÷ total SKU-days</td><td style="text-align:left">Availability failure</td></tr><tr><td style="text-align:left">Forecast accuracy</td><td style="text-align:left">1 − MAPE, or MASE</td><td style="text-align:left">Quality of demand planning</td></tr><tr><td style="text-align:left">Cash conversion cycle</td><td style="text-align:left">DIO + DSO − DPO</td><td style="text-align:left">Working capital efficiency</td></tr></tbody></table></div><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p><strong>OTIF is the metric customers actually feel.</strong> An order that is 95% complete is still a late order for the buyer waiting on the missing item. Reporting fill rate at the unit level while customers experience order-level failures is a common source of &quot;the dashboard says we're fine but customers are complaining&quot;.</p></aside><h2 id="safety-stock">Safety stock<a class="anchor" href="#safety-stock" aria-label="Link to this section">#</a></h2><p>Safety stock buffers against variability in both demand and lead time.</p><p><span class="math">Safety\ stock = z × σ_{LT} × \sqrt{LT}</span></p><p>where z is the service-level factor, <span class="math">σ_{LT}</span> the standard deviation of demand per period, and LT the lead time in periods.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Service level</th><th style="text-align:left">z</th></tr></thead><tbody><tr><td style="text-align:left">90%</td><td style="text-align:left">1.28</td></tr><tr><td style="text-align:left">95%</td><td style="text-align:left">1.65</td></tr><tr><td style="text-align:left">98%</td><td style="text-align:left">2.05</td></tr><tr><td style="text-align:left">99%</td><td style="text-align:left">2.33</td></tr><tr><td style="text-align:left">99.9%</td><td style="text-align:left">3.09</td></tr></tbody></table></div><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>Weekly demand averages 500 units with a standard deviation of 120. Lead time is 4 weeks. Target service level 95%.
+<span class="math">Safety\ stock = 1.65 × 120 × \sqrt{4} = 396\ units</span>
+<span class="math">Reorder\ point = (500 × 4) + 396 = 2,396\ units</span>
+Now note the cost of higher service:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Service level</th><th style="text-align:right">Safety stock</th><th style="text-align:right">Extra vs 95%</th></tr></thead><tbody><tr><td style="text-align:left">90%</td><td style="text-align:right">307</td><td style="text-align:right">−89</td></tr><tr><td style="text-align:left">95%</td><td style="text-align:right">396</td><td style="text-align:right">—</td></tr><tr><td style="text-align:left">99%</td><td style="text-align:right">559</td><td style="text-align:right">+163</td></tr><tr><td style="text-align:left">99.9%</td><td style="text-align:right">742</td><td style="text-align:right">+346</td></tr></tbody></table></div><p>Going from 95% to 99.9% nearly doubles safety stock to eliminate a small fraction of stockouts. <strong>Service level is a business decision about the cost of a stockout, not a target to maximise.</strong> For a critical component in a production line, 99.9% is cheap; for a slow-moving accessory, 90% may be generous.</p></aside><p>When lead time is also variable, the formula extends to include lead-time variance — often the larger contributor, especially with overseas suppliers.</p><h2 id="abcxyz-classification">ABC/XYZ classification<a class="anchor" href="#abcxyz-classification" aria-label="Link to this section">#</a></h2><p>Not every SKU deserves the same attention. Two dimensions:</p><p><strong>ABC by value</strong> (Pareto):</p><ul><li><strong>A</strong> — top ~20% of SKUs, ~80% of value. Tight control, frequent review.</li><li><strong>B</strong> — next ~30%, ~15% of value. Moderate control.</li><li><strong>C</strong> — remaining ~50%, ~5% of value. Simple rules, large safety buffers (they are cheap).</li></ul><p><strong>XYZ by demand variability</strong> (coefficient of variation):</p><ul><li><strong>X</strong> — CV &lt; 0.5, stable and predictable.</li><li><strong>Y</strong> — CV 0.5–1.0, seasonal or trending.</li><li><strong>Z</strong> — CV &gt; 1.0, erratic.</li></ul><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">WITH</span> sku_stats <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> sku,
+           <span class="tok-builtin">sum</span>(units <span class="tok-operator">*</span> unit_price)                          <span class="tok-keyword">AS</span> annual_value,
+           <span class="tok-builtin">avg</span>(units)                                       <span class="tok-keyword">AS</span> mean_weekly_units,
+           <span class="tok-builtin">stddev</span>(units)                                    <span class="tok-keyword">AS</span> sd_weekly_units,
+           <span class="tok-builtin">stddev</span>(units) <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(<span class="tok-builtin">avg</span>(units), <span class="tok-number">0</span>)            <span class="tok-keyword">AS</span> cv
+    <span class="tok-keyword">FROM</span>   weekly_sales
+    <span class="tok-keyword">WHERE</span>  week <span class="tok-operator">&gt;=</span> <span class="tok-builtin">current_date</span> <span class="tok-operator">-</span> <span class="tok-keyword">interval</span> <span class="tok-string">'52 weeks'</span>
+    <span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> sku
+),
+ranked <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-operator">*</span>,
+           <span class="tok-builtin">sum</span>(annual_value) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> annual_value <span class="tok-keyword">DESC</span>)
+             <span class="tok-operator">/</span> <span class="tok-builtin">sum</span>(annual_value) <span class="tok-keyword">OVER</span> ()                    <span class="tok-keyword">AS</span> cumulative_share
+    <span class="tok-keyword">FROM</span>   sku_stats
+)
+<span class="tok-keyword">SELECT</span> sku, annual_value, cv,
+       <span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> cumulative_share <span class="tok-operator">&lt;=</span> <span class="tok-number">0.80</span> <span class="tok-keyword">THEN</span> <span class="tok-string">'A'</span>
+            <span class="tok-keyword">WHEN</span> cumulative_share <span class="tok-operator">&lt;=</span> <span class="tok-number">0.95</span> <span class="tok-keyword">THEN</span> <span class="tok-string">'B'</span>
+            <span class="tok-keyword">ELSE</span> <span class="tok-string">'C'</span> <span class="tok-keyword">END</span>                                    <span class="tok-keyword">AS</span> abc_class,
+       <span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> cv <span class="tok-operator">&lt;=</span> <span class="tok-number">0.5</span> <span class="tok-keyword">THEN</span> <span class="tok-string">'X'</span>
+            <span class="tok-keyword">WHEN</span> cv <span class="tok-operator">&lt;=</span> <span class="tok-number">1.0</span> <span class="tok-keyword">THEN</span> <span class="tok-string">'Y'</span>
+            <span class="tok-keyword">ELSE</span> <span class="tok-string">'Z'</span> <span class="tok-keyword">END</span>                                    <span class="tok-keyword">AS</span> xyz_class
+<span class="tok-keyword">FROM</span>   ranked
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> annual_value <span class="tok-keyword">DESC</span>;</code></pre></figure><p>The nine-cell matrix drives policy:</p><ul><li><strong>AX</strong> — high value, predictable. Tight forecasting, low safety stock, frequent small orders.</li><li><strong>AZ</strong> — high value, erratic. The hardest cell. Consider make-to-order, supplier flexibility agreements, or deliberately high buffers.</li><li><strong>CX</strong> — low value, predictable. Automate entirely; hold plenty, it costs little.</li><li><strong>CZ</strong> — low value, erratic. Candidates for discontinuation. Long-tail SKUs consume disproportionate planning effort.</li></ul><h2 id="demand-forecasting-in-a-supply-chain-context">Demand forecasting in a supply chain context<a class="anchor" href="#demand-forecasting-in-a-supply-chain-context" aria-label="Link to this section">#</a></h2><p>The <a href="../../predictive/time-series-forecasting/">time-series methods</a> apply, with domain-specific wrinkles:</p><ul><li><strong>Forecast at the decision level.</strong> If you order per SKU per warehouse, that is where the forecast is needed — even though aggregate forecasts are more accurate.</li><li><strong>Hierarchical reconciliation.</strong> Forecast at multiple levels and reconcile so SKU forecasts sum to the category forecast.</li><li><strong>Intermittent demand.</strong> Many SKUs sell zero most periods. Standard methods fail; use Croston's method or its variants.</li><li><strong>Promotions and price changes</strong> must be modelled explicitly, not absorbed as noise.</li><li><strong>The bullwhip effect.</strong> Demand variability amplifies up the supply chain as each tier adds its own buffer. Sharing point-of-sale data upstream dampens it more effectively than better forecasting at each tier.</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><strong>Forecast error costs are asymmetric.</strong> Under-forecasting a high-margin fast-mover costs a lost sale and possibly a lost customer. Over-forecasting costs holding and eventual markdown. These are rarely equal, so the optimal forecast is usually <strong>not</strong> the unbiased one. Build the asymmetry into the ordering rule, not into the forecast itself — keep the forecast honest and let the safety stock carry the bias.</p></aside><h2 id="economic-order-quantity">Economic order quantity<a class="anchor" href="#economic-order-quantity" aria-label="Link to this section">#</a></h2><p><span class="math">EOQ = \sqrt{\frac{2DS}{H}}</span></p><p>where D is annual demand, S is fixed cost per order, H is annual holding cost per unit.</p><p>EOQ balances ordering costs against holding costs. Its assumptions — constant demand, fixed lead time, no quantity discounts — rarely hold exactly, but it remains a useful starting point, and the total-cost curve near the optimum is flat, so being somewhat wrong is inexpensive.</p><h2 id="root-cause-analysis-for-operational-failures">Root-cause analysis for operational failures<a class="anchor" href="#root-cause-analysis-for-operational-failures" aria-label="Link to this section">#</a></h2><p>When OTIF drops, decompose systematically:</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>OTIF failure
+├── Not in full
+│   ├── Stockout        → forecast error, supplier delay, demand spike
+│   └── Damaged/quality → warehouse handling, supplier quality
+└── Not on time
+    ├── Picking delay   → labour capacity, layout, pick-path
+    ├── Transport delay → carrier performance, route, weather
+    └── Order held      → credit check, address validation</code></pre></figure><p>Quantify each branch before investigating any of it. Teams routinely rebuild forecasting systems when 60% of failures were transport-related.</p><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Every inventory decision balances holding cost against stockout cost; the service level encodes that ratio.</li><li>Safety stock scales with demand variability and the square root of lead time.</li><li>Going from 95% to 99.9% service nearly doubles safety stock — choose the level deliberately.</li><li>ABC/XYZ classification directs planning effort to where it pays.</li><li>Forecast at the decision level, model promotions explicitly, and use Croston for intermittent demand.</li><li>Error costs are asymmetric; put the bias in the ordering policy, not the forecast.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/domains/marketing-analytics/">Marketing Analytics</a>
+      <span class="mini-meta">Applied Business Analytics</span></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">Customer Lifetime Value</a>
+      <span class="mini-meta">Applied Business Analytics</span></li><li><a href="../../../tutorials/domains/rfm-analysis/">RFM Analysis</a>
+      <span class="mini-meta">Applied Business Analytics</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/domains/financial-analytics/"><span>← Previous</span><strong>Financial Analytics for Non-Finance Analysts</strong></a>
+  <a class="pager-next" href="../../../tutorials/domains/people-analytics/"><span>Next →</span><strong>HR and People Analytics</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-central-trade-off">The central trade-off</a></li><li class="toc-l2"><a href="#key-metrics">Key metrics</a></li><li class="toc-l2"><a href="#safety-stock">Safety stock</a></li><li class="toc-l2"><a href="#abcxyz-classification">ABC/XYZ classification</a></li><li class="toc-l2"><a href="#demand-forecasting-in-a-supply-chain-context">Demand forecasting in a supply chain context</a></li><li class="toc-l2"><a href="#economic-order-quantity">Economic order quantity</a></li><li class="toc-l2"><a href="#root-cause-analysis-for-operational-failures">Root-cause analysis for operational failures</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"Weekly demand averages 500 units with sd 120, lead time 4 weeks, target service level 95% (z = 1.65). What is the safety stock?","options":["198 units","396 units","792 units","2,000 units"],"answer":1,"explain":"Safety stock = z x sd x sqrt(LT) = 1.65 x 120 x 2 = 396 units. The reorder point adds average lead-time demand of 2,000, giving 2,396."},{"q":"A SKU is classified AZ — high value, highly erratic demand. What is the appropriate policy?","options":["Automate ordering with large buffers, since it is cheap to over-stock","Tight forecasting with minimal safety stock","Active management: supplier flexibility, make-to-order, or deliberately high buffers with senior review","Discontinue it"],"answer":2,"explain":"High value means errors are expensive; high variability means forecasting cannot solve it. AZ items need active management and supply-side flexibility rather than a formula."},{"q":"Why is the optimal supply chain forecast often deliberately biased?","options":["Because forecasting models are inherently biased","Because the cost of under-forecasting a high-margin item usually exceeds the cost of over-forecasting, so the ordering policy should reflect that asymmetry","To make accuracy metrics look better","Because demand is always growing"],"answer":1,"explain":"Stockout and holding costs are rarely symmetric. Best practice is to keep the forecast unbiased and encode the asymmetry in the safety stock and ordering rule."}]};</script>
+</body>
+</html>

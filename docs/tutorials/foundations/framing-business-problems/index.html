@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Framing a Business Problem as an Analytics Question | AnalyticsAdda</title>
+<meta name="description" content="The translation skill that separates good analysts from query-writers — turning &quot;sales are down, look into it&quot; into a scoped, answerable question.">
+<meta property="og:title" content="Framing a Business Problem as an Analytics Question | AnalyticsAdda">
+<meta property="og:description" content="The translation skill that separates good analysts from query-writers — turning &quot;sales are down, look into it&quot; into a scoped, answerable question.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" open style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2f8f5b">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li aria-current="page">Framing a Business Problem as an Analytics Question</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/foundations/" style="--track-color:#2f8f5b">
+          <span aria-hidden="true">🧭</span> Foundations</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 6 min read</span>
+      </div>
+      <h1>Framing a Business Problem as an Analytics Question</h1>
+      <p class="lede">The translation skill that separates good analysts from query-writers — turning &quot;sales are down, look into it&quot; into a scoped, answerable question.</p>
+      <div class="tag-row"><span class="tag">problem-solving</span><span class="tag">communication</span><span class="tag">structure</span><span class="tag">fundamentals</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/foundations/framing-business-problems/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>The request an analyst receives is almost never the question they should answer. &quot;Can you pull the numbers for the North region?&quot; is a symptom. Somewhere behind it is a decision, and your job is to find it before you write SQL.</p><h2 id="start-with-the-decision-not-the-data">Start with the decision, not the data<a class="anchor" href="#start-with-the-decision-not-the-data" aria-label="Link to this section">#</a></h2><p>Three questions, asked early, save weeks:</p><ol><li><strong>What decision are you trying to make?</strong></li><li><strong>What would you do differently depending on the answer?</strong></li><li><strong>When do you need to decide?</strong></li></ol><p>If question two has no answer — if every result leads to the same action — the analysis has no value and you have just saved everyone a week. This happens more often than anyone admits.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p><strong>Request:</strong> &quot;Can you send me last month's sales by region?&quot;
+<strong>After asking:</strong> the VP is deciding whether to move two headcount from the West team to the North team before the quarter closes.
+<strong>The real question:</strong> which region has the highest incremental revenue per additional salesperson?
+That is a different analysis entirely — it needs current rep counts, pipeline coverage and quota attainment, not a regional revenue table. Answering the literal request would have been useless <em>and</em> would have looked responsive.</p></aside><h2 id="make-the-question-answerable">Make the question answerable<a class="anchor" href="#make-the-question-answerable" aria-label="Link to this section">#</a></h2><p>A well-formed analytics question has five components:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Component</th><th style="text-align:left">Weak version</th><th style="text-align:left">Strong version</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Metric</strong></td><td style="text-align:left">&quot;performance&quot;</td><td style="text-align:left">90-day repeat purchase rate</td></tr><tr><td style="text-align:left"><strong>Population</strong></td><td style="text-align:left">&quot;customers&quot;</td><td style="text-align:left">customers first ordering Jan–Mar 2026, excluding B2B</td></tr><tr><td style="text-align:left"><strong>Time frame</strong></td><td style="text-align:left">&quot;recently&quot;</td><td style="text-align:left">first 90 days after first order</td></tr><tr><td style="text-align:left"><strong>Comparison</strong></td><td style="text-align:left">—</td><td style="text-align:left">versus the Oct–Dec 2025 cohort</td></tr><tr><td style="text-align:left"><strong>Decision threshold</strong></td><td style="text-align:left">—</td><td style="text-align:left">a gap over 3pp triggers a review of the onboarding flow</td></tr></tbody></table></div><p>The comparison is what people forget. <strong>A number alone means nothing.</strong> A 2.8% conversion rate is good or bad only relative to last month, to another segment, to a competitor, or to a target. Pick the comparison deliberately — it determines the conclusion.</p><h2 id="structuring-the-problem-issue-trees">Structuring the problem: issue trees<a class="anchor" href="#structuring-the-problem-issue-trees" aria-label="Link to this section">#</a></h2><p>Break the question into mutually exclusive, collectively exhaustive (MECE) branches, so you can eliminate whole areas rather than wandering.</p><p>&quot;Why did profit fall 12% last quarter?&quot;</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>Profit decline
+├── Revenue down
+│   ├── Volume down
+│   │   ├── Fewer customers
+│   │   └── Fewer orders per customer
+│   └── Price/mix down
+│       ├── More discounting
+│       └── Shift to cheaper products
+└── Costs up
+    ├── COGS up (input prices, supplier mix)
+    ├── Fulfilment cost per order up
+    └── Fixed costs up (headcount, tooling)</code></pre></figure><p>Now the work is mechanical: quantify each branch, find which explains most of the gap, and go one level deeper only there. This is far faster than exploring at random, and it produces a defensible narrative — you can show that you ruled out the other branches rather than ignored them.</p><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Quantify branches roughly before drilling in. If costs explain 2pp of a 12pp decline, do not spend three days on supplier analysis. Rough sizing first, precision later, and only where it matters.</p></aside><h2 id="hypothesis-driven-analysis">Hypothesis-driven analysis<a class="anchor" href="#hypothesis-driven-analysis" aria-label="Link to this section">#</a></h2><p>Rather than &quot;explore the data and see what turns up&quot;, write down candidate explanations first, then design the cheapest test that could kill each one.</p><p>For &quot;conversion rate dropped in June&quot;:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Hypothesis</th><th style="text-align:left">Cheapest test that could kill it</th><th style="text-align:left">Result</th></tr></thead><tbody><tr><td style="text-align:left">Traffic mix shifted to lower-intent channels</td><td style="text-align:left">Conversion by channel, holding channel mix fixed</td><td style="text-align:left">Mix explains 0.1pp — mostly rejected</td></tr><tr><td style="text-align:left">A site change broke something</td><td style="text-align:left">Conversion by device × browser × release date</td><td style="text-align:left">Android post-8.2.0 collapsed — <strong>supported</strong></td></tr><tr><td style="text-align:left">Seasonality</td><td style="text-align:left">Compare June vs June last year</td><td style="text-align:left">Last June was flat — rejected</td></tr><tr><td style="text-align:left">Competitor promotion</td><td style="text-align:left">Branded search volume, price scrape</td><td style="text-align:left">No change — rejected</td></tr></tbody></table></div><p>Two disciplines make this work: <strong>write the hypotheses before looking</strong>, so you are not just narrating whatever you happened to find; and <strong>prefer tests that can disconfirm</strong>, because a test that would look supportive under every scenario tells you nothing.</p><h2 id="scoping-the-8020-conversation">Scoping: the 80/20 conversation<a class="anchor" href="#scoping-the-8020-conversation" aria-label="Link to this section">#</a></h2><p>Almost every request can be answered at three levels of effort. Offer the choice explicitly:</p><ul><li><strong>2 hours</strong> — directional answer from existing dashboards, with caveats.</li><li><strong>2 days</strong> — proper segmentation, sanity-checked data, a defensible recommendation.</li><li><strong>2 weeks</strong> — model, statistical validation, full sensitivity analysis.</li></ul><p>Stakeholders will almost always pick the two-day version once they see the trade-off. Guessing on their behalf is how analysts end up over-engineering a question that had a same-day deadline.</p><h2 id="common-framing-failures">Common framing failures<a class="anchor" href="#common-framing-failures" aria-label="Link to this section">#</a></h2><ul><li><strong>Answering the literal question.</strong> Fixed by asking about the decision.</li><li><strong>No comparison.</strong> A metric with no baseline cannot support a conclusion.</li><li><strong>Confusing the population.</strong> &quot;Customer&quot; means signed-up, active or paying — pick one and say which.</li><li><strong>Ignoring the counterfactual.</strong> &quot;Users who saw the banner converted 3× better&quot; — compared to whom? Users who saw it were probably already further along.</li><li><strong>Boiling the ocean.</strong> Six weeks of exploration with no hypothesis produces slides, not decisions.</li><li><strong>Precision theatre.</strong> Reporting ₹4,23,17,842.61 when the input data is ±5% signals carelessness, not rigour.</li></ul><h2 id="a-framing-template">A framing template<a class="anchor" href="#a-framing-template" aria-label="Link to this section">#</a></h2><p>Fill this in before starting. It fits in a Slack message and prevents most rework.</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>DECISION:    Whether to extend the free trial from 14 to 30 days.
+OWNER:       Head of Growth · needs an answer by 20 August.
+QUESTION:    Do users on longer trials convert to paid at a higher rate,
+             net of the delayed revenue?
+POPULATION:  Self-serve signups, Jan-Jun 2026, excluding enterprise.
+COMPARISON:  Existing 14-day trials vs the 30-day pilot cohort.
+THRESHOLD:   Extend if paid conversion improves by &gt;2pp with no drop in
+             90-day retention.
+DATA:        fct_trials, fct_subscriptions. Known gap: trial source is
+             null for ~8% of March signups.
+EFFORT:      2 days.</code></pre></figure><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Find the decision behind the request before writing any query.</li><li>If no result would change the action, say so and stop — that is a valid deliverable.</li><li>A complete question names metric, population, time frame, comparison and threshold.</li><li>Use MECE issue trees to eliminate branches, and size them roughly before drilling in.</li><li>Write hypotheses before you look, and design tests that could disprove them.</li><li>Offer explicit effort levels instead of silently choosing one.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">What is Business Analytics?</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/foundations/types-of-analytics/">The Four Types of Analytics</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">Data Types and Measurement Scales</a>
+      <span class="mini-meta">Analytics Foundations</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/foundations/kpis-and-metric-design/"><span>← Previous</span><strong>Designing KPIs and Metrics That Work</strong></a>
+  <span></span>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#start-with-the-decision-not-the-data">Start with the decision, not the data</a></li><li class="toc-l2"><a href="#make-the-question-answerable">Make the question answerable</a></li><li class="toc-l2"><a href="#structuring-the-problem-issue-trees">Structuring the problem: issue trees</a></li><li class="toc-l2"><a href="#hypothesis-driven-analysis">Hypothesis-driven analysis</a></li><li class="toc-l2"><a href="#scoping-the-8020-conversation">Scoping: the 80/20 conversation</a></li><li class="toc-l2"><a href="#common-framing-failures">Common framing failures</a></li><li class="toc-l2"><a href="#a-framing-template">A framing template</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"A stakeholder asks for 'last month's sales by region'. What should you do first?","options":["Write the query immediately — it is a simple request","Ask what decision the numbers will inform and what would change based on the answer","Build a dashboard covering every possible regional cut","Escalate to your manager"],"answer":1,"explain":"The literal request is usually a symptom of an underlying decision. Finding that decision often changes the analysis entirely."},{"q":"Which element is missing from: 'What is our 90-day repeat purchase rate for customers acquired in Q1?'","options":["Metric","Population","Time frame","Comparison"],"answer":3,"explain":"Metric, population and time frame are all specified, but with no comparison — another cohort, a target, a prior period — the resulting number cannot support a conclusion."},{"q":"What is the main advantage of a MECE issue tree when diagnosing a profit decline?","options":["It guarantees a statistically significant result","It lets you eliminate whole branches with rough sizing before drilling into the one that matters","It removes the need for data validation","It automatically identifies causation"],"answer":1,"explain":"Mutually exclusive, collectively exhaustive branches let you quantify roughly, rule areas out, and spend detailed effort only where the gap actually lives."}]};</script>
+</body>
+</html>

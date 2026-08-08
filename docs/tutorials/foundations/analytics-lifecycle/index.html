@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Analytics Project Lifecycle (CRISP-DM) | AnalyticsAdda</title>
+<meta name="description" content="The six phases of a real analytics project, what goes wrong in each, and the checklist that keeps a project from dying in the handover.">
+<meta property="og:title" content="The Analytics Project Lifecycle (CRISP-DM) | AnalyticsAdda">
+<meta property="og:description" content="The six phases of a real analytics project, what goes wrong in each, and the checklist that keeps a project from dying in the handover.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" open style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2f8f5b">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li aria-current="page">The Analytics Project Lifecycle (CRISP-DM)</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/foundations/" style="--track-color:#2f8f5b">
+          <span aria-hidden="true">🧭</span> Foundations</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 5 min read</span>
+      </div>
+      <h1>The Analytics Project Lifecycle (CRISP-DM)</h1>
+      <p class="lede">The six phases of a real analytics project, what goes wrong in each, and the checklist that keeps a project from dying in the handover.</p>
+      <div class="tag-row"><span class="tag">process</span><span class="tag">crisp-dm</span><span class="tag">project-management</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/foundations/analytics-lifecycle/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Most failed analytics projects do not fail at the modelling step. They fail because the question was never pinned down, or because nobody owned the decision at the end. A lifecycle framework exists to force those conversations early.</p><p>The most widely used one is <strong>CRISP-DM</strong> (Cross-Industry Standard Process for Data Mining). It has six phases and, crucially, it is a <strong>loop</strong>, not a line.</p><h2 id="phase-1-business-understanding">Phase 1 — Business understanding<a class="anchor" href="#phase-1-business-understanding" aria-label="Link to this section">#</a></h2><p>Goal: convert a business concern into a question with a measurable answer and a named decision.</p><p>Ask these before touching data:</p><ol><li><strong>What decision will this change?</strong> If the answer is &quot;none&quot;, stop.</li><li><strong>Who makes that decision, and when?</strong> A deadline changes the whole design.</li><li><strong>What does success look like numerically?</strong> &quot;Reduce churn&quot; → &quot;reduce 90-day churn from 4.6% to under 3.5% by Q3&quot;.</li><li><strong>What is the current approach?</strong> Any model must beat the status quo, which is often a simple rule that works surprisingly well.</li><li><strong>What would change your mind?</strong> Agreeing on falsifying evidence up front prevents post-hoc goalpost-moving.</li></ol><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Write the headline of the final slide before you start. If you cannot imagine any version of that headline being interesting, redesign the project now rather than in six weeks.</p></aside><h2 id="phase-2-data-understanding">Phase 2 — Data understanding<a class="anchor" href="#phase-2-data-understanding" aria-label="Link to this section">#</a></h2><p>Get the data, then attack it sceptically before you trust it.</p><ul><li><strong>Row counts over time.</strong> A pipeline that silently dropped a source shows up as a step change in daily volume.</li><li><strong>Missingness by column and by period.</strong> Missing data is rarely random; ask <em>why</em> it is missing.</li><li><strong>Distributions.</strong> Min, max, quartiles. Negative ages, orders in 1970, revenue of exactly 9999999.</li><li><strong>Uniqueness.</strong> Is <code>customer_id</code> actually unique in the customer table? Test it, do not assume it.</li><li><strong>Join fan-out.</strong> Does joining orders to order_items multiply your row count? It should — make sure you noticed.</li></ul><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- A five-minute data sanity check on any new table</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                                      <span class="tok-keyword">AS</span> <span class="tok-keyword">rows</span>,
+       <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> customer_id)                   <span class="tok-keyword">AS</span> customers,
+       <span class="tok-builtin">min</span>(order_date)                               <span class="tok-keyword">AS</span> first_order,
+       <span class="tok-builtin">max</span>(order_date)                               <span class="tok-keyword">AS</span> last_order,
+       <span class="tok-builtin">sum</span>(<span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> order_value <span class="tok-keyword">IS</span> <span class="tok-keyword">NULL</span> <span class="tok-keyword">THEN</span> <span class="tok-number">1</span> <span class="tok-keyword">END</span>) <span class="tok-keyword">AS</span> null_values,
+       <span class="tok-builtin">sum</span>(<span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> order_value <span class="tok-operator">&lt;</span> <span class="tok-number">0</span> <span class="tok-keyword">THEN</span> <span class="tok-number">1</span> <span class="tok-keyword">END</span>)     <span class="tok-keyword">AS</span> negative_values
+<span class="tok-keyword">FROM</span>   orders;</code></pre></figure><h2 id="phase-3-data-preparation">Phase 3 — Data preparation<a class="anchor" href="#phase-3-data-preparation" aria-label="Link to this section">#</a></h2><p>The longest phase, typically 60–80% of project time. It covers joining sources, deduplicating, handling missing values, deriving features and aggregating to the right grain.</p><p><strong>Grain is the concept people get wrong most often.</strong> Decide explicitly what one row of your analysis table represents — one customer? one customer-month? one order line? — and enforce it. Most silently wrong analyses are grain errors: a customer with 40 orders quietly getting 40× the weight of a customer with one.</p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Never clean data destructively in place. Keep the raw extract, and express every cleaning step as code that can be re-run. When someone asks in three months &quot;why does this number differ from the finance report?&quot;, the answer is in that code.</p></aside><h2 id="phase-4-modelling">Phase 4 — Modelling<a class="anchor" href="#phase-4-modelling" aria-label="Link to this section">#</a></h2><p>&quot;Modelling&quot; covers everything from a weighted average to a gradient-boosted ensemble.</p><ul><li><strong>Always build a baseline first.</strong> For forecasting: last month's value. For classification: predict the majority class. If your sophisticated model cannot beat the baseline by a margin worth the complexity, ship the baseline.</li><li><strong>Split data before you look at it.</strong> Train/validation/test, and for anything time-dependent, split <em>by time</em> rather than randomly — otherwise you leak the future into the past.</li><li><strong>Watch for leakage.</strong> If a feature would not be available at prediction time, it cannot be in the model. A churn model containing <code>cancellation_reason</code> will be 99% accurate and completely useless.</li></ul><h2 id="phase-5-evaluation">Phase 5 — Evaluation<a class="anchor" href="#phase-5-evaluation" aria-label="Link to this section">#</a></h2><p>Two distinct questions, and teams routinely answer only the first:</p><ol><li><strong>Is the model statistically sound?</strong> Appropriate metric, honest test set, stable across segments.</li><li><strong>Does it solve the business problem?</strong> Translate model output into money or hours. A churn model with 30% precision at 60% recall means: for every 100 customers you contact, 30 were really going to leave. At ₹500 per outreach and ₹8,000 of retained value per save, that is ₹50,000 spent to retain ₹240,000. <strong>That</strong> is the evaluation the business cares about.</li></ol><p>Also check fairness and stability: does performance collapse for a segment that matters? A model that works for existing customers and fails for new ones may be worse than no model, because it will be trusted anyway.</p><h2 id="phase-6-deployment">Phase 6 — Deployment<a class="anchor" href="#phase-6-deployment" aria-label="Link to this section">#</a></h2><p>Deployment ranges from &quot;a scheduled dashboard&quot; to &quot;an API scoring in real time&quot;. Whatever the form, it is not done until:</p><ul><li>Someone <strong>owns</strong> it, by name.</li><li>It is <strong>monitored</strong> — input distributions, output distributions, and the business metric.</li><li>It has a documented <strong>retraining or review cadence</strong>.</li><li>Users know <strong>what it does not do</strong>. Undocumented limits become the reason a tool gets abandoned after its first visible mistake.</li></ul><h2 id="the-loop">The loop<a class="anchor" href="#the-loop" aria-label="Link to this section">#</a></h2><p>Deployment feeds back into business understanding. Real projects revisit earlier phases constantly: data understanding reveals the question was unanswerable with the available data; evaluation reveals the metric was wrong. <strong>Going backwards is the process working, not a failure.</strong></p><h2 id="a-pre-flight-checklist">A pre-flight checklist<a class="anchor" href="#a-pre-flight-checklist" aria-label="Link to this section">#</a></h2><p>Before starting any analytics project, you should be able to answer:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Question</th><th style="text-align:left">Why it matters</th></tr></thead><tbody><tr><td style="text-align:left">What decision does this inform?</td><td style="text-align:left">No decision, no project</td></tr><tr><td style="text-align:left">Who owns that decision?</td><td style="text-align:left">Analysis without a customer is never used</td></tr><tr><td style="text-align:left">What is the deadline?</td><td style="text-align:left">Determines depth vs speed</td></tr><tr><td style="text-align:left">What is the current baseline?</td><td style="text-align:left">Defines what &quot;better&quot; means</td></tr><tr><td style="text-align:left">What data exists, and how good is it?</td><td style="text-align:left">Prevents week-four surprises</td></tr><tr><td style="text-align:left">How will we know it worked?</td><td style="text-align:left">Prevents unfalsifiable claims</td></tr></tbody></table></div><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>CRISP-DM's six phases: business understanding, data understanding, preparation, modelling, evaluation, deployment.</li><li>Most project risk lives in phase one, not in the modelling.</li><li>Preparation takes most of the time; define the grain of your analysis table explicitly.</li><li>Always compare against a trivial baseline, and split time-series data by time.</li><li>Evaluate in money or hours, not only in model metrics.</li><li>A deployed analysis needs an owner, monitoring and documented limits.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">What is Business Analytics?</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/foundations/types-of-analytics/">The Four Types of Analytics</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">Data Types and Measurement Scales</a>
+      <span class="mini-meta">Analytics Foundations</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/foundations/types-of-analytics/"><span>← Previous</span><strong>The Four Types of Analytics</strong></a>
+  <a class="pager-next" href="../../../tutorials/foundations/data-types-and-measurement-scales/"><span>Next →</span><strong>Data Types and Measurement Scales</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#phase-1-business-understanding">Phase 1 — Business understanding</a></li><li class="toc-l2"><a href="#phase-2-data-understanding">Phase 2 — Data understanding</a></li><li class="toc-l2"><a href="#phase-3-data-preparation">Phase 3 — Data preparation</a></li><li class="toc-l2"><a href="#phase-4-modelling">Phase 4 — Modelling</a></li><li class="toc-l2"><a href="#phase-5-evaluation">Phase 5 — Evaluation</a></li><li class="toc-l2"><a href="#phase-6-deployment">Phase 6 — Deployment</a></li><li class="toc-l2"><a href="#the-loop">The loop</a></li><li class="toc-l2"><a href="#a-pre-flight-checklist">A pre-flight checklist</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"A churn model achieves 99% accuracy. Investigation shows a feature called 'cancellation_reason' is in the training data. What has gone wrong?","options":["Overfitting to noise","Target leakage — the feature is unavailable at prediction time","The sample was too small","Nothing, this is a good model"],"answer":1,"explain":"A cancellation reason only exists after the customer has churned, so it cannot exist when you need to predict. This is classic target leakage."},{"q":"Which phase of CRISP-DM typically consumes the most project time?","options":["Business understanding","Data preparation","Modelling","Deployment"],"answer":1,"explain":"Data preparation — joining, cleaning, deriving and aggregating to the right grain — is usually 60-80% of the effort."},{"q":"You are forecasting monthly demand. Why should you split train and test data by time rather than randomly?","options":["Random splits are computationally slower","A random split lets future observations inform predictions about the past, inflating measured accuracy","Time splits produce larger training sets","It makes no difference for forecasting"],"answer":1,"explain":"Random splitting leaks future information into training, which is impossible at real prediction time and gives an over-optimistic estimate of accuracy."}]};</script>
+</body>
+</html>

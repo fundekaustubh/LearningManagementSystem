@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Types and Measurement Scales | AnalyticsAdda</title>
+<meta name="description" content="Nominal, ordinal, interval and ratio scales — and why the scale of a variable decides which statistics and charts are legitimate.">
+<meta property="og:title" content="Data Types and Measurement Scales | AnalyticsAdda">
+<meta property="og:description" content="Nominal, ordinal, interval and ratio scales — and why the scale of a variable decides which statistics and charts are legitimate.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" open style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2f8f5b">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li aria-current="page">Data Types and Measurement Scales</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/foundations/" style="--track-color:#2f8f5b">
+          <span aria-hidden="true">🧭</span> Foundations</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 4 min read</span>
+      </div>
+      <h1>Data Types and Measurement Scales</h1>
+      <p class="lede">Nominal, ordinal, interval and ratio scales — and why the scale of a variable decides which statistics and charts are legitimate.</p>
+      <div class="tag-row"><span class="tag">fundamentals</span><span class="tag">statistics</span><span class="tag">data-types</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/foundations/data-types-and-measurement-scales/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Before you compute anything, you need to know what kind of thing you are computing on. The <strong>measurement scale</strong> of a variable determines which operations are meaningful. Averaging a set of postal codes is arithmetically possible and completely meaningless — the scale is what tells you so.</p><h2 id="the-two-families">The two families<a class="anchor" href="#the-two-families" aria-label="Link to this section">#</a></h2><p><strong>Categorical (qualitative)</strong> data places observations into groups. <strong>Numerical (quantitative)</strong> data measures quantity.</p><p>Numerical splits further:</p><ul><li><strong>Discrete</strong> — countable values. Number of orders, seats sold. You cannot have 2.5 orders.</li><li><strong>Continuous</strong> — any value in a range. Revenue, time on page, weight. Precision is limited only by measurement.</li></ul><h2 id="the-four-measurement-scales">The four measurement scales<a class="anchor" href="#the-four-measurement-scales" aria-label="Link to this section">#</a></h2><p>Stanley Stevens' classification is the standard, and each level supports everything the level below it supports, plus more.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Scale</th><th style="text-align:center">Distinct values</th><th style="text-align:center">Ordered</th><th style="text-align:center">Equal intervals</th><th style="text-align:center">True zero</th><th style="text-align:left">Example</th></tr></thead><tbody><tr><td style="text-align:left">Nominal</td><td style="text-align:center">✓</td><td style="text-align:center">✗</td><td style="text-align:center">✗</td><td style="text-align:center">✗</td><td style="text-align:left">Region, payment method</td></tr><tr><td style="text-align:left">Ordinal</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✗</td><td style="text-align:center">✗</td><td style="text-align:left">Satisfaction 1–5, T-shirt size</td></tr><tr><td style="text-align:left">Interval</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✗</td><td style="text-align:left">Temperature °C, calendar year</td></tr><tr><td style="text-align:left">Ratio</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:center">✓</td><td style="text-align:left">Revenue, age, units sold</td></tr></tbody></table></div><h3 id="nominal-labels-with-no-order">Nominal — labels with no order<a class="anchor" href="#nominal-labels-with-no-order" aria-label="Link to this section">#</a></h3><p>Categories that cannot be ranked: <code>payment_method</code> ∈ {card, UPI, netbanking, COD}, customer segment, country.</p><p>Legitimate: counts, proportions, mode, chi-square tests, bar charts.
+Not legitimate: mean, median, &quot;average payment method&quot;.</p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Nominal data is frequently stored as integers — region coded 1, 2, 3. Nothing stops your tool from averaging it. Region 2.4 is not a place. Convert codes to labels early, or at least never let them into a numeric aggregation.</p></aside><h3 id="ordinal-ordered-but-the-gaps-are-unknown">Ordinal — ordered, but the gaps are unknown<a class="anchor" href="#ordinal-ordered-but-the-gaps-are-unknown" aria-label="Link to this section">#</a></h3><p>Satisfaction ratings, seniority levels, &quot;Low / Medium / High&quot; risk bands. You know Very Satisfied &gt; Satisfied, but you do not know that the gap equals the gap between Satisfied and Neutral.</p><p>Legitimate: median, percentiles, min/max, rank correlation (Spearman), stacked bars.
+Contested: the mean. Reporting &quot;average satisfaction 4.2&quot; is universally done and technically assumes equal spacing between rating points. It is usually acceptable for tracking a trend on a consistent scale, and misleading when comparing across differently-worded scales.</p><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>For Likert-scale survey data, reporting <strong>top-two-box percentage</strong> (&quot;% rating 4 or 5&quot;) is often more robust and far easier for stakeholders to interpret than an average of ordinal codes.</p></aside><h3 id="interval-equal-gaps-arbitrary-zero">Interval — equal gaps, arbitrary zero<a class="anchor" href="#interval-equal-gaps-arbitrary-zero" aria-label="Link to this section">#</a></h3><p>Temperature in Celsius, calendar years, standardised test scores. The difference between 20°C and 30°C equals that between 30°C and 40°C, but 0°C is a convention, not an absence of temperature.</p><p>Legitimate: mean, standard deviation, differences.
+Not legitimate: <strong>ratios</strong>. 40°C is not &quot;twice as hot&quot; as 20°C. Neither is the year 2000 twice the year 1000.</p><h3 id="ratio-equal-gaps-and-a-meaningful-zero">Ratio — equal gaps and a meaningful zero<a class="anchor" href="#ratio-equal-gaps-and-a-meaningful-zero" aria-label="Link to this section">#</a></h3><p>Revenue, units, count of sessions, duration, age. Zero means none of it.</p><p>Everything is legitimate here, including ratios and percentage change: ₹200 really is twice ₹100. Most business metrics are ratio-scale, which is why growth rates and multiples are so natural in business analytics.</p><h2 id="why-this-decides-your-chart-and-your-statistic">Why this decides your chart and your statistic<a class="anchor" href="#why-this-decides-your-chart-and-your-statistic" aria-label="Link to this section">#</a></h2><p>The scale narrows your options before taste ever enters the picture:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Variable(s)</th><th style="text-align:left">Sensible summary</th><th style="text-align:left">Sensible chart</th></tr></thead><tbody><tr><td style="text-align:left">One nominal</td><td style="text-align:left">Counts, proportions</td><td style="text-align:left">Bar chart</td></tr><tr><td style="text-align:left">One ordinal</td><td style="text-align:left">Median, distribution of levels</td><td style="text-align:left">Ordered bar, stacked bar</td></tr><tr><td style="text-align:left">One continuous</td><td style="text-align:left">Mean or median, spread</td><td style="text-align:left">Histogram, box plot</td></tr><tr><td style="text-align:left">Two continuous</td><td style="text-align:left">Correlation, regression</td><td style="text-align:left">Scatter plot</td></tr><tr><td style="text-align:left">Continuous by nominal</td><td style="text-align:left">Group means or medians</td><td style="text-align:left">Grouped bar, box plot by group</td></tr><tr><td style="text-align:left">Continuous over time</td><td style="text-align:left">Change, growth rate</td><td style="text-align:left">Line chart</td></tr></tbody></table></div><p>See <a href="../../visualization/choosing-the-right-chart/">Choosing the Right Chart</a> for the full decision path.</p><h2 id="practical-complications">Practical complications<a class="anchor" href="#practical-complications" aria-label="Link to this section">#</a></h2><p><strong>Binary variables</strong> (churned yes/no) are nominal with two levels, but coded 0/1 their mean is the proportion — which is genuinely meaningful. <code>avg(is_churned)</code> = churn rate. This is a legitimate and very common trick.</p><p><strong>Counts</strong> are ratio-scale but often heavily skewed and bounded at zero, so the mean can be misleading. Report median and a percentile alongside it.</p><p><strong>Dates</strong> are interval-scale. Differences between them (durations) are ratio-scale. This is why &quot;average signup date&quot; is nonsense but &quot;average days to first purchase&quot; is fine.</p><p><strong>Currency across time</strong> is ratio-scale but not comparable across periods without adjusting for inflation or exchange rates. Nominal ₹100 in 2015 and 2025 are different quantities.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>A retail dataset column by column:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Column</th><th style="text-align:left">Type</th><th style="text-align:left">Scale</th><th style="text-align:left">Valid summary</th></tr></thead><tbody><tr><td style="text-align:left"><code>order_id</code></td><td style="text-align:left">Categorical</td><td style="text-align:left">Nominal</td><td style="text-align:left">Count (never sum)</td></tr><tr><td style="text-align:left"><code>store_region</code></td><td style="text-align:left">Categorical</td><td style="text-align:left">Nominal</td><td style="text-align:left">Mode, counts</td></tr><tr><td style="text-align:left"><code>csat_rating</code></td><td style="text-align:left">Categorical</td><td style="text-align:left">Ordinal</td><td style="text-align:left">Median, top-two-box</td></tr><tr><td style="text-align:left"><code>order_date</code></td><td style="text-align:left">Date</td><td style="text-align:left">Interval</td><td style="text-align:left">Range, differences</td></tr><tr><td style="text-align:left"><code>items_in_basket</code></td><td style="text-align:left">Numeric discrete</td><td style="text-align:left">Ratio</td><td style="text-align:left">Mean, median</td></tr><tr><td style="text-align:left"><code>order_value</code></td><td style="text-align:left">Numeric continuous</td><td style="text-align:left">Ratio</td><td style="text-align:left">Mean, median, growth %</td></tr><tr><td style="text-align:left"><code>is_returned</code></td><td style="text-align:left">Binary</td><td style="text-align:left">Nominal</td><td style="text-align:left">Proportion (<code>avg()</code> of 0/1)</td></tr></tbody></table></div><p>The single most common mistake in this table is summing <code>order_id</code> because it happens to be an integer.</p></aside><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Scale determines which operations are meaningful, regardless of what the data type allows.</li><li>Nominal: counts only. Ordinal: medians and percentiles. Interval: means and differences. Ratio: everything including ratios.</li><li>Numeric-looking IDs and category codes are nominal — never aggregate them arithmetically.</li><li>Binary 0/1 variables are the exception where a mean is a rate and is genuinely useful.</li><li>Choose the summary statistic and the chart from the scale before considering anything else.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">What is Business Analytics?</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/foundations/types-of-analytics/">The Four Types of Analytics</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">Designing KPIs and Metrics That Work</a>
+      <span class="mini-meta">Analytics Foundations</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/foundations/analytics-lifecycle/"><span>← Previous</span><strong>The Analytics Project Lifecycle (CRISP-DM)</strong></a>
+  <a class="pager-next" href="../../../tutorials/foundations/kpis-and-metric-design/"><span>Next →</span><strong>Designing KPIs and Metrics That Work</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-two-families">The two families</a></li><li class="toc-l2"><a href="#the-four-measurement-scales">The four measurement scales</a></li><li class="toc-l3"><a href="#nominal-labels-with-no-order">Nominal — labels with no order</a></li><li class="toc-l3"><a href="#ordinal-ordered-but-the-gaps-are-unknown">Ordinal — ordered, but the gaps are unknown</a></li><li class="toc-l3"><a href="#interval-equal-gaps-arbitrary-zero">Interval — equal gaps, arbitrary zero</a></li><li class="toc-l3"><a href="#ratio-equal-gaps-and-a-meaningful-zero">Ratio — equal gaps and a meaningful zero</a></li><li class="toc-l2"><a href="#why-this-decides-your-chart-and-your-statistic">Why this decides your chart and your statistic</a></li><li class="toc-l2"><a href="#practical-complications">Practical complications</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"Customer satisfaction is recorded on a 1-5 scale. Which summary is most defensible?","options":["The mean, because it uses all the information","The median or a top-two-box percentage, because the scale is ordinal","The sum of all ratings","The geometric mean"],"answer":1,"explain":"The gaps between ordinal levels are not known to be equal, so median or top-two-box is more defensible. Means of Likert data are common but rest on an assumption of equal spacing."},{"q":"Why is it wrong to say 40 degrees Celsius is twice as hot as 20 degrees?","options":["Celsius is an ordinal scale","Celsius is interval-scaled with an arbitrary zero, so ratios are meaningless","Temperature is categorical","It is correct"],"answer":1,"explain":"Interval scales have equal intervals but no true zero, so differences are meaningful while ratios are not."},{"q":"A column `is_returned` holds 0 or 1. What does avg(is_returned) give you?","options":["A meaningless number, since the variable is nominal","The proportion of orders that were returned","The median return status","The total number of returns"],"answer":1,"explain":"Averaging a 0/1 indicator yields the proportion of 1s — the return rate. This is the standard exception to 'never average a categorical variable'."}]};</script>
+</body>
+</html>

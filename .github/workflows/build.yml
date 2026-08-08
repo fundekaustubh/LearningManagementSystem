@@ -1,0 +1,31 @@
+name: Build
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build the site
+        run: node build.js
+
+      - name: Verify the committed output matches the build
+        run: |
+          if [ -n "$(git status --porcelain docs/)" ]; then
+            echo "::error::docs/ is out of date. Run 'npm run build' and commit the result."
+            git status --porcelain docs/
+            exit 1
+          fi
+          echo "docs/ is up to date."
+
+      - name: Check for broken internal links
+        run: node scripts/check-links.js

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analytics Foundations | AnalyticsAdda</title>
+<meta name="description" content="What business analytics actually is, the four analytics types, the project lifecycle, data measurement scales and how to turn a vague business ask into an answerable question.">
+<meta property="og:title" content="Analytics Foundations | AnalyticsAdda">
+<meta property="og:description" content="What business analytics actually is, the four analytics types, the project lifecycle, data measurement scales and how to turn a vague business ask into an answerable question.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../tracks/">Tracks</a></li><li><a href="../../tutorials/" class="active">Tutorials</a></li><li><a href="../../practice/">Practice</a></li><li><a href="../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../tracks/">Tracks</a></li><li><a href="../../tutorials/" class="active">Tutorials</a></li><li><a href="../../practice/">Practice</a></li><li><a href="../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="wrap page-head" style="--track-color:#2f8f5b">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../">Home</a></li><li><a href="../../tutorials/">Tutorials</a></li><li aria-current="page">Analytics Foundations</li></ol></nav>
+  <div class="track-head">
+    <span class="track-icon-lg" aria-hidden="true">🧭</span>
+    <div>
+      <h1>Analytics Foundations</h1>
+      <p class="lede">What business analytics actually is, the four analytics types, the project lifecycle, data measurement scales and how to turn a vague business ask into an answerable question.</p>
+      <p class="track-level">Beginner · 6 tutorials · ~30 min</p>
+      <div class="progress-bar-lg" data-track-progress-bar="foundations"
+           data-track-urls="/tutorials/foundations/what-is-business-analytics/,/tutorials/foundations/types-of-analytics/,/tutorials/foundations/analytics-lifecycle/,/tutorials/foundations/data-types-and-measurement-scales/,/tutorials/foundations/kpis-and-metric-design/,/tutorials/foundations/framing-business-problems/">
+        <div class="progress-fill"></div><span class="progress-label"></span>
+      </div>
+    </div>
+  </div>
+  <div class="page-head-actions">
+    <a class="btn btn-primary" href="../../tutorials/foundations/what-is-business-analytics/">Start track →</a>
+    <a class="btn btn-ghost" href="../../practice/">Practice questions</a>
+  </div>
+</div>
+<div class="wrap section"><div class="card-grid"><article class="card" data-track="foundations" data-title="what is business analytics?">
+  <div class="card-top">
+    <a class="card-track" href="../../tutorials/foundations/" style="--track-color:#2f8f5b">
+      <span aria-hidden="true">🧭</span> Foundations
+    </a>
+    <span class="badge badge-beginner">Beginner</span>
+  </div>
+  <h2 class="card-title"><a href="../../tutorials/foundations/what-is-business-analytics/">What is Business Analytics?</a></h2>
+  <p>A working definition of business analytics, how it differs from data science and business intelligence, and what an analyst actually does all day.</p>
+  <div class="card-meta">
+    <span>⏱ 4 min read</span>
+    <span class="done-flag" data-done-flag="/tutorials/foundations/what-is-business-analytics/"></span>
+  </div>
+</article><article class="card" data-track="foundations" data-title="the four types of analytics">
+  <div class="card-top">
+    <a class="card-track" href="../../tutorials/foundations/" style="--track-color:#2f8f5b">
+      <span aria-hidden="true">🧭</span> Foundations
+    </a>
+    <span class="badge badge-beginner">Beginner</span>
+  </div>
+  <h2 class="card-title"><a href="../../tutorials/foundations/types-of-analytics/">The Four Types of Analytics</a></h2>
+  <p>Descriptive, diagnostic, predictive and prescriptive analytics — what each one answers, when to use it, and why skipping levels usually backfires.</p>
+  <div class="card-meta">
+    <span>⏱ 5 min read</span>
+    <span class="done-flag" data-done-flag="/tutorials/foundations/types-of-analytics/"></span>
+  </div>
+</article><article class="card" data-track="foundations" data-title="the analytics project lifecycle (crisp-dm)">
+  <div class="card-top">
+    <a class="card-track" href="../../tutorials/foundations/" style="--track-color:#2f8f5b">
+      <span aria-hidden="true">🧭</span> Foundations
+    </a>
+    <span class="badge badge-beginner">Beginner</span>
+  </div>
+  <h2 class="card-title"><a href="../../tutorials/foundations/analytics-lifecycle/">The Analytics Project Lifecycle (CRISP-DM)</a></h2>
+  <p>The six phases of a real analytics project, what goes wrong in each, and the checklist that keeps a project from dying in the handover.</p>
+  <div class="card-meta">
+    <span>⏱ 5 min read</span>
+    <span class="done-flag" data-done-flag="/tutorials/foundations/analytics-lifecycle/"></span>
+  </div>
+</article><article class="card" data-track="foundations" data-title="data types and measurement scales">
+  <div class="card-top">
+    <a class="card-track" href="../../tutorials/foundations/" style="--track-color:#2f8f5b">
+      <span aria-hidden="true">🧭</span> Foundations
+    </a>
+    <span class="badge badge-beginner">Beginner</span>
+  </div>
+  <h2 class="card-title"><a href="../../tutorials/foundations/data-types-and-measurement-scales/">Data Types and Measurement Scales</a></h2>
+  <p>Nominal, ordinal, interval and ratio scales — and why the scale of a variable decides which statistics and charts are legitimate.</p>
+  <div class="card-meta">
+    <span>⏱ 4 min read</span>
+    <span class="done-flag" data-done-flag="/tutorials/foundations/data-types-and-measurement-scales/"></span>
+  </div>
+</article><article class="card" data-track="foundations" data-title="designing kpis and metrics that work">
+  <div class="card-top">
+    <a class="card-track" href="../../tutorials/foundations/" style="--track-color:#2f8f5b">
+      <span aria-hidden="true">🧭</span> Foundations
+    </a>
+    <span class="badge badge-beginner">Beginner</span>
+  </div>
+  <h2 class="card-title"><a href="../../tutorials/foundations/kpis-and-metric-design/">Designing KPIs and Metrics That Work</a></h2>
+  <p>How to pick a north-star metric, build a metric tree, avoid vanity metrics, and write a definition precise enough that two analysts get the same number.</p>
+  <div class="card-meta">
+    <span>⏱ 6 min read</span>
+    <span class="done-flag" data-done-flag="/tutorials/foundations/kpis-and-metric-design/"></span>
+  </div>
+</article><article class="card" data-track="foundations" data-title="framing a business problem as an analytics question">
+  <div class="card-top">
+    <a class="card-track" href="../../tutorials/foundations/" style="--track-color:#2f8f5b">
+      <span aria-hidden="true">🧭</span> Foundations
+    </a>
+    <span class="badge badge-beginner">Beginner</span>
+  </div>
+  <h2 class="card-title"><a href="../../tutorials/foundations/framing-business-problems/">Framing a Business Problem as an Analytics Question</a></h2>
+  <p>The translation skill that separates good analysts from query-writers — turning &quot;sales are down, look into it&quot; into a scoped, answerable question.</p>
+  <div class="card-meta">
+    <span>⏱ 6 min read</span>
+    <span class="done-flag" data-done-flag="/tutorials/foundations/framing-business-problems/"></span>
+  </div>
+</article></div></div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../tutorials/">All tutorials</a></li>
+        <li><a href="../../practice/">Practice questions</a></li>
+        <li><a href="../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../about/">About this site</a></li>
+        <li><a href="../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../";</script>
+<script src="../../assets/js/search-index.js" defer></script>
+<script src="../../assets/js/site.js" defer></script>
+
+</body>
+</html>

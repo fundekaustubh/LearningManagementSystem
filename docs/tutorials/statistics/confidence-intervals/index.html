@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confidence Intervals | AnalyticsAdda</title>
+<meta name="description" content="What a 95% confidence interval actually means, how to compute one for means and proportions, and why reporting an interval beats reporting a point estimate.">
+<meta property="og:title" content="Confidence Intervals | AnalyticsAdda">
+<meta property="og:description" content="What a 95% confidence interval actually means, how to compute one for means and proportions, and why reporting an interval beats reporting a point estimate.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" open style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2563eb">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/statistics/">Statistics &amp; Probability</a></li><li aria-current="page">Confidence Intervals</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/statistics/" style="--track-color:#2563eb">
+          <span aria-hidden="true">📊</span> Statistics</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 6 min read</span>
+      </div>
+      <h1>Confidence Intervals</h1>
+      <p class="lede">What a 95% confidence interval actually means, how to compute one for means and proportions, and why reporting an interval beats reporting a point estimate.</p>
+      <div class="tag-row"><span class="tag">statistics</span><span class="tag">inference</span><span class="tag">uncertainty</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/statistics/confidence-intervals/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>A point estimate without an interval is an overconfident claim. &quot;Conversion is 3.2%&quot; invites a decision; &quot;conversion is 3.2%, plausibly between 2.6% and 3.8%&quot; invites the <em>right</em> decision, because it shows whether the difference you care about is even distinguishable from noise.</p><h2 id="what-a-confidence-interval-is">What a confidence interval is<a class="anchor" href="#what-a-confidence-interval-is" aria-label="Link to this section">#</a></h2><p>A 95% confidence interval is a range constructed so that, <strong>if you repeated the sampling process many times, 95% of the intervals produced would contain the true population parameter</strong>.</p><p>The confidence is a property of the <em>procedure</em>, not of any one interval. Your specific interval either contains the true value or it does not.</p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>&quot;There is a 95% probability the true value is in this interval&quot; is the standard misinterpretation. In frequentist statistics the parameter is fixed, not random — it does not have a probability of being anywhere. (A Bayesian <strong>credible interval</strong> does support that reading, which is one reason people find Bayesian intervals more intuitive.)
+For practical purposes the distinction rarely changes a business decision, but stating it correctly in an interview or a document marks you as someone who understands what they are computing.</p></aside><h2 id="confidence-interval-for-a-mean">Confidence interval for a mean<a class="anchor" href="#confidence-interval-for-a-mean" aria-label="Link to this section">#</a></h2><p><span class="math">x̄ ± t_{α/2, n-1} × s/\sqrt{n}</span></p><p>Where <span class="math">s/\sqrt{n}</span> is the standard error and <span class="math">t</span> is the critical value from the t-distribution with <span class="math">n-1</span> degrees of freedom.</p><p>Use <strong>t</strong> rather than z when the population standard deviation is unknown — which is always, in practice. For n above roughly 30 they are nearly identical (t → 1.96 as n grows), but t is never wrong.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>250 support tickets, mean resolution time 4.2 hours, sd 2.8 hours.
+<span class="math">SE = 2.8/\sqrt{250} = 0.177</span>
+<span class="math">t_{0.025, 249} ≈ 1.97</span>
+<span class="math">CI = 4.2 ± 1.97 × 0.177 = [3.85, 4.55]</span> hours.
+If the SLA target is 4 hours, note that the interval <strong>straddles it</strong>. You cannot conclude the target is being missed. That is a materially different message from &quot;average resolution is 4.2 hours, we are over target.&quot;</p></aside><h2 id="confidence-interval-for-a-proportion">Confidence interval for a proportion<a class="anchor" href="#confidence-interval-for-a-proportion" aria-label="Link to this section">#</a></h2><p><span class="math">p̂ ± z_{α/2} × \sqrt{p̂(1-p̂)/n}</span></p><p>Valid when <span class="math">np̂ ≥ 10</span> and <span class="math">n(1-p̂) ≥ 10</span>. For rare events or small samples, use the <strong>Wilson score interval</strong> instead — the normal approximation misbehaves near 0 and 1, producing intervals that extend below zero.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>4,200 visitors, 134 conversions. <span class="math">p̂ = 3.19\%</span>.
+<span class="math">SE = \sqrt{0.0319 × 0.9681 / 4200} = 0.00271</span>
+<span class="math">CI = 3.19\% ± 1.96 × 0.271\% = [2.66\%, 3.72\%]</span>
+Last month was 3.05%. Since that sits comfortably inside the interval, <strong>this month is not distinguishable from last month.</strong> No investigation needed.</p></aside><p>That last line is the everyday value of confidence intervals: they tell you when <em>not</em> to spend a day investigating.</p><h2 id="what-changes-the-width">What changes the width<a class="anchor" href="#what-changes-the-width" aria-label="Link to this section">#</a></h2><p><span class="math">width ∝ z × s / \sqrt{n}</span></p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Change</th><th style="text-align:left">Effect on width</th></tr></thead><tbody><tr><td style="text-align:left">Quadruple sample size</td><td style="text-align:left">Half as wide</td></tr><tr><td style="text-align:left">95% → 99% confidence</td><td style="text-align:left">~31% wider</td></tr><tr><td style="text-align:left">95% → 90% confidence</td><td style="text-align:left">~16% narrower</td></tr><tr><td style="text-align:left">Double the variability</td><td style="text-align:left">Twice as wide</td></tr></tbody></table></div><p>Higher confidence is not free: it buys certainty with precision. A 99.9% interval is often so wide it excludes no interesting hypothesis, which makes it useless for decisions.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">import</span> numpy <span class="tok-keyword">as</span> np
+<span class="tok-keyword">from</span> scipy <span class="tok-keyword">import</span> stats
+
+<span class="tok-keyword">def</span> <span class="tok-function">mean_ci</span>(data, confidence<span class="tok-operator">=</span><span class="tok-number">0.95</span>)<span class="tok-operator">:</span>
+    <span class="tok-string">&quot;&quot;&quot;Confidence interval for a mean using the t-distribution.&quot;&quot;&quot;</span>
+    data <span class="tok-operator">=</span> <span class="tok-function">np.asarray</span>(data)
+    n <span class="tok-operator">=</span> <span class="tok-builtin">len</span>(data)
+    mean <span class="tok-operator">=</span> <span class="tok-function">data.mean</span>()
+    se <span class="tok-operator">=</span> <span class="tok-function">data.std</span>(ddof<span class="tok-operator">=</span><span class="tok-number">1</span>) <span class="tok-operator">/</span> <span class="tok-function">np.sqrt</span>(n)
+    margin <span class="tok-operator">=</span> se <span class="tok-operator">*</span> <span class="tok-function">stats.t.ppf</span>((<span class="tok-number">1</span> <span class="tok-operator">+</span> confidence) <span class="tok-operator">/</span> <span class="tok-number">2</span>, df<span class="tok-operator">=</span>n <span class="tok-operator">-</span> <span class="tok-number">1</span>)
+    <span class="tok-keyword">return</span> mean, (mean <span class="tok-operator">-</span> margin, mean <span class="tok-operator">+</span> margin)
+
+<span class="tok-keyword">def</span> <span class="tok-function">proportion_ci</span>(successes, n, confidence<span class="tok-operator">=</span><span class="tok-number">0.95</span>)<span class="tok-operator">:</span>
+    <span class="tok-string">&quot;&quot;&quot;Wilson score interval — reliable for small n and extreme proportions.&quot;&quot;&quot;</span>
+    z <span class="tok-operator">=</span> <span class="tok-function">stats.norm.ppf</span>((<span class="tok-number">1</span> <span class="tok-operator">+</span> confidence) <span class="tok-operator">/</span> <span class="tok-number">2</span>)
+    p <span class="tok-operator">=</span> successes <span class="tok-operator">/</span> n
+    denom <span class="tok-operator">=</span> <span class="tok-number">1</span> <span class="tok-operator">+</span> z<span class="tok-operator">**</span><span class="tok-number">2</span> <span class="tok-operator">/</span> n
+    centre <span class="tok-operator">=</span> (p <span class="tok-operator">+</span> z<span class="tok-operator">**</span><span class="tok-number">2</span> <span class="tok-operator">/</span> (<span class="tok-number">2</span> <span class="tok-operator">*</span> n)) <span class="tok-operator">/</span> denom
+    margin <span class="tok-operator">=</span> z <span class="tok-operator">*</span> <span class="tok-function">np.sqrt</span>(p <span class="tok-operator">*</span> (<span class="tok-number">1</span> <span class="tok-operator">-</span> p) <span class="tok-operator">/</span> n <span class="tok-operator">+</span> z<span class="tok-operator">**</span><span class="tok-number">2</span> <span class="tok-operator">/</span> (<span class="tok-number">4</span> <span class="tok-operator">*</span> n<span class="tok-operator">**</span><span class="tok-number">2</span>)) <span class="tok-operator">/</span> denom
+    <span class="tok-keyword">return</span> centre <span class="tok-operator">-</span> margin, centre <span class="tok-operator">+</span> margin</code></pre></figure><h2 id="confidence-intervals-for-a-difference">Confidence intervals for a difference<a class="anchor" href="#confidence-intervals-for-a-difference" aria-label="Link to this section">#</a></h2><p>Usually the business question is about a <em>difference</em> between two groups, so build the interval on the difference directly:</p><p><span class="math">(x̄_A - x̄_B) ± t × \sqrt{s_A²/n_A + s_B²/n_B}</span></p><p>If that interval excludes zero, the difference is statistically significant at that level. This is equivalent to a two-sample t-test but far more informative, because it also tells you <strong>how big</strong> the difference plausibly is.</p><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Prefer intervals on differences over p-values in business reporting. &quot;Variant B lifts conversion by 0.4pp, 95% CI [0.1pp, 0.7pp]&quot; tells a product manager everything: it is positive, and it is worth somewhere between a little and quite a lot. A bare &quot;p = 0.03&quot; tells them nothing about magnitude.</p></aside><h2 id="overlapping-intervals-a-common-trap">Overlapping intervals: a common trap<a class="anchor" href="#overlapping-intervals-a-common-trap" aria-label="Link to this section">#</a></h2><p>If two 95% intervals overlap, it does <strong>not</strong> follow that the difference is insignificant. The correct test is on the interval of the <em>difference</em>, which is narrower than the naive comparison of two separate intervals suggests.</p><p>Two groups whose individual CIs overlap slightly can still have a difference whose CI clearly excludes zero. Always compute the interval on the difference rather than eyeballing two error bars.</p><h2 id="practical-guidance">Practical guidance<a class="anchor" href="#practical-guidance" aria-label="Link to this section">#</a></h2><ul><li><strong>Report an interval whenever a decision depends on the estimate.</strong> For an exploratory count in a data pull, skip it.</li><li><strong>Round honestly.</strong> [2.66%, 3.72%] not [2.6612%, 3.7188%]. The precision is not real.</li><li><strong>Show intervals on charts</strong> as error bars or a shaded band — the visual makes noise obvious in a way a table does not.</li><li><strong>State the practical threshold alongside.</strong> An interval of [0.1%, 0.3%] lift is significant and possibly worthless if you need 1% to justify the engineering cost.</li><li><strong>Remember the interval only covers sampling error.</strong> It says nothing about selection bias, instrumentation bugs or a broken tracking pixel.</li></ul><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>95% confidence describes the long-run behaviour of the procedure, not the probability for one interval.</li><li>Use t for means, Wilson for proportions with small n or extreme rates.</li><li>Width shrinks with <span class="math">\sqrt{n}</span>; higher confidence trades precision for certainty.</li><li>Build the interval on the <em>difference</em> when comparing groups; overlapping CIs are not a valid test.</li><li>Intervals quantify sampling error only — bias sits entirely outside them.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">Sampling and the Central Limit Theorem</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">Hypothesis Testing</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/descriptive-statistics/">Descriptive Statistics for Business Data</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/statistics/sampling-and-central-limit-theorem/"><span>← Previous</span><strong>Sampling and the Central Limit Theorem</strong></a>
+  <a class="pager-next" href="../../../tutorials/statistics/hypothesis-testing/"><span>Next →</span><strong>Hypothesis Testing</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#what-a-confidence-interval-is">What a confidence interval is</a></li><li class="toc-l2"><a href="#confidence-interval-for-a-mean">Confidence interval for a mean</a></li><li class="toc-l2"><a href="#confidence-interval-for-a-proportion">Confidence interval for a proportion</a></li><li class="toc-l2"><a href="#what-changes-the-width">What changes the width</a></li><li class="toc-l2"><a href="#confidence-intervals-for-a-difference">Confidence intervals for a difference</a></li><li class="toc-l2"><a href="#overlapping-intervals-a-common-trap">Overlapping intervals: a common trap</a></li><li class="toc-l2"><a href="#practical-guidance">Practical guidance</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"A 95% confidence interval for conversion is [2.66%, 3.72%]. Which statement is correct?","options":["There is a 95% probability the true rate is between 2.66% and 3.72%","If we repeated this sampling procedure many times, 95% of such intervals would contain the true rate","95% of customers convert within this range","The true rate is definitely in this interval"],"answer":1,"explain":"Confidence is a property of the procedure across repeated samples. Any single interval either contains the parameter or does not."},{"q":"Your CI for mean resolution time is [3.85, 4.55] hours and the SLA target is 4 hours. What should you report?","options":["The SLA is being missed","The SLA is being met","The data cannot distinguish performance from the 4-hour target","The sample is invalid"],"answer":2,"explain":"The interval straddles 4 hours, so the evidence is compatible with being above or below target. Reporting either direction as fact overstates what the data supports."},{"q":"Two groups' 95% confidence intervals overlap slightly. What can you conclude about the difference?","options":["The difference is definitely not significant","The difference is definitely significant","Nothing — you must compute the confidence interval on the difference itself","The samples are too small"],"answer":2,"explain":"Overlapping individual intervals do not imply an insignificant difference. The CI on the difference is narrower and is the correct test."}]};</script>
+</body>
+</html>

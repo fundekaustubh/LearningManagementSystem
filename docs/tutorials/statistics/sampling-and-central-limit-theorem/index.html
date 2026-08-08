@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sampling and the Central Limit Theorem | AnalyticsAdda</title>
+<meta name="description" content="Why a sample of 1,000 can describe a million people, what the standard error really measures, and the sampling biases that ruin analyses.">
+<meta property="og:title" content="Sampling and the Central Limit Theorem | AnalyticsAdda">
+<meta property="og:description" content="Why a sample of 1,000 can describe a million people, what the standard error really measures, and the sampling biases that ruin analyses.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" open style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2563eb">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/statistics/">Statistics &amp; Probability</a></li><li aria-current="page">Sampling and the Central Limit Theorem</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/statistics/" style="--track-color:#2563eb">
+          <span aria-hidden="true">📊</span> Statistics</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 6 min read</span>
+      </div>
+      <h1>Sampling and the Central Limit Theorem</h1>
+      <p class="lede">Why a sample of 1,000 can describe a million people, what the standard error really measures, and the sampling biases that ruin analyses.</p>
+      <div class="tag-row"><span class="tag">statistics</span><span class="tag">sampling</span><span class="tag">clt</span><span class="tag">inference</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/statistics/sampling-and-central-limit-theorem/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Analysts almost never have the whole population. You have last quarter's customers, not all future customers; the users who responded, not all users. Statistical inference is the discipline of saying something defensible about the whole from a part — and of knowing how wrong you might be.</p><h2 id="population-sample-parameter-estimate">Population, sample, parameter, estimate<a class="anchor" href="#population-sample-parameter-estimate" aria-label="Link to this section">#</a></h2><ul><li><strong>Population</strong> — everything you want to conclude about (all customers).</li><li><strong>Sample</strong> — the subset you measured (2,000 surveyed customers).</li><li><strong>Parameter</strong> — the true population value, usually written with Greek letters (<span class="math">μ</span>, <span class="math">σ</span>, <span class="math">p</span>). Unknown.</li><li><strong>Estimate/statistic</strong> — what you compute from the sample (<span class="math">x̄</span>, <span class="math">s</span>, <span class="math">p̂</span>). Known, and wrong by some amount.</li></ul><p>The entire enterprise is: how far is the estimate from the parameter, and how confident can I be about that distance?</p><h2 id="sampling-methods">Sampling methods<a class="anchor" href="#sampling-methods" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Method</th><th style="text-align:left">How</th><th style="text-align:left">When to use</th></tr></thead><tbody><tr><td style="text-align:left">Simple random</td><td style="text-align:left">Everyone equally likely</td><td style="text-align:left">The default; needs a complete list</td></tr><tr><td style="text-align:left">Stratified</td><td style="text-align:left">Split into groups, sample within each</td><td style="text-align:left">When groups differ and you need all represented</td></tr><tr><td style="text-align:left">Cluster</td><td style="text-align:left">Randomly select whole groups</td><td style="text-align:left">When reaching individuals is expensive</td></tr><tr><td style="text-align:left">Systematic</td><td style="text-align:left">Every kth record</td><td style="text-align:left">Convenient; dangerous if the list has periodicity</td></tr><tr><td style="text-align:left">Convenience</td><td style="text-align:left">Whoever is easy to reach</td><td style="text-align:left">Almost never defensible</td></tr></tbody></table></div><p><strong>Stratified sampling</strong> deserves special attention in business settings. If 5% of your customers are enterprise accounts but generate 60% of revenue, a simple random sample of 500 gets ~25 of them — too few to say anything. Stratify: sample enterprise and SMB separately, then reweight when combining.</p><h2 id="sampling-bias-the-error-no-sample-size-fixes">Sampling bias — the error no sample size fixes<a class="anchor" href="#sampling-bias-the-error-no-sample-size-fixes" aria-label="Link to this section">#</a></h2><p>Increasing n reduces <em>random</em> error. It does nothing about <em>systematic</em> error. A biased sample of a million is worse than an unbiased sample of a thousand, because the large one gives you false confidence.</p><ul><li><strong>Selection bias.</strong> The sampling frame excludes part of the population. Surveying only app users about a website redesign.</li><li><strong>Non-response bias.</strong> Responders differ from non-responders. Satisfaction surveys are answered disproportionately by the delighted and the furious; the indifferent middle is invisible.</li><li><strong>Survivorship bias.</strong> Only successes remain in the data. &quot;Our customers love us&quot; from a survey of active customers omits everyone who left.</li><li><strong>Voluntary response bias.</strong> Self-selected participants have stronger opinions than average.</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>The classic case: in 1936 the <em>Literary Digest</em> polled 2.4 million people and predicted Landon would beat Roosevelt. He lost in a landslide. The sample came from car and telephone owners — wealthier than average during the Depression. Two point four million respondents could not fix a broken frame.</p></aside><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Before trusting any sample, ask: <strong>who could not possibly appear in this data?</strong> That question catches most sampling bias.</p></aside><h2 id="the-sampling-distribution">The sampling distribution<a class="anchor" href="#the-sampling-distribution" aria-label="Link to this section">#</a></h2><p>Take a sample of size n, compute the mean, write it down. Repeat many times. The distribution of those means is the <strong>sampling distribution of the mean</strong>.</p><p>It has three properties that make inference possible:</p><ol><li>It is <strong>centred on the true population mean</strong> — the sample mean is unbiased.</li><li>Its spread, the <strong>standard error</strong>, is <span class="math">SE = σ/\sqrt{n}</span>.</li><li>It is <strong>approximately normal for large n, regardless of the population's shape</strong> — the Central Limit Theorem.</li></ol><h2 id="the-central-limit-theorem">The Central Limit Theorem<a class="anchor" href="#the-central-limit-theorem" aria-label="Link to this section">#</a></h2><p>The CLT is why statistics works on messy business data. Order values may be wildly skewed with a long tail; the <em>average</em> order value across 1,000 orders is still approximately normally distributed.</p><p><strong>How large must n be?</strong> The often-quoted n ≥ 30 assumes mild skew. Realistically:</p><ul><li>Roughly symmetric data: n ≈ 15–20 suffices.</li><li>Moderately skewed (most business data): n ≈ 50–100.</li><li>Heavily skewed / power-law (revenue per customer): several hundred to thousands, and sometimes the CLT is impractical — use the median or bootstrap instead.</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>The CLT does <strong>not</strong> normalise your data. It normalises the <em>sampling distribution of the mean</em>. Individual order values remain skewed no matter how many you collect.</p></aside><h2 id="standard-error-and-the-square-root-law">Standard error and the square-root law<a class="anchor" href="#standard-error-and-the-square-root-law" aria-label="Link to this section">#</a></h2><p><span class="math">SE = σ/\sqrt{n}</span></p><p>The square root is the most important practical fact in sampling:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Sample size</th><th style="text-align:left">Relative SE</th></tr></thead><tbody><tr><td style="text-align:left">100</td><td style="text-align:left">1.00×</td></tr><tr><td style="text-align:left">400</td><td style="text-align:left">0.50×</td></tr><tr><td style="text-align:left">1,600</td><td style="text-align:left">0.25×</td></tr><tr><td style="text-align:left">10,000</td><td style="text-align:left">0.10×</td></tr></tbody></table></div><p><strong>To halve your uncertainty you must quadruple your sample.</strong> This is why a national poll of 1,000 has a ±3% margin and going to ±1.5% requires 4,000 — and why &quot;just collect more data&quot; gets expensive fast. It is also why national polls of 1,000 people work at all: population size barely enters the formula.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>Average order value in a sample of 400 orders: ₹1,850, sample sd ₹600.
+<span class="math">SE = 600/\sqrt{400} = ₹30</span>
+A 95% confidence interval is roughly ₹1,850 ± 1.96 × 30 = <strong>₹1,791 to ₹1,909</strong>.
+To narrow that to ±₹15 you would need 1,600 orders.</p></aside><p>Note that the population size does not appear. A sample of 400 is about as informative for 50,000 customers as for 5 million — as long as it is genuinely random.</p><h2 id="sample-size-planning">Sample size planning<a class="anchor" href="#sample-size-planning" aria-label="Link to this section">#</a></h2><p>For a proportion, the required n for margin of error <span class="math">E</span> at 95% confidence:</p><p><span class="math">n = 1.96² × p(1-p) / E²</span></p><p>Using p = 0.5 (the most conservative value) gives the familiar results:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Margin of error</th><th style="text-align:left">Required n</th></tr></thead><tbody><tr><td style="text-align:left">±5%</td><td style="text-align:left">385</td></tr><tr><td style="text-align:left">±3%</td><td style="text-align:left">1,068</td></tr><tr><td style="text-align:left">±2%</td><td style="text-align:left">2,401</td></tr><tr><td style="text-align:left">±1%</td><td style="text-align:left">9,604</td></tr></tbody></table></div><p>For comparing two groups in an experiment, see <a href="../ab-testing/">A/B Testing</a> — the calculation there depends on the effect size you care about detecting.</p><h2 id="bootstrapping">Bootstrapping<a class="anchor" href="#bootstrapping" aria-label="Link to this section">#</a></h2><p>When the formula is unknown or assumptions are shaky — a median, a 90th percentile, a ratio of two metrics — resample instead.</p><ol><li>Draw a sample of size n <strong>with replacement</strong> from your data.</li><li>Compute the statistic.</li><li>Repeat 10,000 times.</li><li>The 2.5th and 97.5th percentiles of those values form a 95% confidence interval.</li></ol><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">import</span> numpy <span class="tok-keyword">as</span> np
+
+<span class="tok-keyword">def</span> <span class="tok-function">bootstrap_ci</span>(data, statistic<span class="tok-operator">=</span>np.median, n_boot<span class="tok-operator">=</span><span class="tok-number">10000</span>, alpha<span class="tok-operator">=</span><span class="tok-number">0.05</span>)<span class="tok-operator">:</span>
+    <span class="tok-string">&quot;&quot;&quot;Percentile bootstrap confidence interval for any statistic.&quot;&quot;&quot;</span>
+    rng <span class="tok-operator">=</span> <span class="tok-function">np.random.default_rng</span>(<span class="tok-number">42</span>)
+    data <span class="tok-operator">=</span> <span class="tok-function">np.asarray</span>(data)
+    estimates <span class="tok-operator">=</span> [
+        <span class="tok-function">statistic</span>(<span class="tok-function">rng.choice</span>(data, size<span class="tok-operator">=</span><span class="tok-builtin">len</span>(data), replace<span class="tok-operator">=</span><span class="tok-keyword">True</span>))
+        <span class="tok-keyword">for</span> _ <span class="tok-keyword">in</span> <span class="tok-builtin">range</span>(n_boot)
+    ]
+    lower <span class="tok-operator">=</span> <span class="tok-function">np.percentile</span>(estimates, <span class="tok-number">100</span> <span class="tok-operator">*</span> alpha <span class="tok-operator">/</span> <span class="tok-number">2</span>)
+    upper <span class="tok-operator">=</span> <span class="tok-function">np.percentile</span>(estimates, <span class="tok-number">100</span> <span class="tok-operator">*</span> (<span class="tok-number">1</span> <span class="tok-operator">-</span> alpha <span class="tok-operator">/</span> <span class="tok-number">2</span>))
+    <span class="tok-keyword">return</span> lower, upper
+
+<span class="tok-comment"># 95% CI for the median order value</span>
+<span class="tok-builtin">print</span>(<span class="tok-function">bootstrap_ci</span>(order_values))</code></pre></figure><p>The bootstrap makes almost no distributional assumptions and works for statistics with no closed-form standard error. It still cannot rescue a biased sample — it resamples the bias faithfully.</p><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Random error shrinks with n; systematic bias does not shrink at all.</li><li>Ask &quot;who cannot appear in this data?&quot; to detect sampling bias.</li><li>The CLT makes sample <em>means</em> normal even when the data is not.</li><li><span class="math">SE = σ/\sqrt{n}</span>: quartering uncertainty costs 16× the sample.</li><li>Population size barely matters — 1,000 is 1,000 whether the population is 50,000 or 50 million.</li><li>Bootstrap when you need a CI for a median, percentile or ratio.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/statistics/confidence-intervals/">Confidence Intervals</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">Hypothesis Testing</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/descriptive-statistics/">Descriptive Statistics for Business Data</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/statistics/probability-distributions/"><span>← Previous</span><strong>Probability Distributions You Will Actually Use</strong></a>
+  <a class="pager-next" href="../../../tutorials/statistics/confidence-intervals/"><span>Next →</span><strong>Confidence Intervals</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#population-sample-parameter-estimate">Population, sample, parameter, estimate</a></li><li class="toc-l2"><a href="#sampling-methods">Sampling methods</a></li><li class="toc-l2"><a href="#sampling-bias-the-error-no-sample-size-fixes">Sampling bias — the error no sample size fixes</a></li><li class="toc-l2"><a href="#the-sampling-distribution">The sampling distribution</a></li><li class="toc-l2"><a href="#the-central-limit-theorem">The Central Limit Theorem</a></li><li class="toc-l2"><a href="#standard-error-and-the-square-root-law">Standard error and the square-root law</a></li><li class="toc-l2"><a href="#sample-size-planning">Sample size planning</a></li><li class="toc-l2"><a href="#bootstrapping">Bootstrapping</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"You currently sample 400 customers and want to halve your margin of error. How many do you need?","options":["800","1,200","1,600","4,000"],"answer":2,"explain":"Standard error scales with 1/sqrt(n), so halving it requires quadrupling n: 400 x 4 = 1,600."},{"q":"A satisfaction survey emailed to all customers gets a 4% response rate. What is the biggest threat to validity?","options":["The sample is too small","Non-response bias — responders likely differ systematically from non-responders","The CLT does not apply","The confidence interval will be too narrow"],"answer":1,"explain":"At 4% response, respondents are self-selected — typically the very happy and very unhappy. No sample size fixes that; the frame itself is biased."},{"q":"Order values are heavily right-skewed. Does the CLT let you use a normal-based confidence interval for the mean?","options":["No, the data must be normal first","Yes, for a large enough sample the sampling distribution of the mean is approximately normal","Only after removing outliers","Only if the median equals the mean"],"answer":1,"explain":"The CLT applies to the sampling distribution of the mean, not to the raw data. Heavier skew simply requires a larger n before the approximation is good."}]};</script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fundekaustubh.github.io/LearningManagementSystem/sitemap.xml

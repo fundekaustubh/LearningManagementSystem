@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decision Trees and Ensembles | AnalyticsAdda</title>
+<meta name="description" content="How trees split data, why a single tree overfits, and how random forests and gradient boosting became the default for tabular business data.">
+<meta property="og:title" content="Decision Trees and Ensembles | AnalyticsAdda">
+<meta property="og:description" content="How trees split data, why a single tree overfits, and how random forests and gradient boosting became the default for tabular business data.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" open style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#0891b2">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li aria-current="page">Decision Trees and Ensembles</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/predictive/" style="--track-color:#0891b2">
+          <span aria-hidden="true">🤖</span> Predictive</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 8 min read</span>
+      </div>
+      <h1>Decision Trees and Ensembles</h1>
+      <p class="lede">How trees split data, why a single tree overfits, and how random forests and gradient boosting became the default for tabular business data.</p>
+      <div class="tag-row"><span class="tag">modelling</span><span class="tag">machine-learning</span><span class="tag">trees</span><span class="tag">prediction</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/predictive/decision-trees-and-ensembles/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Decision trees split data into ever-purer groups using simple rules. A single tree is highly interpretable and usually not very accurate. Combining many of them produces the models that win on tabular business data almost every time.</p><h2 id="how-a-tree-splits">How a tree splits<a class="anchor" href="#how-a-tree-splits" aria-label="Link to this section">#</a></h2><p>At each node, the algorithm tries every feature and every threshold, and picks the split that most improves purity.</p><ul><li><strong>Gini impurity</strong> — <span class="math">1 - Σp_i²</span>, minimised when a node contains one class.</li><li><strong>Entropy</strong> — <span class="math">-Σp_i log_2(p_i)</span>. Similar results, slightly more expensive.</li><li><strong>Variance reduction</strong> — for regression trees.</li></ul><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>                   All customers (churn 12%)
+                            │
+              tenure_months &lt; 6 ?
+              ┌─────────────┴──────────────┐
+            yes                            no
+      churn 31% (n=2,100)            churn 6% (n=7,900)
+              │                              │
+      support_tickets &gt; 2 ?            is_annual_plan ?
+      ┌───────┴────────┐              ┌──────┴───────┐
+    yes              no             yes             no
+  churn 58%       churn 19%       churn 3%       churn 9%</code></pre></figure><p>The output is a set of readable rules: <em>&quot;customers under 6 months old with more than 2 support tickets churn at 58%&quot;</em>. That kind of statement can go straight into a retention playbook without any translation, which is why trees remain valuable even when they are not the final model.</p><h2 id="why-a-single-tree-overfits">Why a single tree overfits<a class="anchor" href="#why-a-single-tree-overfits" aria-label="Link to this section">#</a></h2><p>Left unconstrained, a tree keeps splitting until every leaf is pure — memorising the training data, including its noise. It will be nearly perfect in training and poor on new data.</p><p>Controls:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Parameter</th><th style="text-align:left">Effect</th></tr></thead><tbody><tr><td style="text-align:left"><code>max_depth</code></td><td style="text-align:left">Hard limit on tree depth</td></tr><tr><td style="text-align:left"><code>min_samples_split</code></td><td style="text-align:left">Minimum rows required to split a node</td></tr><tr><td style="text-align:left"><code>min_samples_leaf</code></td><td style="text-align:left">Minimum rows in a leaf — the most effective single control</td></tr><tr><td style="text-align:left"><code>max_features</code></td><td style="text-align:left">Features considered per split</td></tr><tr><td style="text-align:left"><code>ccp_alpha</code></td><td style="text-align:left">Cost-complexity pruning after growth</td></tr></tbody></table></div><p>Even well-tuned, single trees are <strong>unstable</strong>: change 5% of the training data and the top split can change, producing an entirely different-looking tree. That instability is exactly what ensembles exploit.</p><h2 id="random-forests">Random forests<a class="anchor" href="#random-forests" aria-label="Link to this section">#</a></h2><p>Train many trees on different random subsets, then average their predictions.</p><p>Two sources of randomness make the trees genuinely different:</p><ol><li><strong>Bagging</strong> — each tree trains on a bootstrap sample (sampled with replacement).</li><li><strong>Feature subsampling</strong> — each split considers a random subset of features, so one dominant feature does not appear at the top of every tree.</li></ol><p>Averaging many high-variance, low-bias trees cancels much of the variance. The result is robust, needs little tuning, and rarely overfits badly with more trees.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> sklearn.ensemble <span class="tok-keyword">import</span> RandomForestClassifier
+
+rf <span class="tok-operator">=</span> <span class="tok-function">RandomForestClassifier</span>(
+    n_estimators<span class="tok-operator">=</span><span class="tok-number">500</span>,       <span class="tok-comment"># more trees never hurts accuracy, only runtime</span>
+    max_depth<span class="tok-operator">=</span><span class="tok-keyword">None</span>,         <span class="tok-comment"># let trees grow; the ensemble controls variance</span>
+    min_samples_leaf<span class="tok-operator">=</span><span class="tok-number">5</span>,     <span class="tok-comment"># the main regularisation knob</span>
+    max_features<span class="tok-operator">=</span><span class="tok-string">'sqrt'</span>,    <span class="tok-comment"># standard for classification</span>
+    class_weight<span class="tok-operator">=</span><span class="tok-string">'balanced'</span>,
+    n_jobs<span class="tok-operator">=-</span><span class="tok-number">1</span>,
+    random_state<span class="tok-operator">=</span><span class="tok-number">42</span>,
+)
+<span class="tok-function">rf.fit</span>(X_train, y_train)</code></pre></figure><h2 id="gradient-boosting">Gradient boosting<a class="anchor" href="#gradient-boosting" aria-label="Link to this section">#</a></h2><p>Where a forest builds trees independently, boosting builds them <strong>sequentially</strong>, each new tree fitting the errors the ensemble has made so far.</p><ol><li>Start with a simple prediction (often the mean).</li><li>Compute the residuals.</li><li>Fit a small tree to those residuals.</li><li>Add it, scaled by the learning rate.</li><li>Repeat.</li></ol><p>This usually beats random forests on tabular data, at the cost of more careful tuning — boosting <em>can</em> overfit if you let it run too long.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">import</span> lightgbm <span class="tok-keyword">as</span> lgb
+
+model <span class="tok-operator">=</span> <span class="tok-function">lgb.LGBMClassifier</span>(
+    n_estimators<span class="tok-operator">=</span><span class="tok-number">1000</span>,
+    learning_rate<span class="tok-operator">=</span><span class="tok-number">0.05</span>,     <span class="tok-comment"># lower rate + more trees generally wins</span>
+    num_leaves<span class="tok-operator">=</span><span class="tok-number">31</span>,
+    min_child_samples<span class="tok-operator">=</span><span class="tok-number">20</span>,
+    subsample<span class="tok-operator">=</span><span class="tok-number">0.8</span>,
+    colsample_bytree<span class="tok-operator">=</span><span class="tok-number">0.8</span>,
+    random_state<span class="tok-operator">=</span><span class="tok-number">42</span>,
+)
+<span class="tok-function">model.fit</span>(
+    X_train, y_train,
+    eval_set<span class="tok-operator">=</span>[(X_val, y_val)],
+    eval_metric<span class="tok-operator">=</span><span class="tok-string">'auc'</span>,
+    callbacks<span class="tok-operator">=</span>[<span class="tok-function">lgb.early_stopping</span>(<span class="tok-number">50</span>)],   <span class="tok-comment"># stop when validation stops improving</span>
+)</code></pre></figure><p><strong>Early stopping is the key mechanism.</strong> It uses a validation set to determine the number of trees automatically, which removes the main overfitting risk.</p><p>XGBoost, LightGBM and CatBoost are the three standard implementations. LightGBM is fastest on large data; CatBoost handles high-cardinality categorical features without manual encoding.</p><h2 id="choosing-between-them">Choosing between them<a class="anchor" href="#choosing-between-them" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left"></th><th style="text-align:left">Single tree</th><th style="text-align:left">Random forest</th><th style="text-align:left">Gradient boosting</th></tr></thead><tbody><tr><td style="text-align:left">Accuracy</td><td style="text-align:left">Low</td><td style="text-align:left">Good</td><td style="text-align:left">Best (tabular)</td></tr><tr><td style="text-align:left">Interpretability</td><td style="text-align:left">Excellent</td><td style="text-align:left">Moderate</td><td style="text-align:left">Low without SHAP</td></tr><tr><td style="text-align:left">Tuning effort</td><td style="text-align:left">Low</td><td style="text-align:left">Low</td><td style="text-align:left">Moderate to high</td></tr><tr><td style="text-align:left">Overfitting risk</td><td style="text-align:left">High</td><td style="text-align:left">Low</td><td style="text-align:left">Moderate — needs early stopping</td></tr><tr><td style="text-align:left">Training speed</td><td style="text-align:left">Fast</td><td style="text-align:left">Fast (parallel)</td><td style="text-align:left">Slower (sequential)</td></tr><tr><td style="text-align:left">Handles missing values</td><td style="text-align:left">Some implementations</td><td style="text-align:left">Some</td><td style="text-align:left">Natively</td></tr></tbody></table></div><p><strong>Practical guidance:</strong> start with logistic regression as a baseline, then LightGBM. If the boosted model does not clearly beat the linear one, ship the linear one — it is easier to explain, monitor and debug.</p><h2 id="feature-importance-and-its-trap">Feature importance, and its trap<a class="anchor" href="#feature-importance-and-its-trap" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>importances <span class="tok-operator">=</span> <span class="tok-function">pd.Series</span>(rf.feature_importances_, index<span class="tok-operator">=</span>X.columns).<span class="tok-function">sort_values</span>(ascending<span class="tok-operator">=</span><span class="tok-keyword">False</span>)</code></pre></figure><p>Built-in (impurity-based) importance has two well-documented biases:</p><ol><li><strong>It inflates high-cardinality features.</strong> A customer ID would look highly &quot;important&quot; because it can split anything.</li><li><strong>It splits credit arbitrarily among correlated features.</strong> Two near-duplicate features each get roughly half the importance, making both look unimportant.</li></ol><p>Better alternatives:</p><ul><li><strong>Permutation importance</strong> — shuffle one feature and measure the drop in validation performance. Measures what the model actually relies on.</li><li><strong>SHAP values</strong> — per-prediction attributions with strong theoretical grounding. <code>shap.summary_plot</code> is the standard explanation artefact for a boosted model.</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Feature importance is <strong>not</strong> a causal effect. A high importance score for <code>support_tickets</code> in a churn model means tickets help predict churn, not that reducing tickets reduces churn. This distinction gets lost constantly when model outputs reach a business audience — say it explicitly whenever you present importances.</p></aside><h2 id="trees-vs-linear-models">Trees vs linear models<a class="anchor" href="#trees-vs-linear-models" aria-label="Link to this section">#</a></h2><p><strong>Trees handle natively:</strong></p><ul><li>Non-linear relationships and thresholds</li><li>Interactions, without you specifying them</li><li>Mixed feature scales — no standardisation needed</li><li>Outliers in predictors — splits are rank-based</li></ul><p><strong>Trees are worse at:</strong></p><ul><li>Extrapolation — they can never predict outside the training range of y</li><li>Smooth relationships — approximated as staircases</li><li>Very small datasets — not enough data to split reliably</li><li>Direct interpretability of an effect size</li></ul><p>That extrapolation limit matters in business: a tree-based demand forecast <strong>cannot</strong> predict a sales level higher than anything it has seen. For a growing business, that is disqualifying, and it is why time-series forecasting usually keeps a trend model.</p><h2 id="avoiding-overfitting">Avoiding overfitting<a class="anchor" href="#avoiding-overfitting" aria-label="Link to this section">#</a></h2><ol><li><strong>Always hold out a test set</strong> never used for any decision.</li><li><strong>Cross-validate</strong> for tuning; use time-based splits for temporal data.</li><li><strong>Use early stopping</strong> with a separate validation set.</li><li><strong>Watch the train/validation gap.</strong> 0.99 train AUC and 0.72 validation AUC is memorisation.</li><li><strong>Check for leakage</strong> first whenever results look implausibly good. Suspiciously excellent models are almost always leaking.</li></ol><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>A single tree gives readable rules but overfits and is unstable.</li><li>Random forests reduce variance via bagging and feature subsampling; boosting fits residuals sequentially.</li><li>Gradient boosting usually wins on tabular data; early stopping is what keeps it honest.</li><li>Impurity-based importance is biased — prefer permutation importance or SHAP.</li><li>Importance is predictive, never causal.</li><li>Trees cannot extrapolate beyond the training range, which rules them out for trending forecasts.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/predictive/linear-regression/">Linear Regression</a>
+      <span class="mini-meta">Predictive Analytics</span></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">Logistic Regression and Classification</a>
+      <span class="mini-meta">Predictive Analytics</span></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">Clustering and Customer Segmentation</a>
+      <span class="mini-meta">Predictive Analytics</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/predictive/logistic-regression-and-classification/"><span>← Previous</span><strong>Logistic Regression and Classification</strong></a>
+  <a class="pager-next" href="../../../tutorials/predictive/clustering-and-segmentation/"><span>Next →</span><strong>Clustering and Customer Segmentation</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#how-a-tree-splits">How a tree splits</a></li><li class="toc-l2"><a href="#why-a-single-tree-overfits">Why a single tree overfits</a></li><li class="toc-l2"><a href="#random-forests">Random forests</a></li><li class="toc-l2"><a href="#gradient-boosting">Gradient boosting</a></li><li class="toc-l2"><a href="#choosing-between-them">Choosing between them</a></li><li class="toc-l2"><a href="#feature-importance-and-its-trap">Feature importance, and its trap</a></li><li class="toc-l2"><a href="#trees-vs-linear-models">Trees vs linear models</a></li><li class="toc-l2"><a href="#avoiding-overfitting">Avoiding overfitting</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"What is the key difference between a random forest and gradient boosting?","options":["Forests use regression trees, boosting uses classification trees","Forests build trees independently and average them; boosting builds trees sequentially, each fitting the previous errors","Boosting cannot handle categorical features","Forests require more tuning"],"answer":1,"explain":"Bagging (forests) reduces variance by averaging independent trees. Boosting reduces bias by sequentially fitting residuals, which is more powerful and more prone to overfitting without early stopping."},{"q":"Your training AUC is 0.99 and validation AUC is 0.72. What is happening?","options":["The model is well fitted","Severe overfitting — reduce depth, increase min_samples_leaf, or use early stopping","The validation set is too large","The learning rate is too low"],"answer":1,"explain":"A large train/validation gap means the model has memorised training noise. Stronger regularisation or early stopping is required."},{"q":"Why can a tree-based model be a poor choice for forecasting a fast-growing company's revenue?","options":["Trees cannot handle time features","Trees cannot extrapolate beyond the range of the training target, so they cannot predict record-high values","Trees are too slow to train","Trees require normally distributed data"],"answer":1,"explain":"Tree predictions are averages of training observations in a leaf, bounded by the observed range of y. A growing series constantly needs values above anything seen before."}]};</script>
+</body>
+</html>

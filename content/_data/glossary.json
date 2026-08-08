@@ -1,0 +1,512 @@
+[
+ {
+  "term": "A/B test",
+  "definition": "A randomised experiment comparing two variants, where randomisation makes the groups comparable so a difference in outcome can be attributed to the change.",
+  "link": "/tutorials/statistics/ab-testing/"
+ },
+ {
+  "term": "ABC analysis",
+  "definition": "Classifying items (usually SKUs) by their share of total value, so planning effort concentrates on the ~20% that drive ~80% of value.",
+  "link": "/tutorials/domains/supply-chain-analytics/"
+ },
+ {
+  "term": "Accuracy",
+  "definition": "The share of predictions that are correct. Misleading whenever classes are imbalanced.",
+  "link": "/tutorials/predictive/model-evaluation-metrics/"
+ },
+ {
+  "term": "Adstock",
+  "definition": "The carryover effect of advertising, where spend in one period continues to influence sales in later periods.",
+  "link": "/tutorials/domains/marketing-analytics/"
+ },
+ {
+  "term": "ARIMA",
+  "definition": "A forecasting model combining autoregression, differencing for stationarity, and moving-average error terms.",
+  "link": "/tutorials/predictive/time-series-forecasting/"
+ },
+ {
+  "term": "ARPU",
+  "definition": "Average revenue per user, over a stated period.",
+  "link": "/tutorials/domains/customer-lifetime-value/"
+ },
+ {
+  "term": "Attribution",
+  "definition": "Assigning credit for a conversion across the marketing touchpoints that preceded it. A heuristic allocation, not a causal measurement.",
+  "link": "/tutorials/domains/marketing-analytics/"
+ },
+ {
+  "term": "AUC-PR",
+  "definition": "Area under the precision-recall curve. The preferred ranking metric when positives are rare.",
+  "link": "/tutorials/predictive/model-evaluation-metrics/"
+ },
+ {
+  "term": "AUC-ROC",
+  "definition": "Area under the ROC curve: the probability a random positive is ranked above a random negative.",
+  "link": "/tutorials/predictive/model-evaluation-metrics/"
+ },
+ {
+  "term": "Bagging",
+  "definition": "Training models on bootstrap samples and averaging them to reduce variance. The basis of random forests.",
+  "link": "/tutorials/predictive/decision-trees-and-ensembles/"
+ },
+ {
+  "term": "Base rate",
+  "definition": "The underlying prevalence of an outcome in the population. Ignoring it is the base rate fallacy.",
+  "link": "/tutorials/statistics/probability-essentials/"
+ },
+ {
+  "term": "Bayes' theorem",
+  "definition": "The rule for inverting a conditional probability: P(A|B) = P(B|A)P(A)/P(B).",
+  "link": "/tutorials/statistics/probability-essentials/"
+ },
+ {
+  "term": "Bootstrapping",
+  "definition": "Estimating uncertainty by repeatedly resampling the observed data with replacement.",
+  "link": "/tutorials/statistics/sampling-and-central-limit-theorem/"
+ },
+ {
+  "term": "Bullwhip effect",
+  "definition": "The amplification of demand variability as it moves upstream through a supply chain.",
+  "link": "/tutorials/domains/supply-chain-analytics/"
+ },
+ {
+  "term": "CAC",
+  "definition": "Customer acquisition cost: fully loaded acquisition spend divided by new customers acquired.",
+  "link": "/tutorials/domains/marketing-analytics/"
+ },
+ {
+  "term": "Calibration",
+  "definition": "Whether predicted probabilities match observed frequencies — among items scored 0.3, about 30% should be positive.",
+  "link": "/tutorials/predictive/logistic-regression-and-classification/"
+ },
+ {
+  "term": "Cash conversion cycle",
+  "definition": "DIO + DSO − DPO: the days between paying suppliers and collecting from customers.",
+  "link": "/tutorials/domains/financial-analytics/"
+ },
+ {
+  "term": "Central limit theorem",
+  "definition": "The result that the sampling distribution of the mean approaches normality as n grows, whatever the population's shape.",
+  "link": "/tutorials/statistics/sampling-and-central-limit-theorem/"
+ },
+ {
+  "term": "Churn rate",
+  "definition": "The share of customers lost during a period, measured against the count at the start of that period.",
+  "link": "/tutorials/sql/cohort-and-retention-analysis/"
+ },
+ {
+  "term": "CLV / LTV",
+  "definition": "Customer lifetime value: the total gross profit a customer is expected to generate.",
+  "link": "/tutorials/domains/customer-lifetime-value/"
+ },
+ {
+  "term": "Cohort analysis",
+  "definition": "Grouping users by when they started and tracking each group separately, separating product quality from acquisition volume.",
+  "link": "/tutorials/sql/cohort-and-retention-analysis/"
+ },
+ {
+  "term": "Confidence interval",
+  "definition": "A range built so that, over repeated sampling, a stated share of such intervals would contain the true parameter.",
+  "link": "/tutorials/statistics/confidence-intervals/"
+ },
+ {
+  "term": "Confounder",
+  "definition": "A third variable that causes both of two correlated variables, creating an association that is not causal.",
+  "link": "/tutorials/statistics/correlation-vs-causation/"
+ },
+ {
+  "term": "Contribution margin",
+  "definition": "Revenue minus variable costs — the amount each additional sale contributes toward fixed costs and profit.",
+  "link": "/tutorials/domains/financial-analytics/"
+ },
+ {
+  "term": "Correlation",
+  "definition": "A measure of linear association between two variables, ranging from −1 to +1.",
+  "link": "/tutorials/statistics/correlation-vs-causation/"
+ },
+ {
+  "term": "CRISP-DM",
+  "definition": "A six-phase analytics project lifecycle: business understanding, data understanding, preparation, modelling, evaluation, deployment.",
+  "link": "/tutorials/foundations/analytics-lifecycle/"
+ },
+ {
+  "term": "Cross-validation",
+  "definition": "Repeatedly splitting data into train and validation folds to estimate out-of-sample performance more stably.",
+  "link": "/tutorials/predictive/model-evaluation-metrics/"
+ },
+ {
+  "term": "Data-ink ratio",
+  "definition": "Tufte's principle that the proportion of a chart's ink devoted to representing data should be maximised.",
+  "link": "/tutorials/visualization/principles-of-data-visualization/"
+ },
+ {
+  "term": "Descriptive analytics",
+  "definition": "Summarising what happened — counts, sums, rates and trends.",
+  "link": "/tutorials/foundations/types-of-analytics/"
+ },
+ {
+  "term": "Diagnostic analytics",
+  "definition": "Determining why something happened, usually through disciplined segmentation.",
+  "link": "/tutorials/foundations/types-of-analytics/"
+ },
+ {
+  "term": "Difference-in-differences",
+  "definition": "A quasi-experimental method comparing the before/after change in a treated group against an untreated control group.",
+  "link": "/tutorials/statistics/ab-testing/"
+ },
+ {
+  "term": "Dimensionality",
+  "definition": "The number of features describing each observation. High dimensionality makes distance-based methods less reliable.",
+  "link": "/tutorials/predictive/clustering-and-segmentation/"
+ },
+ {
+  "term": "EOQ",
+  "definition": "Economic order quantity: the order size that minimises combined ordering and holding costs.",
+  "link": "/tutorials/domains/supply-chain-analytics/"
+ },
+ {
+  "term": "Elasticity",
+  "definition": "The percentage change in one quantity per percentage change in another; price elasticity of demand is the common case.",
+  "link": "/tutorials/predictive/linear-regression/"
+ },
+ {
+  "term": "Expected value",
+  "definition": "The probability-weighted average of possible outcomes.",
+  "link": "/tutorials/statistics/probability-essentials/"
+ },
+ {
+  "term": "Fan-out",
+  "definition": "The row multiplication that occurs when joining on a key that is not unique, silently inflating aggregates.",
+  "link": "/tutorials/sql/joins-and-relationships/"
+ },
+ {
+  "term": "Feature importance",
+  "definition": "A score for how much a model relies on each input. Predictive, never causal.",
+  "link": "/tutorials/predictive/decision-trees-and-ensembles/"
+ },
+ {
+  "term": "Fill rate",
+  "definition": "The share of ordered units shipped from available stock.",
+  "link": "/tutorials/domains/supply-chain-analytics/"
+ },
+ {
+  "term": "Funnel analysis",
+  "definition": "Measuring conversion through sequential stages to locate where users drop out.",
+  "link": "/tutorials/domains/marketing-analytics/"
+ },
+ {
+  "term": "Goodhart's Law",
+  "definition": "When a measure becomes a target, it ceases to be a good measure.",
+  "link": "/tutorials/foundations/kpis-and-metric-design/"
+ },
+ {
+  "term": "Gradient boosting",
+  "definition": "An ensemble method that builds trees sequentially, each fitting the errors of the ensemble so far.",
+  "link": "/tutorials/predictive/decision-trees-and-ensembles/"
+ },
+ {
+  "term": "Grain",
+  "definition": "What one row of a table or result represents. Most silent analytical errors are grain errors.",
+  "link": "/tutorials/sql/aggregation-and-grouping/"
+ },
+ {
+  "term": "Gross margin",
+  "definition": "(Revenue − cost of goods sold) ÷ revenue. The fastest read on a business model.",
+  "link": "/tutorials/domains/financial-analytics/"
+ },
+ {
+  "term": "Heteroscedasticity",
+  "definition": "Non-constant error variance in a regression, typically appearing as a funnel-shaped residual plot.",
+  "link": "/tutorials/predictive/linear-regression/"
+ },
+ {
+  "term": "Hypothesis testing",
+  "definition": "A framework for judging whether observed data is plausible under a null hypothesis of no effect.",
+  "link": "/tutorials/statistics/hypothesis-testing/"
+ },
+ {
+  "term": "Imbalanced classes",
+  "definition": "A classification problem where one outcome is much rarer than the other, making accuracy misleading.",
+  "link": "/tutorials/predictive/logistic-regression-and-classification/"
+ },
+ {
+  "term": "Incrementality",
+  "definition": "The causal effect of an activity, measured by comparing against a holdout that did not receive it.",
+  "link": "/tutorials/domains/marketing-analytics/"
+ },
+ {
+  "term": "Interval scale",
+  "definition": "A measurement scale with equal intervals but an arbitrary zero, so differences are meaningful and ratios are not.",
+  "link": "/tutorials/foundations/data-types-and-measurement-scales/"
+ },
+ {
+  "term": "K-means",
+  "definition": "A clustering algorithm that assigns points to the nearest of k centroids and iterates until assignments stabilise.",
+  "link": "/tutorials/predictive/clustering-and-segmentation/"
+ },
+ {
+  "term": "KPI",
+  "definition": "A metric a team has agreed to be measured against, as distinct from a metric that is merely tracked.",
+  "link": "/tutorials/foundations/kpis-and-metric-design/"
+ },
+ {
+  "term": "Leakage",
+  "definition": "Information in training data that would not be available at prediction time, producing inflated offline performance.",
+  "link": "/tutorials/predictive/model-evaluation-metrics/"
+ },
+ {
+  "term": "Log-normal",
+  "definition": "A right-skewed, strictly positive distribution whose logarithm is normal. The default shape of business data.",
+  "link": "/tutorials/statistics/probability-distributions/"
+ },
+ {
+  "term": "Logistic regression",
+  "definition": "A model of a binary outcome, linear in the log-odds and bounded between 0 and 1.",
+  "link": "/tutorials/predictive/logistic-regression-and-classification/"
+ },
+ {
+  "term": "MAPE",
+  "definition": "Mean absolute percentage error. Scale-free but undefined near zero and biased toward under-forecasting.",
+  "link": "/tutorials/predictive/time-series-forecasting/"
+ },
+ {
+  "term": "MASE",
+  "definition": "Mean absolute scaled error: forecast MAE divided by naive MAE. Below 1 beats the naive baseline.",
+  "link": "/tutorials/predictive/time-series-forecasting/"
+ },
+ {
+  "term": "MECE",
+  "definition": "Mutually exclusive, collectively exhaustive — the property a good issue tree needs.",
+  "link": "/tutorials/foundations/framing-business-problems/"
+ },
+ {
+  "term": "Median",
+  "definition": "The middle value of a sorted dataset; the robust measure of centre for skewed business data.",
+  "link": "/tutorials/statistics/descriptive-statistics/"
+ },
+ {
+  "term": "MDE",
+  "definition": "Minimum detectable effect: the smallest difference an experiment is designed to detect.",
+  "link": "/tutorials/statistics/ab-testing/"
+ },
+ {
+  "term": "Multicollinearity",
+  "definition": "Strong correlation among predictors, which destabilises individual coefficients without harming prediction.",
+  "link": "/tutorials/predictive/linear-regression/"
+ },
+ {
+  "term": "NRR",
+  "definition": "Net revenue retention: revenue from an existing cohort versus its original revenue, including expansion. Above 100% means growth without new customers.",
+  "link": "/tutorials/sql/cohort-and-retention-analysis/"
+ },
+ {
+  "term": "Nominal scale",
+  "definition": "Unordered categories, supporting counts and modes but no arithmetic.",
+  "link": "/tutorials/foundations/data-types-and-measurement-scales/"
+ },
+ {
+  "term": "Null hypothesis",
+  "definition": "The default assumption of no effect or no difference, which a test attempts to reject.",
+  "link": "/tutorials/statistics/hypothesis-testing/"
+ },
+ {
+  "term": "Odds ratio",
+  "definition": "The exponentiated coefficient of a logistic regression — the multiplicative change in odds per unit of the predictor.",
+  "link": "/tutorials/predictive/logistic-regression-and-classification/"
+ },
+ {
+  "term": "Ordinal scale",
+  "definition": "Ordered categories whose intervals are not known to be equal, supporting medians but not strictly means.",
+  "link": "/tutorials/foundations/data-types-and-measurement-scales/"
+ },
+ {
+  "term": "OTIF",
+  "definition": "On-time in-full: the share of orders delivered complete and on schedule.",
+  "link": "/tutorials/domains/supply-chain-analytics/"
+ },
+ {
+  "term": "Overfitting",
+  "definition": "Fitting noise in the training data, producing strong training performance and poor generalisation.",
+  "link": "/tutorials/predictive/decision-trees-and-ensembles/"
+ },
+ {
+  "term": "P-value",
+  "definition": "The probability of data at least as extreme as observed, assuming the null hypothesis is true.",
+  "link": "/tutorials/statistics/hypothesis-testing/"
+ },
+ {
+  "term": "Pareto principle",
+  "definition": "The empirical pattern that a small share of inputs accounts for most of the output — the 80/20 rule.",
+  "link": "/tutorials/statistics/probability-distributions/"
+ },
+ {
+  "term": "Peeking",
+  "definition": "Repeatedly checking an experiment and stopping when it reaches significance, which inflates the false positive rate.",
+  "link": "/tutorials/statistics/ab-testing/"
+ },
+ {
+  "term": "Percentile",
+  "definition": "The value below which a given share of observations falls. p95 is often more decision-relevant than the mean.",
+  "link": "/tutorials/statistics/descriptive-statistics/"
+ },
+ {
+  "term": "Poisson distribution",
+  "definition": "The distribution of event counts in a fixed interval at a constant rate, where mean equals variance.",
+  "link": "/tutorials/statistics/probability-distributions/"
+ },
+ {
+  "term": "Power (statistical)",
+  "definition": "The probability of detecting an effect that genuinely exists; conventionally targeted at 80%.",
+  "link": "/tutorials/statistics/hypothesis-testing/"
+ },
+ {
+  "term": "Precision",
+  "definition": "Of the cases flagged positive, the share that really were positive.",
+  "link": "/tutorials/predictive/model-evaluation-metrics/"
+ },
+ {
+  "term": "Predictive analytics",
+  "definition": "Estimating unknown or future values from historical patterns.",
+  "link": "/tutorials/foundations/types-of-analytics/"
+ },
+ {
+  "term": "Prescriptive analytics",
+  "definition": "Recommending an action, usually by combining a prediction with costs and constraints.",
+  "link": "/tutorials/foundations/types-of-analytics/"
+ },
+ {
+  "term": "Pyramid principle",
+  "definition": "Structuring communication answer-first, with supporting arguments beneath it.",
+  "link": "/tutorials/visualization/storytelling-with-data/"
+ },
+ {
+  "term": "R-squared",
+  "definition": "The share of variance in the outcome explained by a regression model. Not a measure of correctness.",
+  "link": "/tutorials/predictive/linear-regression/"
+ },
+ {
+  "term": "Random forest",
+  "definition": "An ensemble of decorrelated decision trees trained on bootstrap samples with random feature subsets.",
+  "link": "/tutorials/predictive/decision-trees-and-ensembles/"
+ },
+ {
+  "term": "Ratio scale",
+  "definition": "A scale with equal intervals and a true zero, so ratios and percentage changes are meaningful.",
+  "link": "/tutorials/foundations/data-types-and-measurement-scales/"
+ },
+ {
+  "term": "Recall",
+  "definition": "Of all genuine positives, the share the model successfully identified.",
+  "link": "/tutorials/predictive/model-evaluation-metrics/"
+ },
+ {
+  "term": "Regression to the mean",
+  "definition": "The tendency of extreme observations to be followed by more typical ones, often mistaken for the effect of an intervention.",
+  "link": "/tutorials/statistics/correlation-vs-causation/"
+ },
+ {
+  "term": "RFM",
+  "definition": "Segmenting customers by recency, frequency and monetary value of their purchases.",
+  "link": "/tutorials/domains/rfm-analysis/"
+ },
+ {
+  "term": "ROAS",
+  "definition": "Return on ad spend: attributed revenue divided by advertising spend. Ignores margin.",
+  "link": "/tutorials/domains/marketing-analytics/"
+ },
+ {
+  "term": "Safety stock",
+  "definition": "Buffer inventory held to absorb variability in demand and lead time at a chosen service level.",
+  "link": "/tutorials/domains/supply-chain-analytics/"
+ },
+ {
+  "term": "Sampling bias",
+  "definition": "Systematic error from a sample that does not represent the population. No sample size fixes it.",
+  "link": "/tutorials/statistics/sampling-and-central-limit-theorem/"
+ },
+ {
+  "term": "Seasonality",
+  "definition": "Regular, fixed-period variation in a time series, such as weekly or annual cycles.",
+  "link": "/tutorials/predictive/time-series-forecasting/"
+ },
+ {
+  "term": "Segmentation",
+  "definition": "Dividing customers into groups that can be identified, are substantial, respond differently, and can be acted on.",
+  "link": "/tutorials/predictive/clustering-and-segmentation/"
+ },
+ {
+  "term": "Sensitivity analysis",
+  "definition": "Testing how much a conclusion changes when key assumptions are varied.",
+  "link": "/tutorials/domains/financial-analytics/"
+ },
+ {
+  "term": "SHAP values",
+  "definition": "Per-prediction feature attributions with a game-theoretic basis, used to explain complex models.",
+  "link": "/tutorials/predictive/decision-trees-and-ensembles/"
+ },
+ {
+  "term": "Silhouette score",
+  "definition": "A measure of clustering quality comparing within-cluster to nearest-cluster distances.",
+  "link": "/tutorials/predictive/clustering-and-segmentation/"
+ },
+ {
+  "term": "Simpson's paradox",
+  "definition": "When a relationship present in every subgroup reverses once the groups are pooled, due to differing group mixes.",
+  "link": "/tutorials/statistics/correlation-vs-causation/"
+ },
+ {
+  "term": "Skewness",
+  "definition": "Asymmetry in a distribution. Right skew, with mean above median, is the norm for business data.",
+  "link": "/tutorials/statistics/descriptive-statistics/"
+ },
+ {
+  "term": "SRM",
+  "definition": "Sample ratio mismatch: an experiment's traffic split differing from its intended allocation, indicating a defect.",
+  "link": "/tutorials/statistics/ab-testing/"
+ },
+ {
+  "term": "Standard error",
+  "definition": "The standard deviation of a sample statistic's sampling distribution; for the mean it is σ/√n.",
+  "link": "/tutorials/statistics/sampling-and-central-limit-theorem/"
+ },
+ {
+  "term": "Stationarity",
+  "definition": "A time series whose statistical properties do not change over time — a requirement for ARIMA.",
+  "link": "/tutorials/predictive/time-series-forecasting/"
+ },
+ {
+  "term": "Survivorship bias",
+  "definition": "Drawing conclusions from surviving cases while the failures are absent from the data.",
+  "link": "/tutorials/statistics/sampling-and-central-limit-theorem/"
+ },
+ {
+  "term": "Type I error",
+  "definition": "Rejecting a true null hypothesis — a false positive.",
+  "link": "/tutorials/statistics/hypothesis-testing/"
+ },
+ {
+  "term": "Type II error",
+  "definition": "Failing to reject a false null hypothesis — a false negative.",
+  "link": "/tutorials/statistics/hypothesis-testing/"
+ },
+ {
+  "term": "Vanity metric",
+  "definition": "A number that rises regardless of performance and implies no action — typically a cumulative counter.",
+  "link": "/tutorials/foundations/kpis-and-metric-design/"
+ },
+ {
+  "term": "Variance analysis",
+  "definition": "Decomposing a gap against plan into price, volume and mix contributions.",
+  "link": "/tutorials/domains/financial-analytics/"
+ },
+ {
+  "term": "Window function",
+  "definition": "A SQL function computing a value across related rows without collapsing them into one.",
+  "link": "/tutorials/sql/window-functions/"
+ },
+ {
+  "term": "Working capital",
+  "definition": "Capital tied up in inventory and receivables, which consumes cash as a business grows.",
+  "link": "/tutorials/domains/financial-analytics/"
+ }
+]

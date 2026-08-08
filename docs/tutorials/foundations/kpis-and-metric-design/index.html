@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Designing KPIs and Metrics That Work | AnalyticsAdda</title>
+<meta name="description" content="How to pick a north-star metric, build a metric tree, avoid vanity metrics, and write a definition precise enough that two analysts get the same number.">
+<meta property="og:title" content="Designing KPIs and Metrics That Work | AnalyticsAdda">
+<meta property="og:description" content="How to pick a north-star metric, build a metric tree, avoid vanity metrics, and write a definition precise enough that two analysts get the same number.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" open style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2f8f5b">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li aria-current="page">Designing KPIs and Metrics That Work</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/foundations/" style="--track-color:#2f8f5b">
+          <span aria-hidden="true">🧭</span> Foundations</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 6 min read</span>
+      </div>
+      <h1>Designing KPIs and Metrics That Work</h1>
+      <p class="lede">How to pick a north-star metric, build a metric tree, avoid vanity metrics, and write a definition precise enough that two analysts get the same number.</p>
+      <div class="tag-row"><span class="tag">metrics</span><span class="tag">kpi</span><span class="tag">fundamentals</span><span class="tag">business</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/foundations/kpis-and-metric-design/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>A metric is a number that measures something. A <strong>KPI</strong> — key performance indicator — is a metric a team has agreed to be judged on. The difference is accountability, and it is why KPI selection is a political act as much as an analytical one.</p><p>Get this wrong and you do not just measure badly; you actively steer the company somewhere you did not intend. People optimise what they are measured on. That is the point, and the danger.</p><h2 id="properties-of-a-good-metric">Properties of a good metric<a class="anchor" href="#properties-of-a-good-metric" aria-label="Link to this section">#</a></h2><ol><li><strong>Actionable.</strong> Someone can change it through their own decisions. &quot;Market sentiment&quot; is not actionable for a support team; &quot;first response time&quot; is.</li><li><strong>Unambiguous.</strong> Two analysts working independently produce the same number. This is much rarer than you would expect.</li><li><strong>Timely.</strong> It updates fast enough to inform the decision cycle. An annual metric cannot steer a weekly sprint.</li><li><strong>Comparable.</strong> Meaningful across periods and segments — usually meaning it is a rate or ratio, not a raw count that grows with the business.</li><li><strong>Hard to game in destructive ways.</strong> Every metric can be gamed; you want the cheapest way to move it to also be genuinely good for the business.</li></ol><h2 id="vanity-metrics">Vanity metrics<a class="anchor" href="#vanity-metrics" aria-label="Link to this section">#</a></h2><p>A vanity metric goes up regardless of whether things are going well, and implies no action.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Vanity metric</th><th style="text-align:left">Better replacement</th></tr></thead><tbody><tr><td style="text-align:left">Cumulative registered users</td><td style="text-align:left">Weekly active users; 30-day retention</td></tr><tr><td style="text-align:left">Total page views</td><td style="text-align:left">Conversion rate; qualified sessions</td></tr><tr><td style="text-align:left">Number of features shipped</td><td style="text-align:left">Feature adoption rate</td></tr><tr><td style="text-align:left">Social media followers</td><td style="text-align:left">Referral traffic that converts</td></tr><tr><td style="text-align:left">Total revenue (fast-growing co.)</td><td style="text-align:left">Revenue per customer; gross margin</td></tr></tbody></table></div><p>The tell: <strong>cumulative counters</strong>. They can only go up, so they carry no signal about the current period.</p><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>A quick test for any proposed KPI: &quot;if this number doubled next month, would we know what we did right?&quot; If not, it is describing the weather rather than measuring the team.</p></aside><h2 id="the-metric-tree">The metric tree<a class="anchor" href="#the-metric-tree" aria-label="Link to this section">#</a></h2><p>Rather than a flat list of thirty numbers, decompose one top-level metric into its drivers. Each level should be arithmetically linked to the one above.</p><p>For an e-commerce business:</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>                          Revenue
+                             |
+        +--------------------+--------------------+
+     Traffic          Conversion Rate      Average Order Value
+        |                    |                     |
+  +-----+-----+       +------+------+        +-----+-----+
+Paid  Organic  Direct  Add-to-cart  Checkout  Items/  Price/
+                        rate        completion  order   item</code></pre></figure><p>Revenue = Traffic × Conversion Rate × Average Order Value. Because the relationship is multiplicative, a 10% improvement anywhere in the tree has the same effect on revenue — which is a genuinely useful thing to know when prioritising work.</p><p>The tree also makes diagnosis mechanical. When revenue falls, you walk down the tree until the drop localises. That is <a href="../types-of-analytics/">diagnostic analytics</a> with a map.</p><h2 id="north-star-input-and-guardrail-metrics">North star, input and guardrail metrics<a class="anchor" href="#north-star-input-and-guardrail-metrics" aria-label="Link to this section">#</a></h2><ul><li><strong>North star metric</strong>: the single number that best captures the value your product delivers. Spotify: time spent listening. Airbnb: nights booked. It should move only when customers are genuinely better served.</li><li><strong>Input metrics</strong>: the levers teams actually work on, which feed the north star. They must be movable within a sprint or a quarter.</li><li><strong>Guardrail metrics</strong>: things that must <em>not</em> degrade while you push the north star. This is the crucial and most-often-skipped category.</li></ul><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>A food delivery app sets its north star as <strong>weekly completed orders</strong>.</p><ul><li>Input metrics: restaurants live per city, median delivery time, app crash rate, promo redemption rate.</li><li>Guardrails: contribution margin per order, customer rating, courier earnings per hour, refund rate.</li></ul><p>Without the guardrails, the fastest route to more orders is unlimited discounting — orders soar, the company loses money on every one. The guardrail metric is what makes the KPI safe to optimise.</p></aside><h2 id="goodharts-law">Goodhart's Law<a class="anchor" href="#goodharts-law" aria-label="Link to this section">#</a></h2><blockquote><p>&quot;When a measure becomes a target, it ceases to be a good measure.&quot;</p></blockquote><p>Real examples worth internalising:</p><ul><li>Support measured on <strong>tickets closed per hour</strong> → agents close tickets prematurely; repeat contacts rise.</li><li>Sales measured on <strong>bookings</strong> with no retention component → aggressive discounting to customers who churn in month two.</li><li>Call centres measured on <strong>average handling time</strong> → customers transferred rather than helped.</li></ul><p>Two defences: <strong>pair every KPI with a guardrail</strong> that captures the quality being sacrificed, and <strong>review the KPI set periodically</strong>, because gaming behaviour evolves.</p><h2 id="writing-a-metric-definition">Writing a metric definition<a class="anchor" href="#writing-a-metric-definition" aria-label="Link to this section">#</a></h2><p>Most metric disputes are definitional. A usable definition specifies six things:</p><ol><li><strong>Name</strong> — Monthly Active User (MAU)</li><li><strong>Plain-English intent</strong> — a person who got value from the product this month</li><li><strong>Precise rule</strong> — a distinct <code>user_id</code> with ≥1 <code>session_start</code> event where <code>session_duration ≥ 10s</code>, in the calendar month, <code>Asia/Kolkata</code></li><li><strong>Exclusions</strong> — internal accounts, bots, users deleted for GDPR</li><li><strong>Source of truth</strong> — <code>analytics.fct_sessions</code>, refreshed daily at 03:00 IST</li><li><strong>Known caveats</strong> — logged-out users are counted per device, so MAU slightly overstates people</li></ol><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- MAU, matching the definition above exactly</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, session_start_at)  <span class="tok-keyword">AS</span> month,
+       <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> user_id)                <span class="tok-keyword">AS</span> mau
+<span class="tok-keyword">FROM</span>   analytics.fct_sessions
+<span class="tok-keyword">WHERE</span>  session_duration_seconds <span class="tok-operator">&gt;=</span> <span class="tok-number">10</span>
+  <span class="tok-keyword">AND</span>  is_internal_account <span class="tok-operator">=</span> false
+  <span class="tok-keyword">AND</span>  is_bot <span class="tok-operator">=</span> false
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>;</code></pre></figure><p>The value of writing this down is that the next argument about the number becomes an argument about the definition — which is a solvable problem — instead of an argument about who queried it correctly.</p><h2 id="leading-vs-lagging-indicators">Leading vs lagging indicators<a class="anchor" href="#leading-vs-lagging-indicators" aria-label="Link to this section">#</a></h2><p><strong>Lagging</strong> indicators confirm outcomes: revenue, churn rate, NPS. They are accurate and arrive too late to change.</p><p><strong>Leading</strong> indicators predict outcomes: trial-to-paid activation rate, week-one feature adoption, support ticket volume per 100 accounts. They are noisier and arrive in time to act.</p><p>Track both. A dashboard of purely lagging indicators is a rear-view mirror; one of purely leading indicators has no accountability.</p><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>A good metric is actionable, unambiguous, timely, comparable and hard to game destructively.</li><li>Cumulative counters are usually vanity metrics — prefer rates and per-period measures.</li><li>Build a metric tree so drivers are arithmetically linked and diagnosis is mechanical.</li><li>Pair every north-star metric with guardrails; Goodhart's Law is not optional.</li><li>Write six-part definitions; most metric disputes are definitional, not analytical.</li><li>Balance leading indicators (actionable, noisy) with lagging ones (reliable, late).</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">What is Business Analytics?</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/foundations/types-of-analytics/">The Four Types of Analytics</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">Data Types and Measurement Scales</a>
+      <span class="mini-meta">Analytics Foundations</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/foundations/data-types-and-measurement-scales/"><span>← Previous</span><strong>Data Types and Measurement Scales</strong></a>
+  <a class="pager-next" href="../../../tutorials/foundations/framing-business-problems/"><span>Next →</span><strong>Framing a Business Problem as an Analytics Question</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#properties-of-a-good-metric">Properties of a good metric</a></li><li class="toc-l2"><a href="#vanity-metrics">Vanity metrics</a></li><li class="toc-l2"><a href="#the-metric-tree">The metric tree</a></li><li class="toc-l2"><a href="#north-star-input-and-guardrail-metrics">North star, input and guardrail metrics</a></li><li class="toc-l2"><a href="#goodharts-law">Goodhart's Law</a></li><li class="toc-l2"><a href="#writing-a-metric-definition">Writing a metric definition</a></li><li class="toc-l2"><a href="#leading-vs-lagging-indicators">Leading vs lagging indicators</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"Which of these is most clearly a vanity metric?","options":["30-day retention rate","Cumulative total registered accounts since launch","Weekly active users","Average revenue per user"],"answer":1,"explain":"A cumulative counter can only rise, so it carries no information about current performance and suggests no action."},{"q":"A team's KPI is 'weekly completed orders'. Which guardrail metric best protects against destructive gaming?","options":["Total app downloads","Contribution margin per order","Number of push notifications sent","Cumulative orders since launch"],"answer":1,"explain":"The cheapest way to inflate orders is heavy discounting. Contribution margin per order catches exactly that failure mode."},{"q":"Revenue = Traffic x Conversion Rate x Average Order Value. What does this multiplicative structure imply?","options":["Only traffic improvements matter","A 10% improvement in any of the three factors has the same effect on revenue","The factors must be independent","Conversion rate should always be prioritised"],"answer":1,"explain":"In a multiplicative tree a proportional gain anywhere multiplies through identically, which is useful when prioritising where to invest effort."}]};</script>
+</body>
+</html>

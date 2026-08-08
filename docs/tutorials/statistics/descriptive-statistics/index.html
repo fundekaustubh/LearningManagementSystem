@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Descriptive Statistics for Business Data | AnalyticsAdda</title>
+<meta name="description" content="Mean, median, spread, skew and percentiles — which summary to trust for messy business data, and why the average is so often the wrong answer.">
+<meta property="og:title" content="Descriptive Statistics for Business Data | AnalyticsAdda">
+<meta property="og:description" content="Mean, median, spread, skew and percentiles — which summary to trust for messy business data, and why the average is so often the wrong answer.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" open style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2563eb">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/statistics/">Statistics &amp; Probability</a></li><li aria-current="page">Descriptive Statistics for Business Data</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/statistics/" style="--track-color:#2563eb">
+          <span aria-hidden="true">📊</span> Statistics</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 6 min read</span>
+      </div>
+      <h1>Descriptive Statistics for Business Data</h1>
+      <p class="lede">Mean, median, spread, skew and percentiles — which summary to trust for messy business data, and why the average is so often the wrong answer.</p>
+      <div class="tag-row"><span class="tag">statistics</span><span class="tag">fundamentals</span><span class="tag">distributions</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/statistics/descriptive-statistics/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Descriptive statistics compress many numbers into a few. The compression always loses information; the skill is losing the <em>unimportant</em> information. Business data is skewed, bounded at zero and full of outliers, which is exactly the situation where the default choice — the mean — performs worst.</p><h2 id="measures-of-centre">Measures of centre<a class="anchor" href="#measures-of-centre" aria-label="Link to this section">#</a></h2><h3 id="mean">Mean<a class="anchor" href="#mean" aria-label="Link to this section">#</a></h3><p>The arithmetic average: <span class="math">x̄ = Σxᵢ / n</span>.</p><p>Uses every observation, which makes it efficient and also <strong>completely non-robust</strong>. One enterprise deal can drag the average order value away from anything a typical customer experiences.</p><h3 id="median">Median<a class="anchor" href="#median" aria-label="Link to this section">#</a></h3><p>The middle value when sorted. Half the observations lie below it.</p><p>Robust: change the largest value to a billion and the median does not move. For revenue, order value, session duration, salary, time-to-resolution — anything skewed — the median describes the typical case far better.</p><h3 id="mode">Mode<a class="anchor" href="#mode" aria-label="Link to this section">#</a></h3><p>The most frequent value. The only measure of centre available for nominal data. Also worth reporting for discrete business data: knowing that the modal basket size is 1 item is more actionable than knowing the mean is 2.4.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>Ten orders, in rupees:
+<code>450, 520, 610, 640, 700, 720, 800, 850, 900, 48,000</code></p><ul><li><strong>Mean</strong> = ₹5,419 — higher than nine of the ten orders.</li><li><strong>Median</strong> = ₹710 — describes the typical order.</li><li><strong>Trimmed mean</strong> (drop top and bottom 10%) = ₹718.</li></ul><p>If you tell the merchandising team the average order is ₹5,419, they will plan for a business that does not exist.</p></aside><p><strong>Rule of thumb:</strong> if mean and median differ by more than ~10–15%, the distribution is skewed enough that you should report both, or the median alone.</p><h2 id="measures-of-spread">Measures of spread<a class="anchor" href="#measures-of-spread" aria-label="Link to this section">#</a></h2><p>Centre without spread is half a picture. Two regions can both average ₹700 per order — one steady, one wildly volatile — and require completely different decisions.</p><h3 id="range-and-iqr">Range and IQR<a class="anchor" href="#range-and-iqr" aria-label="Link to this section">#</a></h3><p><strong>Range</strong> = max − min. Trivially affected by one outlier.</p><p><strong>Interquartile range (IQR)</strong> = Q3 − Q1, the width of the middle 50%. Robust, and the basis of the box plot.</p><h3 id="variance-and-standard-deviation">Variance and standard deviation<a class="anchor" href="#variance-and-standard-deviation" aria-label="Link to this section">#</a></h3><p>Variance is the average squared deviation from the mean. Standard deviation is its square root, which returns the units to something interpretable.</p><p><span class="math">s = \sqrt{Σ(xᵢ - x̄)² / (n-1)}</span></p><p>The <span class="math">n-1</span> (Bessel's correction) applies when estimating a population from a sample; it corrects the downward bias you get from measuring deviations against the sample's own mean.</p><p>Standard deviation is in the same units as the data, so it is directly comparable to the mean. That gives:</p><h3 id="coefficient-of-variation">Coefficient of variation<a class="anchor" href="#coefficient-of-variation" aria-label="Link to this section">#</a></h3><p><span class="math">CV = s / x̄</span></p><p>A unitless relative spread, which is what you need to compare volatility across different scales. Daily revenue of a ₹10 lakh store and a ₹10 crore store cannot be compared by standard deviation, but their CVs can.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>Two sales regions, both averaging ₹700 per order:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left"></th><th style="text-align:left">Region A</th><th style="text-align:left">Region B</th></tr></thead><tbody><tr><td style="text-align:left">Mean</td><td style="text-align:left">₹700</td><td style="text-align:left">₹700</td></tr><tr><td style="text-align:left">Std dev</td><td style="text-align:left">₹90</td><td style="text-align:left">₹410</td></tr><tr><td style="text-align:left">CV</td><td style="text-align:left">0.13</td><td style="text-align:left">0.59</td></tr></tbody></table></div><p>Region B's revenue is far less predictable. That changes inventory planning, staffing and how much you should trust <em>any</em> single month from Region B.</p></aside><h2 id="percentiles">Percentiles<a class="anchor" href="#percentiles" aria-label="Link to this section">#</a></h2><p>The pth percentile is the value below which p% of observations fall. They are the most under-used summary in business analytics, and often the most decision-relevant.</p><ul><li><strong>p50</strong> = median.</li><li><strong>p90 / p95 / p99</strong> — the tail. For page-load time, support resolution time or delivery time, the tail <em>is</em> the customer experience. A mean load time of 1.2s with a p95 of 14s means one in twenty visitors is having a terrible time.</li><li><strong>p10</strong> — the floor. Useful for capacity and worst-case planning.</li></ul><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Percentiles of delivery time by city</span>
+<span class="tok-keyword">SELECT</span> city,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                                                           <span class="tok-keyword">AS</span> deliveries,
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(minutes_to_deliver), <span class="tok-number">1</span>)                                  <span class="tok-keyword">AS</span> mean,
+       <span class="tok-builtin">percentile_cont</span>(<span class="tok-number">0.5</span>)  WITHIN <span class="tok-keyword">GROUP</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> minutes_to_deliver)   <span class="tok-keyword">AS</span> p50,
+       <span class="tok-builtin">percentile_cont</span>(<span class="tok-number">0.9</span>)  WITHIN <span class="tok-keyword">GROUP</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> minutes_to_deliver)   <span class="tok-keyword">AS</span> p90,
+       <span class="tok-builtin">percentile_cont</span>(<span class="tok-number">0.99</span>) WITHIN <span class="tok-keyword">GROUP</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> minutes_to_deliver)   <span class="tok-keyword">AS</span> p99
+<span class="tok-keyword">FROM</span>   deliveries
+<span class="tok-keyword">WHERE</span>  delivered_at <span class="tok-operator">&gt;=</span> <span class="tok-builtin">current_date</span> <span class="tok-operator">-</span> <span class="tok-keyword">interval</span> <span class="tok-string">'30 days'</span>
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> p90 <span class="tok-keyword">DESC</span>;</code></pre></figure><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Service-level targets should almost always be stated as percentiles, not averages. &quot;95% of orders delivered within 40 minutes&quot; is a promise you can be held to. &quot;Average delivery 32 minutes&quot; is compatible with 10% of orders taking two hours.</p></aside><h2 id="shape-skew-and-kurtosis">Shape: skew and kurtosis<a class="anchor" href="#shape-skew-and-kurtosis" aria-label="Link to this section">#</a></h2><p><strong>Right (positive) skew</strong> — a long tail of large values. Mean &gt; median. This is the default shape of business data: revenue per customer, session length, order value, company size.</p><p><strong>Left (negative) skew</strong> — a long tail of small values. Mean &lt; median. Less common; shows up in bounded scores like exam results or satisfaction ratings clustered at the top.</p><p><strong>Kurtosis</strong> describes tail heaviness — how often extreme values occur relative to a normal distribution. High kurtosis means rare-but-huge events matter, which is exactly the regime where averages mislead and risk gets underestimated.</p><p>Because right skew is so common, a standard move is to analyse the <strong>logarithm</strong> of the variable. Log revenue is much closer to symmetric, which makes means meaningful and linear models better behaved.</p><h2 id="outliers">Outliers<a class="anchor" href="#outliers" aria-label="Link to this section">#</a></h2><p>An outlier is an observation far from the rest. The critical question is <strong>why</strong>, and there are three answers with three different responses:</p><ol><li><strong>Data error</strong> — a misplaced decimal, a test transaction, a default value like 9999. <em>Fix or remove, and document it.</em></li><li><strong>A different population</strong> — one B2B order in a B2C dataset. <em>Segment it out and analyse separately.</em></li><li><strong>A genuine rare event</strong> — a real, very large order. <em>Keep it. It is the business.</em></li></ol><p>Common detection rules:</p><ul><li><strong>IQR rule</strong>: outside <code>Q1 − 1.5×IQR</code> to <code>Q3 + 1.5×IQR</code>. Robust, the basis of box-plot whiskers.</li><li><strong>Z-score</strong>: |z| &gt; 3. Assumes roughly normal data, and is itself distorted by the outliers it is looking for.</li><li><strong>Domain rules</strong>: negative revenue, delivery time over 24 hours, age above 120. Usually the most reliable of the three.</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Never delete outliers because they are inconvenient. Removing the top 1% of customers from a revenue analysis can silently remove 30% of the revenue. Segment, do not silently truncate.</p></aside><h2 id="a-practical-summary-routine">A practical summary routine<a class="anchor" href="#a-practical-summary-routine" aria-label="Link to this section">#</a></h2><p>For any new numeric column, compute all of this before drawing any conclusion:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Statistic</th><th style="text-align:left">Tells you</th></tr></thead><tbody><tr><td style="text-align:left">count, count distinct</td><td style="text-align:left">Grain and duplication</td></tr><tr><td style="text-align:left">null count</td><td style="text-align:left">Coverage</td></tr><tr><td style="text-align:left">min, max</td><td style="text-align:left">Impossible values</td></tr><tr><td style="text-align:left">mean, median</td><td style="text-align:left">Centre and skew (compare them)</td></tr><tr><td style="text-align:left">std dev, CV</td><td style="text-align:left">Volatility</td></tr><tr><td style="text-align:left">p10, p25, p75, p90, p99</td><td style="text-align:left">Shape and tails</td></tr><tr><td style="text-align:left">top 5 by frequency</td><td style="text-align:left">Placeholder values and defaults</td></tr></tbody></table></div><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Business data is usually right-skewed; the median describes the typical case better than the mean.</li><li>Always pair a centre with a spread; CV lets you compare volatility across scales.</li><li>Percentiles, not averages, should define service-level targets.</li><li>Compare mean and median as a quick skew test — a large gap means report both.</li><li>Classify outliers as errors, different populations, or real rare events before touching them.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/statistics/probability-distributions/">Probability Distributions You Will Actually Use</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">Data Types and Measurement Scales</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/statistics/probability-essentials/">Probability Essentials for Analysts</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <span></span>
+  <a class="pager-next" href="../../../tutorials/statistics/probability-essentials/"><span>Next →</span><strong>Probability Essentials for Analysts</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#measures-of-centre">Measures of centre</a></li><li class="toc-l3"><a href="#mean">Mean</a></li><li class="toc-l3"><a href="#median">Median</a></li><li class="toc-l3"><a href="#mode">Mode</a></li><li class="toc-l2"><a href="#measures-of-spread">Measures of spread</a></li><li class="toc-l3"><a href="#range-and-iqr">Range and IQR</a></li><li class="toc-l3"><a href="#variance-and-standard-deviation">Variance and standard deviation</a></li><li class="toc-l3"><a href="#coefficient-of-variation">Coefficient of variation</a></li><li class="toc-l2"><a href="#percentiles">Percentiles</a></li><li class="toc-l2"><a href="#shape-skew-and-kurtosis">Shape: skew and kurtosis</a></li><li class="toc-l2"><a href="#outliers">Outliers</a></li><li class="toc-l2"><a href="#a-practical-summary-routine">A practical summary routine</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"Average order value is ₹5,419 but the median is ₹710. What is the most likely explanation?","options":["A calculation error","The distribution is strongly right-skewed, with a few very large orders","The data is normally distributed","The median was computed on a different sample"],"answer":1,"explain":"Mean far above median is the signature of right skew — a long tail of large values pulling the average up."},{"q":"Which metric best compares revenue volatility between a ₹10 lakh store and a ₹10 crore store?","options":["Standard deviation","Range","Coefficient of variation","Interquartile range"],"answer":2,"explain":"CV = std dev / mean is unitless and scale-free, so it compares relative volatility across businesses of very different sizes."},{"q":"Your delivery service has a mean delivery time of 32 minutes and a p95 of 118 minutes. What should the SLA be based on?","options":["The mean, because it uses all the data","A percentile, because the tail is what customers actually experience as failure","The minimum observed time","The mode"],"answer":1,"explain":"The mean hides the tail. One in twenty customers waits nearly two hours — a percentile-based SLA makes that visible and accountable."}]};</script>
+</body>
+</html>

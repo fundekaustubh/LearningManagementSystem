@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probability Essentials for Analysts | AnalyticsAdda</title>
+<meta name="description" content="Conditional probability, independence and Bayes' theorem — the small amount of probability theory that prevents large business mistakes.">
+<meta property="og:title" content="Probability Essentials for Analysts | AnalyticsAdda">
+<meta property="og:description" content="Conditional probability, independence and Bayes' theorem — the small amount of probability theory that prevents large business mistakes.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" open style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2563eb">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/statistics/">Statistics &amp; Probability</a></li><li aria-current="page">Probability Essentials for Analysts</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/statistics/" style="--track-color:#2563eb">
+          <span aria-hidden="true">📊</span> Statistics</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 4 min read</span>
+      </div>
+      <h1>Probability Essentials for Analysts</h1>
+      <p class="lede">Conditional probability, independence and Bayes' theorem — the small amount of probability theory that prevents large business mistakes.</p>
+      <div class="tag-row"><span class="tag">statistics</span><span class="tag">probability</span><span class="tag">bayes</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/statistics/probability-essentials/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>You do not need measure theory to be a good analyst. You do need to be fluent in conditional probability, because almost every business misinterpretation of data is a conditional probability mistake wearing a disguise.</p><h2 id="the-basics-in-one-screen">The basics in one screen<a class="anchor" href="#the-basics-in-one-screen" aria-label="Link to this section">#</a></h2><p>A probability is a number in [0, 1] describing how likely an event is.</p><ul><li><strong>Complement:</strong> <span class="math">P(not A) = 1 - P(A)</span></li><li><strong>Addition:</strong> <span class="math">P(A or B) = P(A) + P(B) - P(A and B)</span> — subtract the overlap so it is not double-counted.</li><li><strong>Multiplication:</strong> <span class="math">P(A and B) = P(A) × P(B|A)</span></li><li><strong>Independence:</strong> A and B are independent if <span class="math">P(B|A) = P(B)</span>; then <span class="math">P(A and B) = P(A) × P(B)</span>.</li></ul><h2 id="conditional-probability">Conditional probability<a class="anchor" href="#conditional-probability" aria-label="Link to this section">#</a></h2><p><span class="math">P(A|B)</span> — &quot;probability of A given B&quot; — restricts the world to cases where B happened.</p><p><span class="math">P(A|B) = P(A and B) / P(B)</span></p><p>This is what almost every business metric actually is:</p><ul><li>Conversion rate = P(purchase | visited)</li><li>Churn rate = P(cancels this month | was active at month start)</li><li>Click-through rate = P(click | impression)</li></ul><p>Which means the <strong>denominator is a modelling choice</strong>, and quietly changing it changes the metric. &quot;Email conversion rate&quot; computed over sent, delivered, opened or clicked emails gives four very different numbers from the same campaign.</p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><span class="math">P(A|B) ≠ P(B|A)</span>. This inversion is the single most common statistical error in business.
+&quot;80% of churned customers had a support ticket&quot; is <span class="math">P(ticket | churned)</span>. It does <strong>not</strong> mean tickets cause churn. If 75% of <em>all</em> customers file a ticket, the association is nearly nothing. The number you need is <span class="math">P(churn | ticket)</span> versus <span class="math">P(churn | no ticket)</span>.</p></aside><h2 id="bayes-theorem">Bayes' theorem<a class="anchor" href="#bayes-theorem" aria-label="Link to this section">#</a></h2><p>Bayes' theorem inverts a conditional probability properly:</p><p><span class="math">P(A|B) = P(B|A) × P(A) / P(B)</span></p><p>In analyst terms: <strong>posterior = likelihood × prior / evidence</strong>. It tells you how much to update a belief when new evidence arrives, and it makes explicit that the base rate matters.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p><strong>The fraud-detection trap.</strong> A model flags fraudulent transactions.</p><ul><li>Base rate: 1 in 1,000 transactions is fraud → <span class="math">P(F) = 0.001</span></li><li>Sensitivity: it catches 95% of fraud → <span class="math">P(flag|F) = 0.95</span></li><li>False positive rate: 2% of legitimate transactions → <span class="math">P(flag|not F) = 0.02</span></li></ul><p>A transaction is flagged. What is the probability it is actually fraud?
+Out of 100,000 transactions:</p><ul><li>Fraudulent: 100. Flagged: 95.</li><li>Legitimate: 99,900. Flagged: 1,998.</li><li>Total flagged: 2,093, of which 95 are fraud.</li></ul><p><span class="math">P(F|flag) = 95 / 2093 ≈ 4.5\%</span>
+A &quot;95% accurate&quot; model produces flags that are wrong <strong>95% of the time</strong>. Not because the model is bad, but because the base rate is tiny. This is the base rate fallacy, and it is why rare-event models need precision-focused evaluation rather than accuracy.</p></aside><p>The frequency framing used above (&quot;out of 100,000...&quot;) is worth adopting permanently — it is the same arithmetic as the formula but far harder to get wrong, and it is much more persuasive in a meeting.</p><h2 id="independence-and-its-failures">Independence and its failures<a class="anchor" href="#independence-and-its-failures" aria-label="Link to this section">#</a></h2><p>Two events are independent if knowing one tells you nothing about the other. Business events are <strong>rarely</strong> independent, and assuming they are is a reliable source of underestimated risk.</p><ul><li>Two customers churning: not independent if a price rise hit both.</li><li>Two loans defaulting: not independent if both borrowers work in the same industry.</li><li>Two servers failing: not independent if they share a power supply.</li></ul><p>Correlated failures are how &quot;one-in-a-million&quot; events happen quarterly. Whenever you multiply probabilities together, ask explicitly what shared cause could link them.</p><h2 id="expected-value">Expected value<a class="anchor" href="#expected-value" aria-label="Link to this section">#</a></h2><p>The probability-weighted average of outcomes: <span class="math">E[X] = Σ xᵢ × P(xᵢ)</span>.</p><p>This turns uncertainty into a single comparable number, which is what decisions need.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>A retention offer costs ₹500 per customer and saves a customer worth ₹8,000 with probability 0.30.
+<span class="math">E[value] = 0.30 × 8000 - 500 = ₹1,900</span> per customer contacted.
+Positive, so contact them — <em>if</em> the 0.30 is real. It is worth noting that this arithmetic also gives you the break-even success rate: 500/8000 = 6.25%. Framing it that way (&quot;we need better than a 1-in-16 save rate&quot;) is usually more convincing than the expected value itself.</p></aside><p><strong>Caution:</strong> expected value assumes you can repeat the bet many times. For one-shot decisions where a bad outcome is catastrophic — a bet that could bankrupt the company — maximising expected value is the wrong objective.</p><h2 id="probability-mistakes-that-cost-money">Probability mistakes that cost money<a class="anchor" href="#probability-mistakes-that-cost-money" aria-label="Link to this section">#</a></h2><p><strong>The conjunction fallacy.</strong> A specific scenario feels more likely than a general one, though it must be less likely. P(A and B) ≤ P(A), always.</p><p><strong>The gambler's fallacy.</strong> &quot;We've had five bad quarters, we're due a good one.&quot; Independent events have no memory. (If they are <em>not</em> independent, you have a trend, not a due correction.)</p><p><strong>Ignoring the denominator.</strong> &quot;Complaints from the Delhi region doubled.&quot; So did Delhi orders. The rate is flat.</p><p><strong>Survivorship bias.</strong> Analysing only surviving customers/products/companies. The failures are absent from the data, so anything you learn is conditioned on success.</p><p><strong>Confusing &quot;not significant&quot; with &quot;no effect.&quot;</strong> Failing to detect an effect is not evidence there is none, especially with small samples.</p><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Most business metrics are conditional probabilities, so the denominator is a decision.</li><li><span class="math">P(A|B) ≠ P(B|A)</span>; inverting them is the most common and most expensive statistical error.</li><li>Bayes' theorem formalises the inversion, and base rates dominate for rare events.</li><li>Reason in natural frequencies (&quot;out of 100,000...&quot;) rather than formulas.</li><li>Business events are rarely independent; correlated failures make rare events common.</li><li>Expected value guides repeatable decisions, not one-shot catastrophic ones.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">Descriptive Statistics for Business Data</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/probability-distributions/">Probability Distributions You Will Actually Use</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">Sampling and the Central Limit Theorem</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/statistics/descriptive-statistics/"><span>← Previous</span><strong>Descriptive Statistics for Business Data</strong></a>
+  <a class="pager-next" href="../../../tutorials/statistics/probability-distributions/"><span>Next →</span><strong>Probability Distributions You Will Actually Use</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-basics-in-one-screen">The basics in one screen</a></li><li class="toc-l2"><a href="#conditional-probability">Conditional probability</a></li><li class="toc-l2"><a href="#bayes-theorem">Bayes' theorem</a></li><li class="toc-l2"><a href="#independence-and-its-failures">Independence and its failures</a></li><li class="toc-l2"><a href="#expected-value">Expected value</a></li><li class="toc-l2"><a href="#probability-mistakes-that-cost-money">Probability mistakes that cost money</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"A model flags fraud with 95% sensitivity and a 2% false positive rate. Fraud occurs in 0.1% of transactions. Roughly what share of flagged transactions are actually fraudulent?","options":["95%","About 50%","About 5%","About 0.1%"],"answer":2,"explain":"Of 100,000 transactions: 95 true positives and 1,998 false positives, so precision is 95/2093 ≈ 4.5%. The tiny base rate dominates."},{"q":"'80% of churned customers contacted support.' What additional number do you most need before concluding support drives churn?","options":["The total number of support tickets","The share of retained customers who also contacted support","The average ticket resolution time","The number of support agents"],"answer":1,"explain":"You have P(ticket | churned). To assess association you need the comparison group — P(ticket | retained). If it is similar, the association is illusory."},{"q":"A retention offer costs ₹500 and saves an ₹8,000 customer with probability p. What is the break-even p?","options":["6.25%","16%","50%","62.5%"],"answer":0,"explain":"Break-even when p x 8000 = 500, so p = 0.0625, or 6.25%."}]};</script>
+</body>
+</html>

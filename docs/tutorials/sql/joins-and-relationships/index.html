@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joins and Table Relationships | AnalyticsAdda</title>
+<meta name="description" content="Inner, left, full and anti joins, the fan-out trap that silently doubles your revenue numbers, and how to pick a join key you can trust.">
+<meta property="og:title" content="Joins and Table Relationships | AnalyticsAdda">
+<meta property="og:description" content="Inner, left, full and anti joins, the fan-out trap that silently doubles your revenue numbers, and how to pick a join key you can trust.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#9333ea">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/sql/">SQL &amp; Data Wrangling</a></li><li aria-current="page">Joins and Table Relationships</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/sql/" style="--track-color:#9333ea">
+          <span aria-hidden="true">🗄️</span> SQL</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 9 min read</span>
+      </div>
+      <h1>Joins and Table Relationships</h1>
+      <p class="lede">Inner, left, full and anti joins, the fan-out trap that silently doubles your revenue numbers, and how to pick a join key you can trust.</p>
+      <div class="tag-row"><span class="tag">sql</span><span class="tag">joins</span><span class="tag">data-modelling</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/sql/joins-and-relationships/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Joins combine rows from multiple tables. They are also where the most expensive analytics errors happen, because a wrong join does not throw an error — it returns a plausible-looking number that is 40% too high.</p><h2 id="the-join-types">The join types<a class="anchor" href="#the-join-types" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- INNER: only rows matching in both tables</span>
+<span class="tok-keyword">SELECT</span> o.order_id, c.name
+<span class="tok-keyword">FROM</span>   orders o
+<span class="tok-keyword">INNER</span>  <span class="tok-keyword">JOIN</span> customers c <span class="tok-keyword">ON</span> c.customer_id <span class="tok-operator">=</span> o.customer_id;
+
+<span class="tok-comment">-- LEFT: all rows from the left table; NULLs where no match</span>
+<span class="tok-keyword">SELECT</span> c.name, o.order_id
+<span class="tok-keyword">FROM</span>   customers c
+<span class="tok-keyword">LEFT</span>   <span class="tok-keyword">JOIN</span> orders o <span class="tok-keyword">ON</span> o.customer_id <span class="tok-operator">=</span> c.customer_id;
+
+<span class="tok-comment">-- FULL OUTER: everything from both sides</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">coalesce</span>(a.id, b.id) <span class="tok-keyword">AS</span> id, a.value, b.value
+<span class="tok-keyword">FROM</span>   system_a a
+<span class="tok-keyword">FULL</span>   <span class="tok-keyword">OUTER</span> <span class="tok-keyword">JOIN</span> system_b b <span class="tok-keyword">ON</span> b.id <span class="tok-operator">=</span> a.id;
+
+<span class="tok-comment">-- CROSS: every combination (use deliberately, e.g. date x category scaffolds)</span>
+<span class="tok-keyword">SELECT</span> d.date, c.category
+<span class="tok-keyword">FROM</span>   dates d
+<span class="tok-keyword">CROSS</span>  <span class="tok-keyword">JOIN</span> categories c;</code></pre></figure><div class="table-wrap"><table><thead><tr><th style="text-align:left">Join</th><th style="text-align:left">Keeps</th><th style="text-align:left">Typical analyst use</th></tr></thead><tbody><tr><td style="text-align:left">INNER</td><td style="text-align:left">Matches only</td><td style="text-align:left">Orders with valid customers</td></tr><tr><td style="text-align:left">LEFT</td><td style="text-align:left">All left rows</td><td style="text-align:left">All customers, including those who never ordered</td></tr><tr><td style="text-align:left">RIGHT</td><td style="text-align:left">All right rows</td><td style="text-align:left">Rare — rewrite as LEFT with the tables swapped</td></tr><tr><td style="text-align:left">FULL OUTER</td><td style="text-align:left">Everything</td><td style="text-align:left">Reconciling two systems</td></tr><tr><td style="text-align:left">CROSS</td><td style="text-align:left">All combinations</td><td style="text-align:left">Building complete date × dimension grids</td></tr></tbody></table></div><h2 id="left-join-is-the-analysts-default">LEFT JOIN is the analyst's default<a class="anchor" href="#left-join-is-the-analysts-default" aria-label="Link to this section">#</a></h2><p>Analysts usually want &quot;all of X, with Y where it exists&quot;. An INNER JOIN silently drops the interesting cases — customers with no orders are exactly the ones a retention analysis needs.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Customers and their order counts, INCLUDING those who never ordered</span>
+<span class="tok-keyword">SELECT</span> c.customer_id,
+       c.name,
+       <span class="tok-builtin">count</span>(o.order_id)                  <span class="tok-keyword">AS</span> order_count,
+       <span class="tok-builtin">coalesce</span>(<span class="tok-builtin">sum</span>(o.order_value), <span class="tok-number">0</span>)    <span class="tok-keyword">AS</span> lifetime_value
+<span class="tok-keyword">FROM</span>   customers c
+<span class="tok-keyword">LEFT</span>   <span class="tok-keyword">JOIN</span> orders o
+       <span class="tok-keyword">ON</span>  o.customer_id <span class="tok-operator">=</span> c.customer_id
+       <span class="tok-keyword">AND</span> o.status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>         <span class="tok-comment">-- note: in ON, not WHERE</span>
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> c.customer_id, c.name;</code></pre></figure><p>Two subtleties in that query, both of which people get wrong:</p><p><strong>1. <code>count(o.order_id)</code> not <code>count(*)</code>.</strong> With a LEFT JOIN, a customer with no orders still produces one row with NULLs. <code>count(*)</code> counts that row and returns 1; <code>count(o.order_id)</code> ignores NULLs and correctly returns 0.</p><p><strong>2. The status filter is in the <code>ON</code> clause, not <code>WHERE</code>.</strong></p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Putting a right-table condition in WHERE silently converts a LEFT JOIN into an INNER JOIN:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">FROM</span>  customers c
+<span class="tok-keyword">LEFT</span>  <span class="tok-keyword">JOIN</span> orders o <span class="tok-keyword">ON</span> o.customer_id <span class="tok-operator">=</span> c.customer_id
+<span class="tok-keyword">WHERE</span> o.status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>   <span class="tok-comment">-- ← kills the LEFT JOIN</span></code></pre></figure><p>Customers with no orders get NULL for <code>o.status</code>, and <code>NULL = 'completed'</code> is not true, so those rows are removed by WHERE. Conditions on the right-hand table belong in <code>ON</code>; conditions on the left table belong in <code>WHERE</code>.</p></aside><h2 id="fan-out-the-silent-revenue-inflator">Fan-out: the silent revenue inflator<a class="anchor" href="#fan-out-the-silent-revenue-inflator" aria-label="Link to this section">#</a></h2><p>When the join key is not unique on the right-hand side, each left row is duplicated once per match. If you then aggregate a left-table column, you multiply it.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>Order #1001 is worth ₹5,000 and has 3 line items.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-builtin">sum</span>(o.order_value)
+<span class="tok-keyword">FROM</span>   orders o
+<span class="tok-keyword">JOIN</span>   order_items i <span class="tok-keyword">ON</span> i.order_id <span class="tok-operator">=</span> o.order_id;</code></pre></figure><p>The join produces 3 rows for order #1001, each carrying <code>order_value = 5000</code>. The sum reports <strong>₹15,000</strong> for a ₹5,000 order.
+Multiply this across a whole table and you report triple revenue with no error message anywhere.</p></aside><p><strong>Detecting fan-out:</strong> compare row counts before and after the join.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> (<span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">FROM</span> orders)                    <span class="tok-keyword">AS</span> before_join,
+       (<span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">FROM</span> orders o
+        <span class="tok-keyword">JOIN</span> order_items i <span class="tok-keyword">ON</span> i.order_id <span class="tok-operator">=</span> o.order_id)  <span class="tok-keyword">AS</span> after_join;</code></pre></figure><p>If they differ and you did not intend a one-to-many expansion, stop.</p><p><strong>Three fixes:</strong></p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- 1. Aggregate the many-side FIRST, then join one-to-one</span>
+<span class="tok-keyword">WITH</span> item_totals <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> order_id,
+           <span class="tok-builtin">sum</span>(quantity <span class="tok-operator">*</span> unit_price) <span class="tok-keyword">AS</span> items_value,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                   <span class="tok-keyword">AS</span> item_count
+    <span class="tok-keyword">FROM</span>   order_items
+    <span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> order_id
+)
+<span class="tok-keyword">SELECT</span> o.order_id, o.order_value, t.items_value, t.item_count
+<span class="tok-keyword">FROM</span>   orders o
+<span class="tok-keyword">LEFT</span>   <span class="tok-keyword">JOIN</span> item_totals t <span class="tok-keyword">ON</span> t.order_id <span class="tok-operator">=</span> o.order_id;
+
+<span class="tok-comment">-- 2. Deduplicate the header value when you must join first</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">sum</span>(<span class="tok-keyword">DISTINCT</span> o.order_value)  <span class="tok-comment">-- fragile: breaks on equal values</span>
+<span class="tok-keyword">FROM</span>   orders o <span class="tok-keyword">JOIN</span> order_items i <span class="tok-keyword">ON</span> i.order_id <span class="tok-operator">=</span> o.order_id;
+
+<span class="tok-comment">-- 3. Aggregate at the correct grain in one pass</span>
+<span class="tok-keyword">SELECT</span> o.order_id,
+       <span class="tok-builtin">max</span>(o.order_value)               <span class="tok-keyword">AS</span> order_value,   <span class="tok-comment">-- constant per order</span>
+       <span class="tok-builtin">sum</span>(i.quantity <span class="tok-operator">*</span> i.unit_price)   <span class="tok-keyword">AS</span> items_value
+<span class="tok-keyword">FROM</span>   orders o
+<span class="tok-keyword">JOIN</span>   order_items i <span class="tok-keyword">ON</span> i.order_id <span class="tok-operator">=</span> o.order_id
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> o.order_id;</code></pre></figure><p>Option 1 is the safest and the one to reach for by default. Option 2 is included because you will see it — and it breaks the moment two orders have identical values.</p><h2 id="cardinality-know-it-before-you-join">Cardinality: know it before you join<a class="anchor" href="#cardinality-know-it-before-you-join" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Relationship</th><th style="text-align:left">Example</th><th style="text-align:left">Fan-out risk</th></tr></thead><tbody><tr><td style="text-align:left">One-to-one</td><td style="text-align:left">order → shipment</td><td style="text-align:left">None</td></tr><tr><td style="text-align:left">One-to-many</td><td style="text-align:left">customer → orders</td><td style="text-align:left">Multiplies the &quot;one&quot; side</td></tr><tr><td style="text-align:left">Many-to-many</td><td style="text-align:left">products ↔ campaigns</td><td style="text-align:left">Multiplies both sides</td></tr></tbody></table></div><p>Verify uniqueness rather than assuming it:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Is customer_id actually unique in customers?</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">AS</span> <span class="tok-keyword">rows</span>, <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> customer_id) <span class="tok-keyword">AS</span> distinct_ids
+<span class="tok-keyword">FROM</span>   customers;
+<span class="tok-comment">-- If these differ, every join on customer_id will fan out.</span></code></pre></figure><p>Duplicate &quot;unique&quot; keys are extremely common in real warehouses — a slowly-changing dimension with history rows, a botched backfill, a source system that soft-deletes.</p><h2 id="anti-joins-finding-what-is-missing">Anti-joins: finding what is missing<a class="anchor" href="#anti-joins-finding-what-is-missing" aria-label="Link to this section">#</a></h2><p>Often the analytical question is about absence: customers who never ordered, orders with no matching payment, products never sold.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Preferred: NOT EXISTS (NULL-safe, usually the fastest plan)</span>
+<span class="tok-keyword">SELECT</span> c.customer_id, c.name
+<span class="tok-keyword">FROM</span>   customers c
+<span class="tok-keyword">WHERE</span>  <span class="tok-keyword">NOT</span> <span class="tok-keyword">EXISTS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-number">1</span> <span class="tok-keyword">FROM</span> orders o <span class="tok-keyword">WHERE</span> o.customer_id <span class="tok-operator">=</span> c.customer_id
+);
+
+<span class="tok-comment">-- Equivalent: LEFT JOIN ... IS NULL</span>
+<span class="tok-keyword">SELECT</span> c.customer_id, c.name
+<span class="tok-keyword">FROM</span>   customers c
+<span class="tok-keyword">LEFT</span>   <span class="tok-keyword">JOIN</span> orders o <span class="tok-keyword">ON</span> o.customer_id <span class="tok-operator">=</span> c.customer_id
+<span class="tok-keyword">WHERE</span>  o.customer_id <span class="tok-keyword">IS</span> <span class="tok-keyword">NULL</span>;</code></pre></figure><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Avoid <code>NOT IN (SELECT ...)</code> when the subquery column can contain NULL. If even one NULL is returned, <code>NOT IN</code> evaluates to NULL for every row and the query returns <strong>zero rows</strong> — with no error. <code>NOT EXISTS</code> does not have this behaviour.</p></aside><h2 id="self-joins">Self-joins<a class="anchor" href="#self-joins" aria-label="Link to this section">#</a></h2><p>A table joined to itself — for hierarchies, or comparing rows within a table.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Employees and their managers</span>
+<span class="tok-keyword">SELECT</span> e.name <span class="tok-keyword">AS</span> employee, m.name <span class="tok-keyword">AS</span> manager
+<span class="tok-keyword">FROM</span>   employees e
+<span class="tok-keyword">LEFT</span>   <span class="tok-keyword">JOIN</span> employees m <span class="tok-keyword">ON</span> m.employee_id <span class="tok-operator">=</span> e.manager_id;</code></pre></figure><p>For comparing a row to the previous row in a sequence, <a href="../window-functions/">window functions</a> are almost always clearer and faster than a self-join.</p><h2 id="choosing-join-keys">Choosing join keys<a class="anchor" href="#choosing-join-keys" aria-label="Link to this section">#</a></h2><ul><li><strong>Prefer surrogate IDs</strong> over natural keys. Emails change; <code>customer_id</code> does not.</li><li><strong>Beware type mismatches.</strong> Joining <code>varchar</code> to <code>int</code> may silently cast, or match nothing.</li><li><strong>Watch whitespace and case.</strong> <code>'ACME '</code> ≠ <code>'acme'</code>. Normalise with <code>lower(trim(x))</code> when joining on text.</li><li><strong>Composite keys need all parts.</strong> Joining a store-and-date table on date alone fans out across every store.</li></ul><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Default to LEFT JOIN so the absent cases — which are usually the interesting ones — survive.</li><li>Right-table conditions go in <code>ON</code>; putting them in <code>WHERE</code> turns a LEFT JOIN into an INNER JOIN.</li><li>Use <code>count(column)</code> not <code>count(*)</code> after a LEFT JOIN.</li><li>Fan-out multiplies aggregates silently; compare row counts before and after every join.</li><li>Aggregate the many-side to the right grain <em>before</em> joining.</li><li>Use <code>NOT EXISTS</code> for anti-joins; <code>NOT IN</code> breaks on NULLs by returning nothing.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">SQL Basics for Analysts</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">Aggregation and Grouping</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/window-functions/">Window Functions</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/sql/sql-basics-for-analysts/"><span>← Previous</span><strong>SQL Basics for Analysts</strong></a>
+  <a class="pager-next" href="../../../tutorials/sql/aggregation-and-grouping/"><span>Next →</span><strong>Aggregation and Grouping</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-join-types">The join types</a></li><li class="toc-l2"><a href="#left-join-is-the-analysts-default">LEFT JOIN is the analyst's default</a></li><li class="toc-l2"><a href="#fan-out-the-silent-revenue-inflator">Fan-out: the silent revenue inflator</a></li><li class="toc-l2"><a href="#cardinality-know-it-before-you-join">Cardinality: know it before you join</a></li><li class="toc-l2"><a href="#anti-joins-finding-what-is-missing">Anti-joins: finding what is missing</a></li><li class="toc-l2"><a href="#self-joins">Self-joins</a></li><li class="toc-l2"><a href="#choosing-join-keys">Choosing join keys</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"You join orders (10,000 rows) to order_items and then sum order_value. The total is triple what finance reports. What happened?","options":["The status filter is missing","Fan-out — each order matched multiple line items, duplicating order_value per row","A LEFT JOIN should have been used","The order_value column is corrupted"],"answer":1,"explain":"Joining a one-to-many relationship repeats the parent row once per child. Summing the parent's value then multiplies it. Aggregate the item side first, then join."},{"q":"You write a LEFT JOIN from customers to orders, then add `WHERE o.status = 'completed'`. What is the effect?","options":["Nothing changes","Customers with no orders are dropped, converting it to an INNER JOIN","All orders are included regardless of status","The query errors"],"answer":1,"explain":"Non-matching rows have NULL status, and NULL = 'completed' is not true, so WHERE removes them. Right-table conditions belong in the ON clause."},{"q":"Why prefer NOT EXISTS over NOT IN for anti-joins?","options":["NOT IN is not standard SQL","If the subquery returns any NULL, NOT IN returns zero rows with no error","NOT EXISTS supports more join types","NOT IN cannot use indexes"],"answer":1,"explain":"A single NULL in the subquery makes every NOT IN comparison evaluate to NULL, silently returning an empty result set. NOT EXISTS handles NULLs correctly."}]};</script>
+</body>
+</html>

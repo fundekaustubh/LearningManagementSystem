@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Storytelling with Data | AnalyticsAdda</title>
+<meta name="description" content="Structuring an analysis so it changes a decision — the pyramid principle, handling uncertainty honestly, and presenting to people who disagree with you.">
+<meta property="og:title" content="Storytelling with Data | AnalyticsAdda">
+<meta property="og:description" content="Structuring an analysis so it changes a decision — the pyramid principle, handling uncertainty honestly, and presenting to people who disagree with you.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#ea580c">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/visualization/">Visualization &amp; Storytelling</a></li><li aria-current="page">Storytelling with Data</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/visualization/" style="--track-color:#ea580c">
+          <span aria-hidden="true">📈</span> Visualization</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 6 min read</span>
+      </div>
+      <h1>Storytelling with Data</h1>
+      <p class="lede">Structuring an analysis so it changes a decision — the pyramid principle, handling uncertainty honestly, and presenting to people who disagree with you.</p>
+      <div class="tag-row"><span class="tag">communication</span><span class="tag">storytelling</span><span class="tag">presentation</span><span class="tag">influence</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/visualization/storytelling-with-data/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>An analysis that nobody acts on has the same business value as one that was never done. The final step — turning a finding into a decision — is a skill, and it is the one that most distinguishes senior analysts from junior ones.</p><h2 id="lead-with-the-answer">Lead with the answer<a class="anchor" href="#lead-with-the-answer" aria-label="Link to this section">#</a></h2><p>Business audiences want the conclusion first, then the support. Academic structure — background, method, results, conclusion — fails in a meeting because the decision-maker leaves after ten minutes and the conclusion was on slide fourteen.</p><p><strong>The pyramid principle</strong> (Barbara Minto):</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>                    THE ANSWER
+        &quot;Cut the discounted annual plan&quot;
+                        │
+        ┌───────────────┼───────────────┐
+   Supporting       Supporting      Supporting
+   argument 1       argument 2      argument 3
+   Churn is 3x      They don't      Removing it
+   higher           upgrade          costs ~2% of
+                                     new revenue
+        │               │               │
+     evidence        evidence        evidence</code></pre></figure><p>Start at the top. Anyone who needs more detail descends; anyone who is convinced can leave. Your appendix carries the depth.</p><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Write the recommendation as a complete sentence containing a verb, before you build any slides. &quot;Discontinue the discounted annual plan for new customers from Q4&quot; is a recommendation. &quot;Insights on the annual plan&quot; is a title with no content.</p></aside><h2 id="the-scqa-opening">The SCQA opening<a class="anchor" href="#the-scqa-opening" aria-label="Link to this section">#</a></h2><p>Situation, Complication, Question, Answer — a reliable structure for the first minute:</p><ul><li><strong>Situation:</strong> shared context nobody disputes. <em>&quot;We introduced a 30%-off annual plan in January to accelerate acquisition.&quot;</em></li><li><strong>Complication:</strong> what changed or went wrong. <em>&quot;Acquisition rose 12%, but quarterly churn went from 3.1% to 4.6%.&quot;</em></li><li><strong>Question:</strong> the decision at hand. <em>&quot;Is the plan a net positive?&quot;</em></li><li><strong>Answer:</strong> your recommendation. <em>&quot;No. Discount customers are worth 40% less over three years. Discontinue it for new customers.&quot;</em></li></ul><p>Four sentences and the audience knows exactly what is being decided and what you think. Everything after that is evidence.</p><h2 id="one-message-per-exhibit">One message per exhibit<a class="anchor" href="#one-message-per-exhibit" aria-label="Link to this section">#</a></h2><p>Each chart or slide should make exactly one point, and say it in the title. If a chart supports two points, it is two charts.</p><p>The conclusive-title rule from <a href="../principles-of-data-visualization/">Principles of Data Visualization</a> applies with even more force here: a slide titled &quot;Churn by Plan Type&quot; makes the reader work; &quot;Discount-plan customers churn at 3× the standard rate&quot; does not.</p><p>A useful test: read only the slide titles top to bottom. They should form a coherent argument on their own. If they do not, the deck has no structure — it has a sequence of charts.</p><h2 id="know-your-audiences-default">Know your audience's default<a class="anchor" href="#know-your-audiences-default" aria-label="Link to this section">#</a></h2><p>Different stakeholders need different framing for the same finding:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Audience</th><th style="text-align:left">Cares about</th><th style="text-align:left">Lead with</th></tr></thead><tbody><tr><td style="text-align:left">CEO / GM</td><td style="text-align:left">Growth, margin, risk</td><td style="text-align:left">Money and strategic implication</td></tr><tr><td style="text-align:left">Finance</td><td style="text-align:left">Accuracy, assumptions</td><td style="text-align:left">Method, sensitivity, reconciliation</td></tr><tr><td style="text-align:left">Product</td><td style="text-align:left">Users, mechanism, roadmap</td><td style="text-align:left">Behaviour and what to build</td></tr><tr><td style="text-align:left">Engineering</td><td style="text-align:left">Feasibility, systems</td><td style="text-align:left">Data quality, implementation</td></tr><tr><td style="text-align:left">Sales</td><td style="text-align:left">Quota, territory, incentives</td><td style="text-align:left">Impact on their targets</td></tr><tr><td style="text-align:left">Marketing</td><td style="text-align:left">Channels, segments, spend</td><td style="text-align:left">CAC, ROI by channel</td></tr></tbody></table></div><p>Same analysis, different first slide. This is not spin — it is answering the question each person is actually holding.</p><h2 id="quantify-in-their-units">Quantify in their units<a class="anchor" href="#quantify-in-their-units" aria-label="Link to this section">#</a></h2><p>Always translate statistical results into business consequences.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Analytical</th><th style="text-align:left">Business</th></tr></thead><tbody><tr><td style="text-align:left">&quot;Conversion lift of 0.4pp, p = 0.03&quot;</td><td style="text-align:left">&quot;About ₹1.8 crore of incremental annual revenue&quot;</td></tr><tr><td style="text-align:left">&quot;Churn is 1.5pp higher in this cohort&quot;</td><td style="text-align:left">&quot;≈340 customers a year, ₹2.7 crore of ARR&quot;</td></tr><tr><td style="text-align:left">&quot;R² of 0.62&quot;</td><td style="text-align:left">&quot;The model explains roughly two-thirds of the variation in demand; expect forecasts within ±8% most months&quot;</td></tr><tr><td style="text-align:left">&quot;Precision 0.30 at recall 0.60&quot;</td><td style="text-align:left">&quot;Contact 100 customers to save 30; at ₹500 per contact and ₹8,000 saved, that returns ₹4.80 per rupee spent&quot;</td></tr></tbody></table></div><h2 id="be-honest-about-uncertainty">Be honest about uncertainty<a class="anchor" href="#be-honest-about-uncertainty" aria-label="Link to this section">#</a></h2><p>Overstated certainty is how analysts lose credibility permanently — the one time a confident claim proves wrong outweighs many correct ones.</p><p><strong>Do:</strong></p><ul><li>Show confidence intervals or ranges on key numbers</li><li>State assumptions explicitly and where they might break</li><li>Distinguish what the data shows from what you infer</li><li>Say &quot;we cannot tell from this data&quot; when true — it is a real finding</li><li>Name the one thing that would most change your conclusion</li></ul><p><strong>Do not:</strong></p><ul><li>Bury caveats in an appendix nobody reads</li><li>Present a point estimate as exact when the interval is wide</li><li>Hide a limitation that a knowledgeable stakeholder will spot</li><li>Use &quot;the data shows&quot; for something the data merely permits</li></ul><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Stating a limitation before someone finds it <em>increases</em> your credibility. &quot;This assumes the two cohorts are otherwise comparable; I checked tenure and channel but could not control for account size&quot; makes you the most trustworthy person in the room. Being caught omitting it makes you the least.</p></aside><h2 id="recommendations-not-observations">Recommendations, not observations<a class="anchor" href="#recommendations-not-observations" aria-label="Link to this section">#</a></h2><p>Analysts often stop at the finding because a recommendation feels like overstepping. It is not — you have looked at the data more closely than anyone else in the room, and withholding your judgement wastes that.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Observation</th><th style="text-align:left">Recommendation</th></tr></thead><tbody><tr><td style="text-align:left">&quot;Churn is higher on the discount plan&quot;</td><td style="text-align:left">&quot;Discontinue the discount plan for new customers from Q4; grandfather existing ones to avoid a support spike&quot;</td></tr><tr><td style="text-align:left">&quot;Mobile converts worse than desktop&quot;</td><td style="text-align:left">&quot;Prioritise the mobile checkout rebuild; closing half the gap is worth ~₹3 crore annually&quot;</td></tr></tbody></table></div><p>Include what you would need to be wrong about for the recommendation to fail. That is what makes it a professional judgement rather than an opinion.</p><h2 id="handling-pushback">Handling pushback<a class="anchor" href="#handling-pushback" aria-label="Link to this section">#</a></h2><p>Disagreement usually takes one of four forms, and each has a productive response:</p><p><strong>&quot;That doesn't match my numbers.&quot;</strong> Almost always a definition or date-range difference. Ask for their query or figure and reconcile them together, live. Never dismiss it — they may be right, and you learn where the discrepancy lives either way.</p><p><strong>&quot;The sample is too small.&quot;</strong> Show the confidence interval. Either it supports the point or it does not; the interval settles it faster than argument.</p><p><strong>&quot;Correlation isn't causation.&quot;</strong> They are right to ask. State what you controlled for, what you could not, and what experiment would settle it.</p><p><strong>&quot;I don't believe it.&quot;</strong> Often a mechanism objection rather than a data objection. Ask what would convince them — the answer usually points to the analysis that should be done next.</p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Never be defensive about data quality questions. The person asking is doing exactly what a good stakeholder should. Treating scrutiny as an attack is the fastest way to lose a room.</p></aside><h2 id="structure-of-a-written-analysis">Structure of a written analysis<a class="anchor" href="#structure-of-a-written-analysis" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>1. Recommendation           One paragraph. The decision and why.
+2. Key numbers              Three to five, with comparison and uncertainty.
+3. Supporting analysis      Two to four sections, one message each.
+4. What we cannot conclude  Explicit limitations.
+5. Next steps               What to do, who owns it, by when.
+6. Appendix                 Method, queries, robustness checks.</code></pre></figure><p>Anyone can read section 1 and act. Anyone sceptical can read to section 4. Anyone who wants to reproduce it has section 6.</p><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Lead with the answer; use the pyramid so readers can stop when convinced.</li><li>Open with SCQA to establish the decision in four sentences.</li><li>One message per exhibit, stated in the title; the titles alone should form the argument.</li><li>Translate every statistical result into money, customers or hours.</li><li>Surface limitations yourself — it builds credibility rather than undermining it.</li><li>Make a recommendation, and say what would have to be wrong for it to fail.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/foundations/framing-business-problems/">Framing a Business Problem as an Analytics Question</a>
+      <span class="mini-meta">Analytics Foundations</span></li><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">Principles of Data Visualization</a>
+      <span class="mini-meta">Visualization &amp; Storytelling</span></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">Choosing the Right Chart</a>
+      <span class="mini-meta">Visualization &amp; Storytelling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/visualization/dashboard-design/"><span>← Previous</span><strong>Dashboard Design</strong></a>
+  <span></span>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#lead-with-the-answer">Lead with the answer</a></li><li class="toc-l2"><a href="#the-scqa-opening">The SCQA opening</a></li><li class="toc-l2"><a href="#one-message-per-exhibit">One message per exhibit</a></li><li class="toc-l2"><a href="#know-your-audiences-default">Know your audience's default</a></li><li class="toc-l2"><a href="#quantify-in-their-units">Quantify in their units</a></li><li class="toc-l2"><a href="#be-honest-about-uncertainty">Be honest about uncertainty</a></li><li class="toc-l2"><a href="#recommendations-not-observations">Recommendations, not observations</a></li><li class="toc-l2"><a href="#handling-pushback">Handling pushback</a></li><li class="toc-l2"><a href="#structure-of-a-written-analysis">Structure of a written analysis</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"You have 20 minutes with an executive team. How should you structure the presentation?","options":["Background, methodology, results, then the conclusion at the end","Recommendation first, then the supporting arguments, with detail in the appendix","Every chart you produced, in the order you made them","Methodology in depth so they can judge rigour"],"answer":1,"explain":"The pyramid principle puts the answer first so decision-makers can act immediately, with supporting detail available for those who want to descend."},{"q":"A stakeholder says 'that doesn't match my numbers.' What is the best first response?","options":["Explain that your query is correct","Ask to see their figure and reconcile the two together, expecting a definition or date-range difference","Dismiss it as a data quality issue on their side","Redo the analysis privately"],"answer":1,"explain":"Discrepancies are usually definitional. Reconciling openly resolves it faster, and may reveal that they are right — either outcome is better than defending."},{"q":"Why should you raise a limitation before anyone asks about it?","options":["It shortens the presentation","Volunteering limitations increases credibility, whereas being caught omitting one destroys it","It is required by statistical convention","It prevents follow-up questions"],"answer":1,"explain":"Naming a caveat signals that you understand your own analysis and are not selling a conclusion. Having a stakeholder discover it instead undermines everything else you said."}]};</script>
+</body>
+</html>
