@@ -25,12 +25,32 @@
 
   /* -------------------------------------------------------------- theme */
 
+  const THEME_KEY = 'aa-theme';
+
+  // Deliberately NOT via `store`: the inline boot script in the page head reads
+  // this key with a plain getItem, so it must be a bare string. JSON-encoding it
+  // here would persist `"dark"` (quotes included), which matches neither
+  // [data-theme="dark"] nor [data-theme="light"] on the next page load.
+  function setTheme(value) {
+    document.documentElement.dataset.theme = value;
+    try { localStorage.setItem(THEME_KEY, value); } catch (e) { /* private mode */ }
+  }
+
+  // Heal a value left JSON-encoded by an earlier build, so returning visitors
+  // are fixed on their next visit rather than having to toggle twice.
+  try {
+    const raw = localStorage.getItem(THEME_KEY);
+    if (raw && raw !== 'dark' && raw !== 'light') {
+      const cleaned = raw.replace(/^"+|"+$/g, '');
+      if (cleaned === 'dark' || cleaned === 'light') setTheme(cleaned);
+      else localStorage.removeItem(THEME_KEY);
+    }
+  } catch (e) { /* private mode */ }
+
   const themeToggle = $('[data-theme-toggle]');
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-      document.documentElement.dataset.theme = next;
-      store.set('aa-theme', next);
+      setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
     });
   }
 

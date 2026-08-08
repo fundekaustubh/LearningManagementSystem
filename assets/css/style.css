@@ -259,8 +259,12 @@ html[data-theme="dark"] .badge-advanced { color: #f08a8a; }
   display: inline-flex; align-items: center; justify-content: center;
 }
 .theme-toggle:hover, .menu-toggle:hover { background: var(--surface-2); }
-html[data-theme="light"] .theme-icon-dark,
+/* Exactly one icon must show. Hiding the moon by default (rather than keying
+   both icons off a data-theme value) means an unexpected or missing attribute
+   degrades to the sun alone instead of rendering both at once. */
+.theme-icon-dark { display: none; }
 html[data-theme="dark"] .theme-icon-light { display: none; }
+html[data-theme="dark"] .theme-icon-dark { display: inline; }
 
 .menu-toggle { display: none; flex-direction: column; gap: 4px; }
 .menu-toggle span {
