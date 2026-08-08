@@ -111,11 +111,11 @@ See [`content/_pages/contribute.md`](content/_pages/contribute.md) for the full 
 
 The site is published to GitHub Pages automatically. **Merge into `main` and the live site updates** — no manual step, no build run locally.
 
-### One-time setup
+### Setup
 
-**Settings → Pages → Source: `GitHub Actions`**
+None. The deploy workflow passes `enablement: true` to `actions/configure-pages`, so the first run turns Pages on and points it at GitHub Actions itself, using the `pages: write` permission the workflow already requests. Nothing has to be clicked in repository settings.
 
-That is the only thing that has to be done by hand; GitHub does not allow a workflow to enable Pages on its own. The site then goes live at:
+The site is served at:
 
 ```
 https://<your-username>.github.io/LearningManagementSystem/
