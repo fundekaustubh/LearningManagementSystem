@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hypothesis Testing | AnalyticsAdda</title>
+<meta name="description" content="Null and alternative hypotheses, p-values, the two error types, statistical power, and which test to run for which business question.">
+<meta property="og:title" content="Hypothesis Testing | AnalyticsAdda">
+<meta property="og:description" content="Null and alternative hypotheses, p-values, the two error types, statistical power, and which test to run for which business question.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" open style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2563eb">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/statistics/">Statistics &amp; Probability</a></li><li aria-current="page">Hypothesis Testing</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/statistics/" style="--track-color:#2563eb">
+          <span aria-hidden="true">📊</span> Statistics</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 6 min read</span>
+      </div>
+      <h1>Hypothesis Testing</h1>
+      <p class="lede">Null and alternative hypotheses, p-values, the two error types, statistical power, and which test to run for which business question.</p>
+      <div class="tag-row"><span class="tag">statistics</span><span class="tag">inference</span><span class="tag">testing</span><span class="tag">p-value</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/statistics/hypothesis-testing/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Hypothesis testing answers one question: <strong>could this result plausibly have happened by chance alone?</strong> It cannot tell you whether a result matters, whether it will persist, or what caused it. Keeping that boundary clear prevents most misuse.</p><h2 id="the-framework">The framework<a class="anchor" href="#the-framework" aria-label="Link to this section">#</a></h2><ol><li><strong>State the null hypothesis <span class="math">H_0</span></strong> — the boring explanation. &quot;There is no difference between variants.&quot;</li><li><strong>State the alternative <span class="math">H_1</span></strong> — what you suspect. &quot;Variant B has a higher conversion rate.&quot;</li><li><strong>Choose a significance level <span class="math">α</span></strong>, conventionally 0.05.</li><li><strong>Compute a test statistic</strong> and its p-value.</li><li><strong>Decide.</strong> If p &lt; α, reject the null. Otherwise, fail to reject.</li></ol><p>Note the careful phrasing: you never &quot;accept the null&quot;. Absence of evidence for a difference is not evidence of no difference — especially with a small sample.</p><h2 id="what-a-p-value-is">What a p-value is<a class="anchor" href="#what-a-p-value-is" aria-label="Link to this section">#</a></h2><p><strong>The p-value is the probability of observing data at least as extreme as yours, assuming the null hypothesis is true.</strong></p><p>What it is <em>not</em>:</p><ul><li>❌ The probability the null hypothesis is true</li><li>❌ The probability your result was a fluke</li><li>❌ The probability of replication</li><li>❌ A measure of effect size</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>p = 0.03 does <strong>not</strong> mean a 3% chance the null is true. It means: if there were genuinely no effect, you would see data this extreme 3% of the time. Turning that into a statement about the hypothesis requires the base rate — Bayes' theorem again.</p></aside><p>A crucial and under-appreciated consequence: with a large enough sample, <strong>any</strong> non-zero difference becomes statistically significant. With 10 million users, a 0.001pp conversion difference will produce p &lt; 0.001 and be completely worthless. Statistical significance is about detectability; practical significance is about whether anyone should care. Report both.</p><h2 id="the-two-error-types">The two error types<a class="anchor" href="#the-two-error-types" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left"></th><th style="text-align:left"><span class="math">H_0</span> actually true</th><th style="text-align:left"><span class="math">H_0</span> actually false</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Reject <span class="math">H_0</span></strong></td><td style="text-align:left">Type I error (α) — false positive</td><td style="text-align:left">Correct — true positive (power)</td></tr><tr><td style="text-align:left"><strong>Fail to reject</strong></td><td style="text-align:left">Correct</td><td style="text-align:left">Type II error (β) — false negative</td></tr></tbody></table></div><ul><li><strong>Type I (α = 0.05):</strong> you ship a change that does nothing. Cost: wasted engineering, a false belief that propagates into future decisions.</li><li><strong>Type II (β):</strong> you miss a real improvement. Cost: the foregone value, invisible forever.</li></ul><p>Which is worse depends entirely on context. For a costly, hard-to-reverse change, guard against Type I. For a cheap experiment where missing a winner is expensive, guard against Type II by increasing power. <strong>α = 0.05 is a convention, not a law</strong>, and choosing it deliberately is a sign of a mature analyst.</p><h2 id="statistical-power">Statistical power<a class="anchor" href="#statistical-power" aria-label="Link to this section">#</a></h2><p><strong>Power = 1 − β</strong>: the probability of detecting an effect that genuinely exists. The convention is 80%.</p><p>Power depends on four things, and fixing any three determines the fourth:</p><ol><li><strong>Effect size</strong> — bigger effects are easier to detect.</li><li><strong>Sample size</strong> — more data, more power.</li><li><strong>Variance</strong> — noisier data, less power.</li><li><strong>α</strong> — a stricter threshold reduces power.</li></ol><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><strong>Underpowered tests are worse than no test.</strong> At 30% power you will miss most real effects, and — less obviously — the effects you <em>do</em> detect will be badly overestimated, because only unusually large sample fluctuations clear the threshold. This is the &quot;winner's curse&quot; and it is why underpowered studies produce results that never replicate.</p></aside><p>Always run a power calculation <strong>before</strong> collecting data. See <a href="../ab-testing/">A/B Testing</a> for the sample size formula.</p><h2 id="choosing-a-test">Choosing a test<a class="anchor" href="#choosing-a-test" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Question</th><th style="text-align:left">Test</th></tr></thead><tbody><tr><td style="text-align:left">Is one mean different from a target?</td><td style="text-align:left">One-sample t-test</td></tr><tr><td style="text-align:left">Are two independent group means different?</td><td style="text-align:left">Two-sample (Welch's) t-test</td></tr><tr><td style="text-align:left">Are two paired measurements different?</td><td style="text-align:left">Paired t-test</td></tr><tr><td style="text-align:left">Are three or more group means different?</td><td style="text-align:left">ANOVA</td></tr><tr><td style="text-align:left">Are two proportions different?</td><td style="text-align:left">Two-proportion z-test / chi-square</td></tr><tr><td style="text-align:left">Are two categorical variables associated?</td><td style="text-align:left">Chi-square test of independence</td></tr><tr><td style="text-align:left">Two group medians, non-normal data?</td><td style="text-align:left">Mann-Whitney U</td></tr><tr><td style="text-align:left">Is a distribution normal?</td><td style="text-align:left">Shapiro-Wilk, or just look at a histogram</td></tr></tbody></table></div><p><strong>Default to Welch's t-test</strong> for comparing two means. It does not assume equal variances, costs almost nothing in power when variances happen to be equal, and is what <code>scipy</code> gives you with <code>equal_var=False</code>.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> scipy <span class="tok-keyword">import</span> stats
+
+<span class="tok-comment"># Two independent groups — Welch's t-test (does not assume equal variance)</span>
+t_stat, p_value <span class="tok-operator">=</span> <span class="tok-function">stats.ttest_ind</span>(group_a, group_b, equal_var<span class="tok-operator">=</span><span class="tok-keyword">False</span>)
+
+<span class="tok-comment"># Two proportions — chi-square on a contingency table</span>
+<span class="tok-comment">#          converted   not converted</span>
+<span class="tok-comment"># variant A   [120,        3880]</span>
+<span class="tok-comment"># variant B   [156,        3844]</span>
+table <span class="tok-operator">=</span> [[<span class="tok-number">120</span>, <span class="tok-number">3880</span>], [<span class="tok-number">156</span>, <span class="tok-number">3844</span>]]
+chi2, p, dof, expected <span class="tok-operator">=</span> <span class="tok-function">stats.chi2_contingency</span>(table)
+
+<span class="tok-comment"># Non-normal data, comparing central tendency</span>
+u_stat, p_value <span class="tok-operator">=</span> <span class="tok-function">stats.mannwhitneyu</span>(group_a, group_b, alternative<span class="tok-operator">=</span><span class="tok-string">'two-sided'</span>)</code></pre></figure><h2 id="one-tailed-vs-two-tailed">One-tailed vs two-tailed<a class="anchor" href="#one-tailed-vs-two-tailed" aria-label="Link to this section">#</a></h2><p><strong>Two-tailed</strong> tests for a difference in either direction. <strong>One-tailed</strong> tests only one direction, and has more power for the same sample — because it refuses to detect an effect the other way.</p><p>Use one-tailed only when a result in the opposite direction would lead to exactly the same action as no result. That is rarer than people claim. If a new checkout flow <em>reduced</em> conversion, you would certainly want to know.</p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Choosing one-tailed after seeing the direction of your data is p-hacking. It halves the p-value for free and invalidates the test.</p></aside><h2 id="multiple-comparisons">Multiple comparisons<a class="anchor" href="#multiple-comparisons" aria-label="Link to this section">#</a></h2><p>Test 20 hypotheses at α = 0.05 and you expect one false positive by construction. Test 100 metrics on the same experiment and you will find &quot;significant&quot; results guaranteed.</p><p>Corrections:</p><ul><li><strong>Bonferroni</strong>: use α/m for m tests. Simple, very conservative, loses power quickly.</li><li><strong>Benjamini-Hochberg (FDR)</strong>: controls the <em>expected proportion</em> of false discoveries among rejections. Much better when running many tests.</li><li><strong>Pre-register one primary metric.</strong> The best defence. Declare the metric before the experiment; everything else is exploratory and labelled as such.</li></ul><h2 id="the-garden-of-forking-paths">The garden of forking paths<a class="anchor" href="#the-garden-of-forking-paths" aria-label="Link to this section">#</a></h2><p>Even without formally running many tests, flexibility in analysis inflates false positives: trying different segments, excluding outliers, choosing a date range after seeing results, stopping the test when it looks good.</p><p>Each choice is defensible individually. Together they guarantee a &quot;significant&quot; finding. The defence is <strong>pre-specification</strong>: write down the metric, population, exclusions and duration before you look at the data.</p><aside class="callout callout-interview"><p class="callout-title"><span aria-hidden="true">🎯</span> Interview angle</p><p>A frequent interview question: <em>&quot;Your A/B test shows p = 0.04. Do you ship?&quot;</em>
+A strong answer covers: (1) what is the effect size and its confidence interval — is it practically meaningful? (2) was the sample size pre-committed, or did we stop when it crossed significance? (3) how many metrics and segments were examined? (4) what does the cost of being wrong look like in each direction? (5) is the mechanism plausible? A bare p-value is not enough to decide.</p></aside><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>The p-value is P(data this extreme | null true), not the probability the null is true.</li><li>Statistical significance ≠ practical significance; huge samples make trivial effects significant.</li><li>Balance Type I and Type II errors according to their real business costs.</li><li>Underpowered tests both miss real effects and exaggerate the ones they find.</li><li>Default to Welch's t-test for two means; use one-tailed tests only with a genuine prior justification.</li><li>Correct for multiple comparisons and pre-specify your primary metric.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">Sampling and the Central Limit Theorem</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/confidence-intervals/">Confidence Intervals</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/descriptive-statistics/">Descriptive Statistics for Business Data</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/statistics/confidence-intervals/"><span>← Previous</span><strong>Confidence Intervals</strong></a>
+  <a class="pager-next" href="../../../tutorials/statistics/ab-testing/"><span>Next →</span><strong>A/B Testing in Practice</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-framework">The framework</a></li><li class="toc-l2"><a href="#what-a-p-value-is">What a p-value is</a></li><li class="toc-l2"><a href="#the-two-error-types">The two error types</a></li><li class="toc-l2"><a href="#statistical-power">Statistical power</a></li><li class="toc-l2"><a href="#choosing-a-test">Choosing a test</a></li><li class="toc-l2"><a href="#one-tailed-vs-two-tailed">One-tailed vs two-tailed</a></li><li class="toc-l2"><a href="#multiple-comparisons">Multiple comparisons</a></li><li class="toc-l2"><a href="#the-garden-of-forking-paths">The garden of forking paths</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"An A/B test on 8 million users shows a 0.02pp conversion lift with p = 0.001. What is the right conclusion?","options":["Ship it — the p-value is very small","The effect is real but likely too small to be worth the cost; judge practical significance separately","The test is invalid because the sample is too large","There is a 0.1% chance the null is true"],"answer":1,"explain":"Very large samples make trivially small effects statistically significant. Statistical significance answers 'is it detectable', not 'is it worth doing'."},{"q":"You run a test at 30% power and get a significant result. What is a known problem with the estimated effect size?","options":["It will be systematically underestimated","It will be systematically overestimated, because only large fluctuations clear the threshold","It will be exactly right","Power does not affect effect size estimates"],"answer":1,"explain":"This is the winner's curse. At low power, only unusually large sample fluctuations reach significance, so published effects from underpowered studies are inflated and fail to replicate."},{"q":"You examine 40 metrics on one experiment at α = 0.05 and find 2 significant. What should you suspect?","options":["Both effects are real","About 2 false positives are expected by chance alone at this number of tests","The experiment was underpowered","The α should have been raised"],"answer":1,"explain":"40 tests at α = 0.05 yield about 2 false positives on average even with no real effects. This needs a multiple-comparison correction or a pre-specified primary metric."}]};</script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marketing Analytics | AnalyticsAdda</title>
+<meta name="description" content="CAC, ROAS, attribution models and the payback period — measuring marketing without being fooled by channels that take credit for organic demand.">
+<meta property="og:title" content="Marketing Analytics | AnalyticsAdda">
+<meta property="og:description" content="CAC, ROAS, attribution models and the payback period — measuring marketing without being fooled by channels that take credit for organic demand.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" open style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#be123c">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li><li aria-current="page">Marketing Analytics</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/domains/" style="--track-color:#be123c">
+          <span aria-hidden="true">💼</span> Applied</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 5 min read</span>
+      </div>
+      <h1>Marketing Analytics</h1>
+      <p class="lede">CAC, ROAS, attribution models and the payback period — measuring marketing without being fooled by channels that take credit for organic demand.</p>
+      <div class="tag-row"><span class="tag">marketing</span><span class="tag">applied</span><span class="tag">cac</span><span class="tag">attribution</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/domains/marketing-analytics/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Marketing analytics answers one question repeatedly: <strong>what did we get for that money, and should we spend more?</strong> The difficulty is that marketing channels rarely operate independently, and every platform's own dashboard is incentivised to claim credit.</p><h2 id="the-core-metrics">The core metrics<a class="anchor" href="#the-core-metrics" aria-label="Link to this section">#</a></h2><p><strong>Customer acquisition cost (CAC)</strong></p><p><span class="math">CAC = \frac{Total\ acquisition\ spend}{New\ customers\ acquired}</span></p><p>Include everything: media spend, agency fees, salaries of the acquisition team, creative production, tooling. &quot;Blended CAC&quot; using only media spend understates true cost, often by 40% or more, and comparing your blended CAC to a competitor's fully loaded CAC is meaningless.</p><p><strong>Return on ad spend (ROAS)</strong></p><p><span class="math">ROAS = \frac{Revenue\ attributed\ to\ ads}{Ad\ spend}</span></p><p>ROAS uses <em>revenue</em>, so a ROAS of 3 on a 25% gross margin business loses money on every sale. Track <strong>margin-adjusted ROAS</strong> or, better, contribution profit per rupee spent.</p><p><strong>LTV:CAC ratio</strong></p><p>The standard health check. Rules of thumb:</p><ul><li>Below 1:1 — losing money on every customer.</li><li>1:1 to 3:1 — sustainable only with low overheads.</li><li>3:1 — commonly cited healthy target.</li><li>Above 5:1 — often a sign you are <strong>under</strong>-investing in growth.</li></ul><p>That last point gets missed. A 6:1 ratio with slow growth usually means there is profitable demand you are not buying.</p><p><strong>CAC payback period</strong> — months of gross profit needed to recover CAC. Often more important than LTV:CAC because it determines cash requirements. A 24-month payback can be perfectly healthy on paper and still bankrupt a company that cannot finance the gap.</p><h2 id="attribution">Attribution<a class="anchor" href="#attribution" aria-label="Link to this section">#</a></h2><p>A customer sees a display ad, searches your brand, clicks a Facebook ad, reads a review, then converts through an email. <strong>Which channel gets the credit?</strong></p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Model</th><th style="text-align:left">Rule</th><th style="text-align:left">Bias</th></tr></thead><tbody><tr><td style="text-align:left">Last click</td><td style="text-align:left">100% to the final touch</td><td style="text-align:left">Over-credits bottom-funnel and branded search</td></tr><tr><td style="text-align:left">First click</td><td style="text-align:left">100% to the first touch</td><td style="text-align:left">Over-credits awareness</td></tr><tr><td style="text-align:left">Linear</td><td style="text-align:left">Equal split across touches</td><td style="text-align:left">Ignores that touches differ in impact</td></tr><tr><td style="text-align:left">Time decay</td><td style="text-align:left">More credit to recent touches</td><td style="text-align:left">Reasonable default; still arbitrary</td></tr><tr><td style="text-align:left">Position-based</td><td style="text-align:left">40/20/40 first/middle/last</td><td style="text-align:left">Compromise; still arbitrary</td></tr><tr><td style="text-align:left">Data-driven</td><td style="text-align:left">Model estimated from data</td><td style="text-align:left">Better, needs volume; still correlational</td></tr></tbody></table></div><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><strong>Every attribution model is a heuristic, not a measurement.</strong> They allocate credit for conversions that already happened; they do not tell you what would have happened without the ad. Branded search is the clearest example: someone who searches your brand name was already going to buy. Last-click attribution credits that click with the sale, and the channel looks spectacular.
+The only reliable way to know a channel's incremental effect is to <strong>turn it off in a geo holdout</strong> and measure the difference.</p></aside><p><strong>Incrementality testing</strong> is the answer. Hold out a randomly selected set of regions or users, run the campaign everywhere else, and compare. Results are routinely sobering: channels reporting 8:1 ROAS often show 1.5:1 incremental. Retargeting is the classic offender — it targets people who were already going to convert.</p><p><strong>Marketing mix modelling (MMM)</strong> regresses sales on channel spend with adstock (carryover) and saturation curves. Aggregate, privacy-safe, captures offline channels, and estimates diminishing returns — but needs years of data and enough spend variation to identify effects.</p><h2 id="funnel-analysis">Funnel analysis<a class="anchor" href="#funnel-analysis" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">WITH</span> funnel <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> session_id)                                   <span class="tok-keyword">AS</span> sessions,
+           <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> session_id) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> viewed_product)     <span class="tok-keyword">AS</span> viewed,
+           <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> session_id) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> added_to_cart)      <span class="tok-keyword">AS</span> carted,
+           <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> session_id) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> started_checkout)   <span class="tok-keyword">AS</span> checkout,
+           <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> session_id) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> purchased)          <span class="tok-keyword">AS</span> purchased
+    <span class="tok-keyword">FROM</span>   session_events
+    <span class="tok-keyword">WHERE</span>  session_date <span class="tok-operator">&gt;=</span> <span class="tok-builtin">current_date</span> <span class="tok-operator">-</span> <span class="tok-keyword">interval</span> <span class="tok-string">'30 days'</span>
+)
+<span class="tok-keyword">SELECT</span> sessions,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> viewed    <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(sessions, <span class="tok-number">0</span>), <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> pct_viewed,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> carted    <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(viewed, <span class="tok-number">0</span>),   <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> view_to_cart,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> checkout  <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(carted, <span class="tok-number">0</span>),   <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> cart_to_checkout,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> purchased <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(checkout, <span class="tok-number">0</span>), <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> checkout_to_purchase,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> purchased <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(sessions, <span class="tok-number">0</span>), <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> overall_conversion
+<span class="tok-keyword">FROM</span>   funnel;</code></pre></figure><p>Report <strong>step conversion</strong> (each stage against the previous) to locate the leak, and <strong>overall conversion</strong> to size the opportunity. Confusing the two is a frequent reporting error.</p><p>Then segment the funnel — by device, channel and new vs returning. The aggregate funnel almost always hides that one segment is dramatically worse, which is where the actual fix lives.</p><h2 id="channel-evaluation">Channel evaluation<a class="anchor" href="#channel-evaluation" aria-label="Link to this section">#</a></h2><p>Judge channels on more than CAC:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Dimension</th><th style="text-align:left">Question</th></tr></thead><tbody><tr><td style="text-align:left">Volume</td><td style="text-align:left">How many customers can it deliver at scale?</td></tr><tr><td style="text-align:left">Efficiency</td><td style="text-align:left">CAC, and margin-adjusted ROAS</td></tr><tr><td style="text-align:left">Quality</td><td style="text-align:left">Do these customers retain and expand?</td></tr><tr><td style="text-align:left">Incrementality</td><td style="text-align:left">What happens when it is switched off?</td></tr><tr><td style="text-align:left">Scalability</td><td style="text-align:left">Does CAC rise steeply with spend?</td></tr><tr><td style="text-align:left">Payback</td><td style="text-align:left">How quickly is cash recovered?</td></tr></tbody></table></div><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>Two channels, both ₹1,200 CAC:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left"></th><th style="text-align:left">Channel A</th><th style="text-align:left">Channel B</th></tr></thead><tbody><tr><td style="text-align:left">CAC</td><td style="text-align:left">₹1,200</td><td style="text-align:left">₹1,200</td></tr><tr><td style="text-align:left">12-month retention</td><td style="text-align:left">68%</td><td style="text-align:left">31%</td></tr><tr><td style="text-align:left">Avg annual revenue</td><td style="text-align:left">₹9,400</td><td style="text-align:left">₹5,100</td></tr><tr><td style="text-align:left">3-year LTV</td><td style="text-align:left">₹19,800</td><td style="text-align:left">₹6,900</td></tr><tr><td style="text-align:left">LTV:CAC</td><td style="text-align:left">16.5</td><td style="text-align:left">5.8</td></tr></tbody></table></div><p>Identical on the metric most teams report weekly, and completely different businesses. <strong>Always evaluate acquisition channels on cohort retention, not on CAC alone.</strong> This is also the most common explanation for retention appearing to decline: a cheaper, lower-quality channel was scaled up.</p></aside><h2 id="diminishing-returns">Diminishing returns<a class="anchor" href="#diminishing-returns" aria-label="Link to this section">#</a></h2><p>Channels saturate. The first ₹1 lakh reaches the most responsive audience; the tenth reaches people barely interested.</p><p>Plot CAC against weekly spend. When CAC starts rising with spend, you are at the efficient frontier. The optimal allocation equalises <strong>marginal</strong> CAC across channels — not average CAC, which is what most budget conversations use.</p><h2 id="campaign-measurement">Campaign measurement<a class="anchor" href="#campaign-measurement" aria-label="Link to this section">#</a></h2><ul><li><strong>Always hold out a control group.</strong> Even 5% is enough to measure lift, and without one you cannot separate campaign effect from seasonality.</li><li><strong>Pre-register the success metric</strong> before launch.</li><li><strong>Measure at the decision horizon.</strong> A campaign that lifts week-one purchases and pulls forward demand from week three has a net effect of zero.</li><li><strong>Watch cannibalisation.</strong> A discount campaign frequently converts customers who would have paid full price.</li></ul><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Load CAC fully — media alone understates it substantially.</li><li>ROAS on revenue ignores margin; use contribution profit per rupee.</li><li>Attribution allocates credit; only incrementality tests measure causal effect.</li><li>Report step and overall funnel conversion separately, and segment before concluding.</li><li>Evaluate channels on retention and LTV, never on CAC alone.</li><li>Allocate budget by marginal CAC, and always keep a holdout.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/domains/customer-lifetime-value/">Customer Lifetime Value</a>
+      <span class="mini-meta">Applied Business Analytics</span></li><li><a href="../../../tutorials/domains/rfm-analysis/">RFM Analysis</a>
+      <span class="mini-meta">Applied Business Analytics</span></li><li><a href="../../../tutorials/domains/financial-analytics/">Financial Analytics for Non-Finance Analysts</a>
+      <span class="mini-meta">Applied Business Analytics</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <span></span>
+  <a class="pager-next" href="../../../tutorials/domains/customer-lifetime-value/"><span>Next →</span><strong>Customer Lifetime Value</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-core-metrics">The core metrics</a></li><li class="toc-l2"><a href="#attribution">Attribution</a></li><li class="toc-l2"><a href="#funnel-analysis">Funnel analysis</a></li><li class="toc-l2"><a href="#channel-evaluation">Channel evaluation</a></li><li class="toc-l2"><a href="#diminishing-returns">Diminishing returns</a></li><li class="toc-l2"><a href="#campaign-measurement">Campaign measurement</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"A retargeting channel reports 8:1 ROAS, but a geo holdout shows 1.5:1 incremental. What explains the gap?","options":["The holdout was too small","Retargeting reaches users who were already going to convert, so last-click attribution credits it with conversions it did not cause","The ROAS calculation was wrong","Seasonality"],"answer":1,"explain":"Attribution assigns credit for conversions that happened; it does not measure counterfactual impact. Retargeting is the classic case of taking credit for existing intent."},{"q":"Two channels have identical ₹1,200 CAC, but 12-month retention is 68% vs 31%. What follows?","options":["They are equally valuable","The higher-retention channel is far more valuable; CAC alone is an incomplete measure","The lower-retention channel is cheaper to scale","Retention is unrelated to acquisition quality"],"answer":1,"explain":"Channel quality shows up in retention and LTV, not in acquisition cost. Scaling a cheap, low-retention channel is also the most common cause of apparently worsening cohort retention."},{"q":"When allocating budget across channels, which quantity should be equalised?","options":["Average CAC across channels","Marginal CAC — the cost of the next customer in each channel","Total spend per channel","ROAS reported by each platform"],"answer":1,"explain":"With diminishing returns, the optimum is where the next rupee buys the same result everywhere. Average CAC hides saturation and leads to over-investing in a channel past its efficient frontier."}]};</script>
+</body>
+</html>

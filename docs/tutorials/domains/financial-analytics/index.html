@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Financial Analytics for Non-Finance Analysts | AnalyticsAdda</title>
+<meta name="description" content="Reading a P&amp;L, unit economics, contribution margin, cash vs profit, and the variance analysis that explains why the numbers missed plan.">
+<meta property="og:title" content="Financial Analytics for Non-Finance Analysts | AnalyticsAdda">
+<meta property="og:description" content="Reading a P&amp;L, unit economics, contribution margin, cash vs profit, and the variance analysis that explains why the numbers missed plan.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" open style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#be123c">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li><li aria-current="page">Financial Analytics for Non-Finance Analysts</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/domains/" style="--track-color:#be123c">
+          <span aria-hidden="true">💼</span> Applied</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 7 min read</span>
+      </div>
+      <h1>Financial Analytics for Non-Finance Analysts</h1>
+      <p class="lede">Reading a P&amp;L, unit economics, contribution margin, cash vs profit, and the variance analysis that explains why the numbers missed plan.</p>
+      <div class="tag-row"><span class="tag">finance</span><span class="tag">applied</span><span class="tag">unit-economics</span><span class="tag">margin</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/domains/financial-analytics/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>An analyst who understands the P&amp;L asks better questions than one who does not. Knowing that gross margin on hardware is 18% and on services 62% changes which growth you recommend chasing — and it is the difference between an analyst who reports numbers and one who is invited to the planning meeting.</p><h2 id="the-income-statement-top-to-bottom">The income statement, top to bottom<a class="anchor" href="#the-income-statement-top-to-bottom" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>  Revenue                              ₹100.0    Gross sales, net of returns
+− Cost of goods sold (COGS)            − 42.0    Direct costs of delivery
+─────────────────────────────────────────────
+= Gross profit                         ₹ 58.0    58% gross margin
+− Sales &amp; marketing                    − 22.0
+− Research &amp; development               − 15.0
+− General &amp; administrative             −  9.0
+─────────────────────────────────────────────
+= Operating profit (EBIT)              ₹ 12.0    12% operating margin
+− Interest                             −  2.0
+− Tax                                  −  3.0
+─────────────────────────────────────────────
+= Net profit                           ₹  7.0    7% net margin</code></pre></figure><p><strong>Gross margin</strong> is the most diagnostic single number. It tells you how much of each rupee of revenue is available to cover everything else. Software: 70–85%. Retail: 20–40%. Distribution: 5–15%. A business model change usually shows up in gross margin before anywhere else.</p><p><strong>EBITDA</strong> adds back depreciation and amortisation to approximate operating cash generation. Widely used, and worth knowing it excludes real costs — the equipment does wear out.</p><h2 id="fixed-variable-and-contribution-margin">Fixed, variable and contribution margin<a class="anchor" href="#fixed-variable-and-contribution-margin" aria-label="Link to this section">#</a></h2><p><strong>Variable costs</strong> scale with volume: materials, payment processing, shipping, cloud usage per customer.
+<strong>Fixed costs</strong> do not, within a range: rent, salaries, software licences.</p><p><span class="math">Contribution\ margin = Revenue - Variable\ costs</span></p><p>Contribution margin is the money each additional sale contributes toward fixed costs and profit. It is the correct basis for most incremental decisions.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>An order sells for ₹1,000 with ₹600 of variable cost and ₹300 of allocated fixed overhead. Accounting profit is ₹100.
+A customer offers ₹800 for a one-off order. Full-cost thinking says reject it — ₹800 is below the ₹900 total cost.
+Contribution thinking says accept: it contributes ₹200 toward fixed costs you are paying regardless. <strong>The fixed overhead is not affected by this decision</strong>, so it should not enter it.
+The caveats: only if capacity is genuinely spare, and only if it does not cannibalise full-price sales or reset customer price expectations. Both caveats are real, and both are business judgements rather than accounting ones.</p></aside><p><strong>Break-even volume</strong> = Fixed costs ÷ Contribution margin per unit.</p><h2 id="unit-economics">Unit economics<a class="anchor" href="#unit-economics" aria-label="Link to this section">#</a></h2><p>Reduce the business to one customer or one order:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Metric</th><th style="text-align:left">Definition</th><th style="text-align:left">Healthy signal</th></tr></thead><tbody><tr><td style="text-align:left">CAC</td><td style="text-align:left">Fully loaded acquisition cost</td><td style="text-align:left">Falling or stable as you scale</td></tr><tr><td style="text-align:left">ARPU / AOV</td><td style="text-align:left">Average revenue per user / order</td><td style="text-align:left">Growing</td></tr><tr><td style="text-align:left">Gross margin %</td><td style="text-align:left">(Revenue − COGS) / Revenue</td><td style="text-align:left">Stable or improving</td></tr><tr><td style="text-align:left">Contribution margin per order</td><td style="text-align:left">Revenue − all variable costs</td><td style="text-align:left">Positive, growing</td></tr><tr><td style="text-align:left">LTV:CAC</td><td style="text-align:left">Lifetime value over CAC</td><td style="text-align:left">3:1 or better</td></tr><tr><td style="text-align:left">CAC payback</td><td style="text-align:left">Months to recover CAC from gross profit</td><td style="text-align:left">Under 12 months</td></tr></tbody></table></div><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>A business with negative contribution margin <strong>gets worse as it grows</strong>. Every additional order loses money, and volume cannot fix it. &quot;We'll make it up on volume&quot; only works when contribution margin is positive and fixed costs are the problem. This distinction is worth being able to explain clearly.</p></aside><h2 id="cash-is-not-profit">Cash is not profit<a class="anchor" href="#cash-is-not-profit" aria-label="Link to this section">#</a></h2><p>Profitable companies fail from running out of cash. The gap comes from timing.</p><ul><li><strong>Accrual accounting</strong> records revenue when earned, not when collected.</li><li>A sale booked in March, invoiced in April, paid in June is March revenue and June cash.</li><li><strong>Working capital</strong> — inventory and receivables — consumes cash as you grow. A fast-growing distributor can be profitable on paper and cash-starved every month.</li></ul><p><strong>The cash conversion cycle:</strong></p><p><span class="math">CCC = DIO + DSO - DPO</span></p><ul><li><strong>DIO</strong> — days inventory outstanding</li><li><strong>DSO</strong> — days sales outstanding (collection time)</li><li><strong>DPO</strong> — days payable outstanding (how long you take to pay)</li></ul><p>A negative CCC means you collect from customers before paying suppliers — customers fund your growth. This is the structural advantage behind many successful retail and marketplace businesses, and it is invisible on the income statement.</p><h2 id="variance-analysis">Variance analysis<a class="anchor" href="#variance-analysis" aria-label="Link to this section">#</a></h2><p>When results miss plan, decompose the gap rather than describing it.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>Revenue plan ₹10 crore, actual ₹9.2 crore. A ₹0.8 crore shortfall.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Driver</th><th style="text-align:right">Plan</th><th style="text-align:right">Actual</th><th style="text-align:right">Variance</th></tr></thead><tbody><tr><td style="text-align:left">Units sold</td><td style="text-align:right">50,000</td><td style="text-align:right">46,000</td><td style="text-align:right">−4,000</td></tr><tr><td style="text-align:left">Average price</td><td style="text-align:right">₹2,000</td><td style="text-align:right">₹2,000</td><td style="text-align:right">0</td></tr></tbody></table></div><p><strong>Volume variance</strong> = (46,000 − 50,000) × ₹2,000 = <strong>−₹0.8 crore</strong>
+<strong>Price variance</strong> = 46,000 × (₹2,000 − ₹2,000) = <strong>₹0</strong>
+Entirely a volume problem. Now decompose volume by region, channel and product — the same <a href="../../foundations/framing-business-problems/">issue-tree</a> approach. A &quot;we missed plan&quot; conversation becomes &quot;the North region's enterprise channel is 3,800 units short&quot;, which someone can act on.</p></aside><p>Standard decompositions: <strong>price × volume</strong>, <strong>mix effects</strong> (a shift toward lower-margin products), <strong>rate × efficiency</strong> for labour, and <strong>FX</strong> for multi-currency businesses.</p><h2 id="margin-bridges">Margin bridges<a class="anchor" href="#margin-bridges" aria-label="Link to this section">#</a></h2><p>A waterfall chart explaining a margin change period over period is one of the most valuable exhibits an analyst can produce:</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>Gross margin Q1                      58.0%
+  Product mix shift to hardware      − 2.4pp
+  Input cost inflation               − 1.8pp
+  Price increases                    + 1.1pp
+  Manufacturing efficiency           + 0.6pp
+  FX                                 − 0.3pp
+────────────────────────────────────────────
+Gross margin Q2                      55.2%</code></pre></figure><p>Each line is a different owner and a different action. &quot;Margin fell 2.8pp&quot; is a fact; this bridge is a plan.</p><h2 id="reading-a-balance-sheet-quickly">Reading a balance sheet quickly<a class="anchor" href="#reading-a-balance-sheet-quickly" aria-label="Link to this section">#</a></h2><p>Assets = Liabilities + Equity.</p><p>Four checks that take a minute:</p><ul><li><strong>Current ratio</strong> = current assets ÷ current liabilities. Below 1 signals short-term liquidity strain.</li><li><strong>Receivables growing faster than revenue</strong> — you are selling to people who are not paying.</li><li><strong>Inventory growing faster than revenue</strong> — demand is being over-forecast, and a write-down is coming.</li><li><strong>Debt relative to EBITDA</strong> — above ~4× is highly leveraged in most industries.</li></ul><h2 id="discounting-and-npv">Discounting and NPV<a class="anchor" href="#discounting-and-npv" aria-label="Link to this section">#</a></h2><p>For any multi-period investment:</p><p><span class="math">NPV = \sum_{t=0}^{T} \frac{CF_t}{(1+r)^t}</span></p><p>Positive NPV means the project creates value at the given discount rate. The discount rate reflects the cost of capital and risk; most companies have an official hurdle rate — ask finance rather than inventing one.</p><p><strong>IRR</strong> is the discount rate at which NPV is zero. Intuitive, but it misleads when cash flows change sign more than once or when comparing projects of very different size. <strong>NPV is the more reliable decision rule.</strong></p><h2 id="where-analysts-add-most-value-in-finance">Where analysts add most value in finance<a class="anchor" href="#where-analysts-add-most-value-in-finance" aria-label="Link to this section">#</a></h2><ol><li><strong>Driver-based forecasting</strong> — model revenue from units, price and retention rather than extrapolating a total.</li><li><strong>Cohort-based revenue projection</strong> — far more accurate than growth-rate extrapolation for subscription businesses.</li><li><strong>Scenario and sensitivity analysis</strong> — which assumption most changes the answer? That is where the analysis effort belongs.</li><li><strong>Reconciliation</strong> — finding why the product database and the finance system disagree. Unglamorous, and consistently the highest-trust work an analyst can do.</li></ol><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Gross margin is the fastest read on a business model; contribution margin drives incremental decisions.</li><li>Negative contribution margin means growth makes things worse.</li><li>Profit and cash differ by timing; the cash conversion cycle explains most of the gap.</li><li>Decompose variances into price, volume and mix before explaining a miss.</li><li>Margin bridges turn a change into an owned action list.</li><li>Prefer NPV to IRR, and use the company's official hurdle rate.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/domains/customer-lifetime-value/">Customer Lifetime Value</a>
+      <span class="mini-meta">Applied Business Analytics</span></li><li><a href="../../../tutorials/domains/marketing-analytics/">Marketing Analytics</a>
+      <span class="mini-meta">Applied Business Analytics</span></li><li><a href="../../../tutorials/domains/rfm-analysis/">RFM Analysis</a>
+      <span class="mini-meta">Applied Business Analytics</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/domains/rfm-analysis/"><span>← Previous</span><strong>RFM Analysis</strong></a>
+  <a class="pager-next" href="../../../tutorials/domains/supply-chain-analytics/"><span>Next →</span><strong>Supply Chain and Operations Analytics</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-income-statement-top-to-bottom">The income statement, top to bottom</a></li><li class="toc-l2"><a href="#fixed-variable-and-contribution-margin">Fixed, variable and contribution margin</a></li><li class="toc-l2"><a href="#unit-economics">Unit economics</a></li><li class="toc-l2"><a href="#cash-is-not-profit">Cash is not profit</a></li><li class="toc-l2"><a href="#variance-analysis">Variance analysis</a></li><li class="toc-l2"><a href="#margin-bridges">Margin bridges</a></li><li class="toc-l2"><a href="#reading-a-balance-sheet-quickly">Reading a balance sheet quickly</a></li><li class="toc-l2"><a href="#discounting-and-npv">Discounting and NPV</a></li><li class="toc-l2"><a href="#where-analysts-add-most-value-in-finance">Where analysts add most value in finance</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"An order sells for ₹800 with ₹600 variable cost and ₹300 allocated fixed overhead. Should you accept it as a one-off with spare capacity?","options":["No — it loses ₹100 against total cost","Yes — it contributes ₹200 toward fixed costs you pay regardless, provided capacity is spare and it does not cannibalise full-price sales","No — never sell below full cost","Yes — fixed costs are irrelevant in all situations"],"answer":1,"explain":"Fixed costs are unaffected by this decision, so contribution margin is the right basis. The caveats about spare capacity and cannibalisation are genuine business constraints, not accounting ones."},{"q":"A company is profitable but consistently short of cash while growing fast. What is the most likely explanation?","options":["The accounting is fraudulent","Working capital — inventory and receivables — consumes cash before customers pay","Gross margin is negative","Depreciation is too high"],"answer":1,"explain":"Accrual profit records revenue when earned, but growth ties up cash in inventory and receivables. The cash conversion cycle quantifies this timing gap."},{"q":"Revenue missed plan by ₹0.8 crore. Units were 4,000 below plan and average price matched plan exactly. What does this tell you?","options":["It is a pricing problem","It is entirely a volume problem — decompose volume by region, channel and product next","It is a mix problem","The variance cannot be attributed"],"answer":1,"explain":"With price variance at zero, the entire gap is volume. The next step is decomposing volume along the dimensions where someone can act."}]};</script>
+</body>
+</html>

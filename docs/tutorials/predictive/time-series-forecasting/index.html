@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Series Forecasting | AnalyticsAdda</title>
+<meta name="description" content="Decomposing trend and seasonality, choosing between naive baselines and ARIMA, backtesting properly, and why the confidence interval matters more than the point forecast.">
+<meta property="og:title" content="Time Series Forecasting | AnalyticsAdda">
+<meta property="og:description" content="Decomposing trend and seasonality, choosing between naive baselines and ARIMA, backtesting properly, and why the confidence interval matters more than the point forecast.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" open style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#0891b2">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li aria-current="page">Time Series Forecasting</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/predictive/" style="--track-color:#0891b2">
+          <span aria-hidden="true">🤖</span> Predictive</a>
+        <span class="badge badge-advanced">Advanced</span>
+        <span class="mini-meta">⏱ 8 min read</span>
+      </div>
+      <h1>Time Series Forecasting</h1>
+      <p class="lede">Decomposing trend and seasonality, choosing between naive baselines and ARIMA, backtesting properly, and why the confidence interval matters more than the point forecast.</p>
+      <div class="tag-row"><span class="tag">forecasting</span><span class="tag">time-series</span><span class="tag">modelling</span><span class="tag">planning</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/predictive/time-series-forecasting/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Forecasting drives inventory, staffing, budgets and cash planning. It also has a failure mode unique to time series: the ordinary train/test split leaks the future into the past, so a model can look excellent and be worthless.</p><h2 id="components-of-a-series">Components of a series<a class="anchor" href="#components-of-a-series" aria-label="Link to this section">#</a></h2><p>Most business series decompose into four parts:</p><ul><li><strong>Trend</strong> — long-run direction.</li><li><strong>Seasonality</strong> — fixed-period cycles: weekly (weekday vs weekend), yearly (Diwali, Christmas).</li><li><strong>Cyclic</strong> — longer swings without a fixed period, like an economic cycle. Harder, often ignored.</li><li><strong>Residual</strong> — what remains.</li></ul><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> statsmodels.tsa.seasonal <span class="tok-keyword">import</span> STL
+
+stl <span class="tok-operator">=</span> <span class="tok-function">STL</span>(series, period<span class="tok-operator">=</span><span class="tok-number">7</span>, robust<span class="tok-operator">=</span><span class="tok-keyword">True</span>)   <span class="tok-comment"># period=7 for daily data with weekly seasonality</span>
+result <span class="tok-operator">=</span> <span class="tok-function">stl.fit</span>()
+<span class="tok-function">result.plot</span>()
+<span class="tok-comment"># result.trend, result.seasonal, result.resid</span></code></pre></figure><p><strong>Additive</strong> decomposition (<span class="math">y = T + S + R</span>) fits when seasonal swings are a constant <em>amount</em>. <strong>Multiplicative</strong> (<span class="math">y = T × S × R</span>) fits when they are a constant <em>percentage</em> — which is far more common in business, since a growing company's December spike grows with it. Model log(y) additively to get a multiplicative model.</p><h2 id="start-with-naive-baselines">Start with naive baselines<a class="anchor" href="#start-with-naive-baselines" aria-label="Link to this section">#</a></h2><p>Every forecasting project must beat these before anything sophisticated is justified. They win more often than people expect.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Baseline</th><th style="text-align:left">Rule</th><th style="text-align:left">Good for</th></tr></thead><tbody><tr><td style="text-align:left">Naive</td><td style="text-align:left"><span class="math">ŷ_t = y_{t-1}</span></td><td style="text-align:left">Random walks; a surprisingly strong benchmark</td></tr><tr><td style="text-align:left">Seasonal naive</td><td style="text-align:left"><span class="math">ŷ_t = y_{t-m}</span></td><td style="text-align:left">Strongly seasonal series (same day last week)</td></tr><tr><td style="text-align:left">Drift</td><td style="text-align:left">Last value + average trend</td><td style="text-align:left">Steady trends</td></tr><tr><td style="text-align:left">Mean</td><td style="text-align:left">Historical average</td><td style="text-align:left">Stable, non-trending series</td></tr><tr><td style="text-align:left">Moving average</td><td style="text-align:left">Mean of last k periods</td><td style="text-align:left">Noisy series with no trend</td></tr></tbody></table></div><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Report every model's error <strong>relative to seasonal naive</strong>. &quot;MAPE 8.2%&quot; is uninterpretable on its own; &quot;MAPE 8.2% versus 13.5% for seasonal naive, a 39% improvement&quot; is a result. Many production forecasting systems have been quietly replaced by seasonal naive after this comparison was finally run.</p></aside><h2 id="exponential-smoothing">Exponential smoothing<a class="anchor" href="#exponential-smoothing" aria-label="Link to this section">#</a></h2><p>Weighted averages with exponentially decaying weights on older observations.</p><ul><li><strong>Simple (SES)</strong> — level only, no trend or seasonality.</li><li><strong>Holt's linear</strong> — level plus trend.</li><li><strong>Holt-Winters</strong> — level, trend and seasonality. The practical workhorse.</li></ul><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> statsmodels.tsa.holtwinters <span class="tok-keyword">import</span> ExponentialSmoothing
+
+model <span class="tok-operator">=</span> <span class="tok-function">ExponentialSmoothing</span>(
+    train,
+    trend<span class="tok-operator">=</span><span class="tok-string">'add'</span>,
+    seasonal<span class="tok-operator">=</span><span class="tok-string">'mul'</span>,          <span class="tok-comment"># multiplicative: seasonal swings scale with level</span>
+    seasonal_periods<span class="tok-operator">=</span><span class="tok-number">12</span>,     <span class="tok-comment"># monthly data with yearly seasonality</span>
+    damped_trend<span class="tok-operator">=</span><span class="tok-keyword">True</span>,       <span class="tok-comment"># damping prevents runaway long-horizon trends</span>
+).<span class="tok-function">fit</span>()
+
+forecast <span class="tok-operator">=</span> <span class="tok-function">model.forecast</span>(<span class="tok-number">6</span>)</code></pre></figure><p><code>damped_trend=True</code> is worth adopting by default. An undamped linear trend extrapolated 24 months out produces forecasts that no business ever achieves.</p><h2 id="arima">ARIMA<a class="anchor" href="#arima" aria-label="Link to this section">#</a></h2><p>ARIMA(p, d, q) combines:</p><ul><li><strong>AR(p)</strong> — regression on p previous values.</li><li><strong>I(d)</strong> — differencing d times to achieve stationarity.</li><li><strong>MA(q)</strong> — regression on q previous forecast errors.</li></ul><p><strong>SARIMA</strong> adds seasonal terms: <span class="math">(p,d,q)(P,D,Q)_m</span>.</p><p>Stationarity — constant mean and variance over time — is required. Test with ADF/KPSS; achieve it by differencing, and stabilise variance with a log transform first if needed.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">import</span> pmdarima <span class="tok-keyword">as</span> pm
+
+model <span class="tok-operator">=</span> <span class="tok-function">pm.auto_arima</span>(
+    train,
+    seasonal<span class="tok-operator">=</span><span class="tok-keyword">True</span>, m<span class="tok-operator">=</span><span class="tok-number">12</span>,
+    d<span class="tok-operator">=</span><span class="tok-keyword">None</span>, D<span class="tok-operator">=</span><span class="tok-keyword">None</span>,             <span class="tok-comment"># let the tests choose differencing orders</span>
+    stepwise<span class="tok-operator">=</span><span class="tok-keyword">True</span>,
+    suppress_warnings<span class="tok-operator">=</span><span class="tok-keyword">True</span>,
+    information_criterion<span class="tok-operator">=</span><span class="tok-string">'aic'</span>,
+)
+forecast, conf_int <span class="tok-operator">=</span> <span class="tok-function">model.predict</span>(n_periods<span class="tok-operator">=</span><span class="tok-number">6</span>, return_conf_int<span class="tok-operator">=</span><span class="tok-keyword">True</span>)</code></pre></figure><p>ARIMA is strong on short horizons for stable series with clear autocorrelation. It handles multiple seasonalities and irregular holidays poorly, which is a real limitation for retail.</p><h2 id="prophet-and-ml-approaches">Prophet and ML approaches<a class="anchor" href="#prophet-and-ml-approaches" aria-label="Link to this section">#</a></h2><p><strong>Prophet</strong> models trend, multiple seasonalities and holiday effects additively. Its strengths are handling missing data, being robust to outliers, and — genuinely useful in business — accepting explicit changepoints and holiday calendars.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> prophet <span class="tok-keyword">import</span> Prophet
+
+m <span class="tok-operator">=</span> <span class="tok-function">Prophet</span>(yearly_seasonality<span class="tok-operator">=</span><span class="tok-keyword">True</span>, weekly_seasonality<span class="tok-operator">=</span><span class="tok-keyword">True</span>,
+            changepoint_prior_scale<span class="tok-operator">=</span><span class="tok-number">0.05</span>)
+<span class="tok-function">m.add_country_holidays</span>(country_name<span class="tok-operator">=</span><span class="tok-string">'IN'</span>)
+<span class="tok-function">m.fit</span>(<span class="tok-function">df.rename</span>(columns<span class="tok-operator">=</span>{<span class="tok-string">'date'</span><span class="tok-operator">:</span> <span class="tok-string">'ds'</span>, <span class="tok-string">'revenue'</span><span class="tok-operator">:</span> <span class="tok-string">'y'</span>}))
+
+future <span class="tok-operator">=</span> <span class="tok-function">m.make_future_dataframe</span>(periods<span class="tok-operator">=</span><span class="tok-number">90</span>)
+forecast <span class="tok-operator">=</span> <span class="tok-function">m.predict</span>(future)   <span class="tok-comment"># yhat, yhat_lower, yhat_upper</span></code></pre></figure><p><strong>Gradient boosting on lag features</strong> (LightGBM with lags, rolling means, calendar features) often wins when you have many related series and external drivers — price, promotions, weather.</p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Tree models <strong>cannot extrapolate</strong> beyond the range of the training target. For a series with a strong upward trend, a boosted model will systematically under-forecast. Fix by modelling the <em>de-trended</em> series or predicting differences rather than levels.</p></aside><h2 id="backtesting">Backtesting<a class="anchor" href="#backtesting" aria-label="Link to this section">#</a></h2><p>Random cross-validation is invalid here — it trains on future data to predict the past.</p><p>Use <strong>rolling-origin evaluation</strong> (walk-forward):</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>Fold 1: train [────────────]  test [──]
+Fold 2: train [──────────────]  test [──]
+Fold 3: train [────────────────]  test [──]</code></pre></figure><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> sklearn.model_selection <span class="tok-keyword">import</span> TimeSeriesSplit
+
+tscv <span class="tok-operator">=</span> <span class="tok-function">TimeSeriesSplit</span>(n_splits<span class="tok-operator">=</span><span class="tok-number">5</span>, test_size<span class="tok-operator">=</span><span class="tok-number">30</span>)
+<span class="tok-keyword">for</span> train_idx, test_idx <span class="tok-keyword">in</span> <span class="tok-function">tscv.split</span>(series)<span class="tok-operator">:</span>
+    train, test <span class="tok-operator">=</span> series[train_idx], series[test_idx]
+    <span class="tok-comment"># fit, forecast len(test), record error</span></code></pre></figure><p>Two rules: <strong>test at the horizon you actually forecast</strong> — a model good at 1-day-ahead may be poor at 30 — and <strong>retrain in each fold</strong>, exactly as production would.</p><h2 id="accuracy-metrics">Accuracy metrics<a class="anchor" href="#accuracy-metrics" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Metric</th><th style="text-align:left">Formula</th><th style="text-align:left">Notes</th></tr></thead><tbody><tr><td style="text-align:left">MAE</td><td style="text-align:left">mean(\</td><td style="text-align:left">y − ŷ\</td><td style="text-align:left">)</td><td style="text-align:left">Same units, robust, easy to explain</td></tr><tr><td style="text-align:left">RMSE</td><td style="text-align:left">√mean((y − ŷ)²)</td><td style="text-align:left">Penalises large errors more</td></tr><tr><td style="text-align:left">MAPE</td><td style="text-align:left">mean(\</td><td style="text-align:left">y − ŷ\</td><td style="text-align:left">/y) × 100</td><td style="text-align:left">Scale-free; <strong>breaks near zero</strong>, punishes over-forecasts asymmetrically</td></tr><tr><td style="text-align:left">sMAPE</td><td style="text-align:left">Symmetric variant</td><td style="text-align:left">Fixes some MAPE asymmetry</td></tr><tr><td style="text-align:left">MASE</td><td style="text-align:left">MAE ÷ naive MAE</td><td style="text-align:left">Best default: &lt;1 beats naive</td></tr></tbody></table></div><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>MAPE is the most-requested and most-flawed metric. With any zero or near-zero actuals it explodes to infinity, and it systematically prefers under-forecasting — an under-forecast caps at 100% error while an over-forecast is unbounded. If someone insists on MAPE, report MASE alongside it.</p></aside><h2 id="prediction-intervals-matter-more-than-the-point-forecast">Prediction intervals matter more than the point forecast<a class="anchor" href="#prediction-intervals-matter-more-than-the-point-forecast" aria-label="Link to this section">#</a></h2><p>A point forecast is wrong by construction. The interval is what supports a decision.</p><p>Inventory planning does not need &quot;demand will be 4,200 units&quot;; it needs &quot;demand will be between 3,600 and 4,900 with 90% confidence&quot; — because the safety stock level comes from the upper bound and the cost of the lower one.</p><p>Model-based intervals are usually too narrow, because they capture parameter uncertainty but not model misspecification or regime change. <strong>Empirical intervals from backtest errors are more honest</strong>: collect your actual out-of-sample errors at each horizon and use their percentiles.</p><h2 id="practical-guidance">Practical guidance<a class="anchor" href="#practical-guidance" aria-label="Link to this section">#</a></h2><ol><li><strong>Plot the series first.</strong> Trend, seasonality, outliers, level shifts, missing periods. Ten minutes here saves days.</li><li><strong>Handle known events explicitly.</strong> Promotions, launches, outages, holidays. Unmodelled, they become &quot;noise&quot; and inflate all your intervals.</li><li><strong>Forecast at the level you decide at.</strong> Then reconcile up or down as needed.</li><li><strong>Aggregate where possible.</strong> Total demand is much easier to forecast than per-SKU demand; noise cancels on aggregation.</li><li><strong>Track forecast accuracy over time.</strong> Degrading accuracy signals a regime change.</li><li><strong>Understand the asymmetry of error costs.</strong> Under-forecasting a stockout of a high-margin item costs far more than over-forecasting warehousing. That asymmetry belongs in the decision rule, not in the model.</li></ol><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Decompose into trend, seasonality and residual; business series are usually multiplicative.</li><li>Beat seasonal naive before considering anything complex, and always report error relative to it.</li><li>Use Holt-Winters or SARIMA for classic series; boosted lags when external drivers matter.</li><li>Trees cannot extrapolate trends — model differences or de-trend first.</li><li>Backtest with rolling origins at your real forecast horizon; never split randomly.</li><li>Prefer MASE over MAPE, and report empirical prediction intervals from backtest errors.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/predictive/linear-regression/">Linear Regression</a>
+      <span class="mini-meta">Predictive Analytics</span></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">Logistic Regression and Classification</a>
+      <span class="mini-meta">Predictive Analytics</span></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">Decision Trees and Ensembles</a>
+      <span class="mini-meta">Predictive Analytics</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/predictive/clustering-and-segmentation/"><span>← Previous</span><strong>Clustering and Customer Segmentation</strong></a>
+  <a class="pager-next" href="../../../tutorials/predictive/model-evaluation-metrics/"><span>Next →</span><strong>Model Evaluation Metrics</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#components-of-a-series">Components of a series</a></li><li class="toc-l2"><a href="#start-with-naive-baselines">Start with naive baselines</a></li><li class="toc-l2"><a href="#exponential-smoothing">Exponential smoothing</a></li><li class="toc-l2"><a href="#arima">ARIMA</a></li><li class="toc-l2"><a href="#prophet-and-ml-approaches">Prophet and ML approaches</a></li><li class="toc-l2"><a href="#backtesting">Backtesting</a></li><li class="toc-l2"><a href="#accuracy-metrics">Accuracy metrics</a></li><li class="toc-l2"><a href="#prediction-intervals-matter-more-than-the-point-forecast">Prediction intervals matter more than the point forecast</a></li><li class="toc-l2"><a href="#practical-guidance">Practical guidance</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"Why is random k-fold cross-validation invalid for time series forecasting?","options":["It is computationally expensive","It trains on future observations to predict past ones, which is impossible in production and inflates accuracy","Time series data cannot be split","It requires stationary data"],"answer":1,"explain":"Random folds place future data in training. Rolling-origin (walk-forward) validation preserves the temporal ordering that production faces."},{"q":"Your forecast has MAPE of 8.2%. What must you report alongside it?","options":["The R-squared","The error of a naive or seasonal naive baseline, so the improvement is interpretable","The number of parameters","The training time"],"answer":1,"explain":"An absolute error figure means nothing without a benchmark. Seasonal naive is the standard comparison, and it beats sophisticated models more often than expected."},{"q":"You use gradient boosting on lag features for a series with a strong upward trend. What problem should you expect?","options":["Overfitting to seasonality","Systematic under-forecasting, because trees cannot predict beyond the training range of the target","The model will not converge","MAPE will be undefined"],"answer":1,"explain":"Tree predictions are bounded by observed target values, so a rising series is persistently under-forecast. De-trend the series or model differences instead of levels."}]};</script>
+</body>
+</html>

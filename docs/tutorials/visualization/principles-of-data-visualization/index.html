@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Principles of Data Visualization | AnalyticsAdda</title>
+<meta name="description" content="Why some charts are instantly readable and others are not — perceptual accuracy, data-ink, colour discipline and the ethics of the y-axis.">
+<meta property="og:title" content="Principles of Data Visualization | AnalyticsAdda">
+<meta property="og:description" content="Why some charts are instantly readable and others are not — perceptual accuracy, data-ink, colour discipline and the ethics of the y-axis.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#ea580c">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/visualization/">Visualization &amp; Storytelling</a></li><li aria-current="page">Principles of Data Visualization</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/visualization/" style="--track-color:#ea580c">
+          <span aria-hidden="true">📈</span> Visualization</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 5 min read</span>
+      </div>
+      <h1>Principles of Data Visualization</h1>
+      <p class="lede">Why some charts are instantly readable and others are not — perceptual accuracy, data-ink, colour discipline and the ethics of the y-axis.</p>
+      <div class="tag-row"><span class="tag">visualization</span><span class="tag">design</span><span class="tag">perception</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/visualization/principles-of-data-visualization/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>A chart is a machine for turning numbers into a perception. Some encodings — position, length — are decoded by the visual system quickly and accurately. Others — area, angle, colour intensity — are decoded slowly and badly. Good visualization is mostly the discipline of using the accurate ones for the important comparisons.</p><h2 id="the-accuracy-ranking-of-visual-encodings">The accuracy ranking of visual encodings<a class="anchor" href="#the-accuracy-ranking-of-visual-encodings" aria-label="Link to this section">#</a></h2><p>Cleveland and McGill established this order experimentally, and it has held up. From most to least accurately perceived:</p><ol><li><strong>Position along a common scale</strong> — a bar chart, a dot plot</li><li><strong>Position along non-aligned scales</strong> — small multiples</li><li><strong>Length</strong> — stacked bar segments</li><li><strong>Angle / slope</strong> — pie charts, line steepness</li><li><strong>Area</strong> — bubble charts, treemaps</li><li><strong>Volume, curvature</strong></li><li><strong>Colour saturation and hue</strong> — heatmaps, choropleths</li></ol><p><strong>The practical rule:</strong> put your most important comparison on the most accurate encoding available. If precise comparison matters, use position. Use area or colour only for showing rough patterns and structure.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>This ranking is why the pie chart is so often criticised. With five similar slices, ordering them by size is genuinely hard — you are comparing angles, rank 4. The same data as a sorted bar chart is comparing positions, rank 1, and takes a fraction of a second.
+Pie charts do have a legitimate use: <strong>one part against the whole</strong>, when the fraction is roughly a quarter, a half or three quarters. &quot;38% of revenue comes from mobile&quot; reads fine as a two-slice pie. Six slices does not.</p></aside><h2 id="data-ink-and-chartjunk">Data-ink and chartjunk<a class="anchor" href="#data-ink-and-chartjunk" aria-label="Link to this section">#</a></h2><p>Edward Tufte's principle: maximise the ratio of ink that encodes data to total ink. Every non-data element must earn its place.</p><p><strong>Remove by default:</strong></p><ul><li>3D effects on 2D data — they add distortion, never information</li><li>Heavy gridlines, borders and background fills</li><li>Redundant legends when direct labels fit</li><li>Decorative icons, drop shadows, gradients</li><li>Axis labels that repeat the title</li></ul><p><strong>Keep, because they aid reading:</strong></p><ul><li>Light gridlines when readers must estimate values</li><li>Direct labels on the lines or bars that matter</li><li>A reference line for target, budget or previous period</li><li>Annotation explaining an anomaly</li></ul><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>The best annotation on a business chart is a sentence, not a label. &quot;Q3 dip reflects the Diwali shutdown at the Pune plant&quot; prevents the same question in every meeting the chart appears in.</p></aside><h2 id="the-title-should-state-the-finding">The title should state the finding<a class="anchor" href="#the-title-should-state-the-finding" aria-label="Link to this section">#</a></h2><p>The single highest-leverage improvement to most business charts.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Weak (describes)</th><th style="text-align:left">Strong (concludes)</th></tr></thead><tbody><tr><td style="text-align:left">&quot;Monthly Revenue by Region&quot;</td><td style="text-align:left">&quot;North region drove all of Q2's growth&quot;</td></tr><tr><td style="text-align:left">&quot;Customer Churn Over Time&quot;</td><td style="text-align:left">&quot;Churn doubled after the March price increase&quot;</td></tr><tr><td style="text-align:left">&quot;Conversion by Device&quot;</td><td style="text-align:left">&quot;Mobile converts at half the rate of desktop&quot;</td></tr></tbody></table></div><p>The descriptive title makes the reader work out the point. The conclusive title tells them, then lets the chart serve as evidence. If you cannot write a conclusive title, you may not have a finding worth a chart.</p><h2 id="colour-discipline">Colour discipline<a class="anchor" href="#colour-discipline" aria-label="Link to this section">#</a></h2><p>Colour is the most abused channel in business dashboards. Three rules cover most cases.</p><p><strong>1. Use colour to encode, never to decorate.</strong> If every bar is a different colour but they all represent the same measure, the colour is noise. One colour, sorted by value.</p><p><strong>2. Match the palette type to the data type.</strong></p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Data</th><th style="text-align:left">Palette</th><th style="text-align:left">Example</th></tr></thead><tbody><tr><td style="text-align:left">Categorical (unordered)</td><td style="text-align:left">Qualitative — distinct hues</td><td style="text-align:left">Product lines, regions</td></tr><tr><td style="text-align:left">Ordered / sequential</td><td style="text-align:left">Single hue, light → dark</td><td style="text-align:left">Density, magnitude</td></tr><tr><td style="text-align:left">Diverging around a midpoint</td><td style="text-align:left">Two hues meeting at neutral</td><td style="text-align:left">Change vs target, sentiment</td></tr></tbody></table></div><p><strong>3. Design for the 8% of men with colour vision deficiency.</strong> Avoid red/green as the only distinction — a red-green &quot;good/bad&quot; chart is unreadable for a substantial part of any audience. Use blue/orange, add a shape or pattern, or label directly. And verify contrast: light grey text on white fails accessibility standards and looks weak on a projector.</p><p>Limit categorical colours to about <strong>six</strong>. Beyond that, nobody can hold the legend in memory — group the remainder into &quot;Other&quot;.</p><h2 id="the-y-axis-and-honest-scaling">The y-axis and honest scaling<a class="anchor" href="#the-y-axis-and-honest-scaling" aria-label="Link to this section">#</a></h2><p><strong>Bar charts must start at zero.</strong> Bars encode value by length; truncating the axis makes a 3% difference look like 300%. This is not a stylistic preference — it breaks the encoding.</p><p><strong>Line charts may start elsewhere</strong>, because they encode change through slope rather than magnitude. Forcing a zero baseline on a chart tracking a rate between 94% and 96% flattens the entire signal.</p><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>The truncated bar chart is the most common form of unintentional dishonesty in business reporting. If someone asks you to &quot;make the difference clearer&quot; by adjusting the axis on a bar chart, the correct response is to switch to a chart of the <em>difference</em> itself, which shows the same information without distortion.</p></aside><p><strong>Dual y-axes deserve their bad reputation.</strong> Two series on different scales can be made to appear correlated or divergent purely by choosing the scales — the visual relationship is an artefact of your choice. Prefer two stacked charts sharing an x-axis, or index both series to 100 at a common starting point.</p><h2 id="ordering">Ordering<a class="anchor" href="#ordering" aria-label="Link to this section">#</a></h2><p>Unordered categories should be sorted by value, not alphabetically. Sorting turns &quot;read every label and compare&quot; into &quot;look at the shape&quot;.</p><p>Exceptions where the natural order must be preserved:</p><ul><li>Time — always chronological</li><li>Ordinal categories — Strongly Disagree → Strongly Agree</li><li>A category readers will look up by name — a long list of countries</li><li>Comparing across small multiples — keep the order consistent so shapes are comparable</li></ul><h2 id="small-multiples">Small multiples<a class="anchor" href="#small-multiples" aria-label="Link to this section">#</a></h2><p>Repeating a small chart across categories, with identical axes and scales, is the most under-used technique in business visualization. Twelve small line charts — one per region, same axes — beat one line chart with twelve overlapping lines every time.</p><p>The eye compares shapes across panels extremely well. It cannot untangle twelve lines in the same space, no matter how carefully you colour them.</p><h2 id="density-and-audience">Density and audience<a class="anchor" href="#density-and-audience" aria-label="Link to this section">#</a></h2><p>Match the chart's complexity to how the reader will consume it:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Context</th><th style="text-align:left">Guideline</th></tr></thead><tbody><tr><td style="text-align:left">Executive slide</td><td style="text-align:left">One chart, one message, 5 seconds to understand</td></tr><tr><td style="text-align:left">Team dashboard</td><td style="text-align:left">4–8 charts, scannable, consistent layout</td></tr><tr><td style="text-align:left">Analysis document</td><td style="text-align:left">Denser charts are fine; readers can dwell</td></tr><tr><td style="text-align:left">Exploration (yours)</td><td style="text-align:left">Anything goes — no need to polish</td></tr></tbody></table></div><h2 id="a-pre-publication-checklist">A pre-publication checklist<a class="anchor" href="#a-pre-publication-checklist" aria-label="Link to this section">#</a></h2><ol><li>Does the title state the finding?</li><li>Is the most important comparison on position or length?</li><li>Do bar charts start at zero?</li><li>Are categories sorted meaningfully?</li><li>Are units and time period labelled?</li><li>Does colour encode something, and does it survive greyscale?</li><li>Is any element removable without losing information?</li><li>Would someone with no context understand it unaided?</li><li>Are anomalies annotated rather than left to be asked about?</li><li>What is the honest caveat, and is it visible?</li></ol><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Position and length are perceived accurately; area and colour are not — encode accordingly.</li><li>Remove any ink that does not carry information, but keep aids to reading.</li><li>Write conclusive titles that state the finding, not descriptive ones.</li><li>Bars require a zero baseline; lines do not. Avoid dual y-axes.</li><li>Sort unordered categories by value; use small multiples instead of many overlapping lines.</li><li>Design colour for accessibility and cap categorical palettes at about six.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">Choosing the Right Chart</a>
+      <span class="mini-meta">Visualization &amp; Storytelling</span></li><li><a href="../../../tutorials/visualization/dashboard-design/">Dashboard Design</a>
+      <span class="mini-meta">Visualization &amp; Storytelling</span></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">Storytelling with Data</a>
+      <span class="mini-meta">Visualization &amp; Storytelling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <span></span>
+  <a class="pager-next" href="../../../tutorials/visualization/choosing-the-right-chart/"><span>Next →</span><strong>Choosing the Right Chart</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-accuracy-ranking-of-visual-encodings">The accuracy ranking of visual encodings</a></li><li class="toc-l2"><a href="#data-ink-and-chartjunk">Data-ink and chartjunk</a></li><li class="toc-l2"><a href="#the-title-should-state-the-finding">The title should state the finding</a></li><li class="toc-l2"><a href="#colour-discipline">Colour discipline</a></li><li class="toc-l2"><a href="#the-y-axis-and-honest-scaling">The y-axis and honest scaling</a></li><li class="toc-l2"><a href="#ordering">Ordering</a></li><li class="toc-l2"><a href="#small-multiples">Small multiples</a></li><li class="toc-l2"><a href="#density-and-audience">Density and audience</a></li><li class="toc-l2"><a href="#a-pre-publication-checklist">A pre-publication checklist</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"Which encoding is perceived most accurately by the human visual system?","options":["Colour saturation","Area","Angle","Position along a common scale"],"answer":3,"explain":"Cleveland and McGill's ranking places position along a common scale first — which is why sorted bar and dot plots outperform pies and bubble charts for precise comparison."},{"q":"Why must bar charts start at zero while line charts need not?","options":["Convention only","Bars encode value through length, so truncating the axis distorts the ratio; lines encode change through slope","Line charts always contain negative values","Bar charts cannot display small differences"],"answer":1,"explain":"Length is the encoding in a bar chart, so a truncated baseline literally misrepresents the magnitudes. Lines communicate change via slope, which survives a non-zero baseline."},{"q":"You need to compare a metric's trend across 12 regions. What is usually the best approach?","options":["One line chart with 12 coloured lines","Small multiples — 12 small charts with identical axes","A stacked area chart","A pie chart per region"],"answer":1,"explain":"Twelve overlapping lines are impossible to disentangle. Small multiples with shared scales let the eye compare shapes across panels, which it does very well."}]};</script>
+</body>
+</html>

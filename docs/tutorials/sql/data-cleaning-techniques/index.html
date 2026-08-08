@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Cleaning and Validation | AnalyticsAdda</title>
+<meta name="description" content="Profiling a new table, handling duplicates and missing values, standardising messy text, and the validation checks that catch problems before your stakeholders do.">
+<meta property="og:title" content="Data Cleaning and Validation | AnalyticsAdda">
+<meta property="og:description" content="Profiling a new table, handling duplicates and missing values, standardising messy text, and the validation checks that catch problems before your stakeholders do.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#9333ea">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/sql/">SQL &amp; Data Wrangling</a></li><li aria-current="page">Data Cleaning and Validation</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/sql/" style="--track-color:#9333ea">
+          <span aria-hidden="true">🗄️</span> SQL</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 12 min read</span>
+      </div>
+      <h1>Data Cleaning and Validation</h1>
+      <p class="lede">Profiling a new table, handling duplicates and missing values, standardising messy text, and the validation checks that catch problems before your stakeholders do.</p>
+      <div class="tag-row"><span class="tag">sql</span><span class="tag">data-quality</span><span class="tag">cleaning</span><span class="tag">validation</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/sql/data-cleaning-techniques/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>The number one reason an analysis gets rejected in a meeting is that someone spots a figure they know is wrong. Cleaning and validating data is not preparatory drudgery — it is what makes the conclusion survive contact with the people who know the business.</p><h2 id="profile-before-you-analyse">Profile before you analyse<a class="anchor" href="#profile-before-you-analyse" aria-label="Link to this section">#</a></h2><p>Run this on any table you have not personally verified before:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                                              <span class="tok-keyword">AS</span> total_rows,
+       <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> customer_id)                           <span class="tok-keyword">AS</span> distinct_customers,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">-</span> <span class="tok-builtin">count</span>(customer_id)                         <span class="tok-keyword">AS</span> null_customer_ids,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">-</span> <span class="tok-builtin">count</span>(order_value)                         <span class="tok-keyword">AS</span> null_order_values,
+       <span class="tok-builtin">min</span>(order_date)                                       <span class="tok-keyword">AS</span> earliest,
+       <span class="tok-builtin">max</span>(order_date)                                       <span class="tok-keyword">AS</span> latest,
+       <span class="tok-builtin">min</span>(order_value)                                      <span class="tok-keyword">AS</span> min_value,
+       <span class="tok-builtin">max</span>(order_value)                                      <span class="tok-keyword">AS</span> max_value,
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(order_value), <span class="tok-number">2</span>)                            <span class="tok-keyword">AS</span> mean_value,
+       <span class="tok-builtin">percentile_cont</span>(<span class="tok-number">0.5</span>) WITHIN <span class="tok-keyword">GROUP</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> order_value) <span class="tok-keyword">AS</span> median_value,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> order_value <span class="tok-operator">&lt;</span> <span class="tok-number">0</span>)               <span class="tok-keyword">AS</span> negative_values,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> order_date <span class="tok-operator">&gt;</span> <span class="tok-builtin">current_date</span>)     <span class="tok-keyword">AS</span> future_dates
+<span class="tok-keyword">FROM</span>   orders;</code></pre></figure><p>Four things to look for immediately:</p><ul><li><code>total_rows</code> vs <code>distinct_customer_ids</code> — tells you the grain.</li><li>A large gap between mean and median — skew, so plan to use medians.</li><li>Impossible values — negatives, future dates, zero-value completed orders.</li><li>Null counts — and then, importantly, <em>why</em> those rows are null.</li></ul><p>Also check volume over time. A pipeline that silently stopped ingesting one source shows up as a step change nowhere else:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'day'</span>, created_at) <span class="tok-keyword">AS</span> day, <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">AS</span> <span class="tok-keyword">rows</span>
+<span class="tok-keyword">FROM</span>   events
+<span class="tok-keyword">WHERE</span>  created_at <span class="tok-operator">&gt;=</span> <span class="tok-builtin">current_date</span> <span class="tok-operator">-</span> <span class="tok-keyword">interval</span> <span class="tok-string">'60 days'</span>
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span> <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> <span class="tok-number">1</span>;</code></pre></figure><h2 id="duplicates">Duplicates<a class="anchor" href="#duplicates" aria-label="Link to this section">#</a></h2><p>Distinguish <strong>exact duplicates</strong> (identical rows, usually a pipeline re-run) from <strong>business duplicates</strong> (the same real-world entity recorded twice with different details).</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Find them first: never delete before you have looked</span>
+<span class="tok-keyword">SELECT</span> customer_id, order_date, order_value, <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">AS</span> copies
+<span class="tok-keyword">FROM</span>   orders
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>, <span class="tok-number">2</span>, <span class="tok-number">3</span>
+<span class="tok-keyword">HAVING</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">&gt;</span> <span class="tok-number">1</span>
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> copies <span class="tok-keyword">DESC</span>;
+
+<span class="tok-comment">-- Keep the most recent record per business key</span>
+<span class="tok-keyword">WITH</span> ranked <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-operator">*</span>,
+           <span class="tok-builtin">row_number</span>() <span class="tok-keyword">OVER</span> (<span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span> customer_id, order_date, order_value
+                              <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> ingested_at <span class="tok-keyword">DESC</span>) <span class="tok-keyword">AS</span> rn
+    <span class="tok-keyword">FROM</span>   orders
+)
+<span class="tok-keyword">SELECT</span> <span class="tok-operator">*</span> <span class="tok-keyword">FROM</span> ranked <span class="tok-keyword">WHERE</span> rn <span class="tok-operator">=</span> <span class="tok-number">1</span>;</code></pre></figure><p><code>row_number()</code> with a well-chosen PARTITION BY and ORDER BY is the standard deduplication pattern, and it is far safer than <code>DISTINCT</code> because you control which copy survives.</p><p>Business duplicates are harder — the same customer as &quot;Rajesh Kumar / rajesh@co.in&quot; and &quot;R. Kumar / rajesh@co.in&quot;. Fuzzy matching on normalised email or phone is the usual first pass:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-builtin">lower</span>(<span class="tok-builtin">trim</span>(email))            <span class="tok-keyword">AS</span> normalised_email,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                      <span class="tok-keyword">AS</span> records,
+       <span class="tok-function">string_agg</span>(<span class="tok-keyword">DISTINCT</span> name, <span class="tok-string">' | '</span>) <span class="tok-keyword">AS</span> name_variants
+<span class="tok-keyword">FROM</span>   customers
+<span class="tok-keyword">WHERE</span>  email <span class="tok-keyword">IS</span> <span class="tok-keyword">NOT</span> <span class="tok-keyword">NULL</span>
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>
+<span class="tok-keyword">HAVING</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">&gt;</span> <span class="tok-number">1</span>;</code></pre></figure><h2 id="missing-values">Missing values<a class="anchor" href="#missing-values" aria-label="Link to this section">#</a></h2><p><strong>Diagnose the mechanism before choosing a treatment.</strong> The three cases behave very differently:</p><ul><li><strong>MCAR</strong> (missing completely at random) — unrelated to anything. Dropping rows is safe but wasteful.</li><li><strong>MAR</strong> (missing at random) — relates to <em>observed</em> variables. Income missing more often for younger users. Imputation conditioned on those variables works.</li><li><strong>MNAR</strong> (missing not at random) — relates to the <em>unobserved value itself</em>. High earners decline to state income. <strong>Any imputation biases the result</strong>, and the missingness is itself informative.</li></ul><p>MNAR is common in business data and routinely ignored.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Strategy</th><th style="text-align:left">When appropriate</th><th style="text-align:left">Risk</th></tr></thead><tbody><tr><td style="text-align:left">Drop rows</td><td style="text-align:left">Few missing, MCAR</td><td style="text-align:left">Bias if not MCAR; sample shrinks</td></tr><tr><td style="text-align:left">Fill with 0</td><td style="text-align:left">Missing genuinely means none</td><td style="text-align:left">Wrong when it means unknown</td></tr><tr><td style="text-align:left">Mean/median fill</td><td style="text-align:left">MAR, small share missing</td><td style="text-align:left">Understates variance</td></tr><tr><td style="text-align:left">Forward fill</td><td style="text-align:left">Time series with carry-forward meaning</td><td style="text-align:left">Hides gaps in collection</td></tr><tr><td style="text-align:left">Model-based</td><td style="text-align:left">MAR, missingness matters</td><td style="text-align:left">Complexity, leakage risk</td></tr><tr><td style="text-align:left"><strong>Flag and keep</strong></td><td style="text-align:left">Almost always worth doing</td><td style="text-align:left">None</td></tr></tbody></table></div><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Preserve the missingness as a signal, then treat the value</span>
+<span class="tok-keyword">SELECT</span> order_id,
+       <span class="tok-builtin">coalesce</span>(discount_code, <span class="tok-string">'(none)'</span>)      <span class="tok-keyword">AS</span> discount_code,
+       discount_code <span class="tok-keyword">IS</span> <span class="tok-keyword">NULL</span>                  <span class="tok-keyword">AS</span> had_no_discount_code,
+       <span class="tok-builtin">coalesce</span>(delivery_rating, <span class="tok-number">0</span>)           <span class="tok-keyword">AS</span> delivery_rating,
+       delivery_rating <span class="tok-keyword">IS</span> <span class="tok-keyword">NULL</span>                <span class="tok-keyword">AS</span> rating_missing
+<span class="tok-keyword">FROM</span>   orders;</code></pre></figure><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>A missing-value indicator is frequently one of the most predictive features in a model. &quot;Did not provide a phone number&quot; often predicts churn better than most fields that <em>were</em> provided. Never throw the information away by silently imputing.</p></aside><h2 id="standardising-text">Standardising text<a class="anchor" href="#standardising-text" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-builtin">trim</span>(city)                                       <span class="tok-keyword">AS</span> trimmed,
+       <span class="tok-builtin">lower</span>(<span class="tok-builtin">trim</span>(city))                                <span class="tok-keyword">AS</span> normalised,
+       <span class="tok-function">initcap</span>(<span class="tok-builtin">lower</span>(<span class="tok-builtin">trim</span>(city)))                       <span class="tok-keyword">AS</span> title_case,
+       <span class="tok-builtin">regexp_replace</span>(phone, <span class="tok-string">'[^0-9]'</span>, <span class="tok-string">''</span>, <span class="tok-string">'g'</span>)         <span class="tok-keyword">AS</span> digits_only,
+       <span class="tok-builtin">regexp_replace</span>(<span class="tok-builtin">trim</span>(name), <span class="tok-string">'\s+'</span>, <span class="tok-string">' '</span>, <span class="tok-string">'g'</span>)      <span class="tok-keyword">AS</span> single_spaced
+<span class="tok-keyword">FROM</span>   customers;</code></pre></figure><p>For categories that vary in spelling, a mapping table beats a chain of CASE statements — it can be maintained by the business team without changing SQL:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">CREATE</span> <span class="tok-keyword">TABLE</span> <span class="tok-function">city_mapping</span> (raw_value text <span class="tok-keyword">PRIMARY</span> <span class="tok-keyword">KEY</span>, clean_value text);
+<span class="tok-comment">-- 'bangalore', 'Bengaluru', 'BLR', 'bangalore ' → 'Bengaluru'</span>
+
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">coalesce</span>(m.clean_value, <span class="tok-function">initcap</span>(<span class="tok-builtin">lower</span>(<span class="tok-builtin">trim</span>(c.city)))) <span class="tok-keyword">AS</span> city
+<span class="tok-keyword">FROM</span>   customers c
+<span class="tok-keyword">LEFT</span>   <span class="tok-keyword">JOIN</span> city_mapping m <span class="tok-keyword">ON</span> m.raw_value <span class="tok-operator">=</span> <span class="tok-builtin">lower</span>(<span class="tok-builtin">trim</span>(c.city));</code></pre></figure><h2 id="outliers-and-impossible-values">Outliers and impossible values<a class="anchor" href="#outliers-and-impossible-values" aria-label="Link to this section">#</a></h2><p>Distinguish <strong>impossible</strong> (violates a rule of reality) from <strong>implausible</strong> (statistically extreme but real).</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Impossible values: fix or exclude, and document</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> order_value <span class="tok-operator">&lt;</span> <span class="tok-number">0</span>)                   <span class="tok-keyword">AS</span> negative_orders,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> order_date <span class="tok-operator">&gt;</span> <span class="tok-builtin">current_date</span>)         <span class="tok-keyword">AS</span> future_orders,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> order_date <span class="tok-operator">&lt;</span> <span class="tok-string">'2015-01-01'</span>)         <span class="tok-keyword">AS</span> pre_launch_orders,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> quantity <span class="tok-operator">&gt;</span> <span class="tok-number">10000</span>)                  <span class="tok-keyword">AS</span> absurd_quantity,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> delivery_date <span class="tok-operator">&lt;</span> order_date)        <span class="tok-keyword">AS</span> delivered_before_ordered
+<span class="tok-keyword">FROM</span>   orders;
+
+<span class="tok-comment">-- Statistical outliers: investigate, do not auto-delete</span>
+<span class="tok-keyword">WITH</span> bounds <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-builtin">percentile_cont</span>(<span class="tok-number">0.25</span>) WITHIN <span class="tok-keyword">GROUP</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> order_value) <span class="tok-keyword">AS</span> q1,
+           <span class="tok-builtin">percentile_cont</span>(<span class="tok-number">0.75</span>) WITHIN <span class="tok-keyword">GROUP</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> order_value) <span class="tok-keyword">AS</span> q3
+    <span class="tok-keyword">FROM</span>   orders
+)
+<span class="tok-keyword">SELECT</span> o.<span class="tok-operator">*</span>
+<span class="tok-keyword">FROM</span>   orders o, bounds b
+<span class="tok-keyword">WHERE</span>  o.order_value <span class="tok-operator">&gt;</span> b.q3 <span class="tok-operator">+</span> <span class="tok-number">1.5</span> <span class="tok-operator">*</span> (b.q3 <span class="tok-operator">-</span> b.q1)
+    <span class="tok-keyword">OR</span> o.order_value <span class="tok-operator">&lt;</span> b.q1 <span class="tok-operator">-</span> <span class="tok-number">1.5</span> <span class="tok-operator">*</span> (b.q3 <span class="tok-operator">-</span> b.q1);</code></pre></figure><p>Impossible values are bugs. Statistical outliers are usually the most valuable customers. Treating them the same way is how analyses quietly lose 30% of revenue.</p><h2 id="referential-integrity">Referential integrity<a class="anchor" href="#referential-integrity" aria-label="Link to this section">#</a></h2><p>Warehouses rarely enforce foreign keys, so orphaned records accumulate silently.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Orders whose customer no longer exists</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">AS</span> orphaned_orders
+<span class="tok-keyword">FROM</span>   orders o
+<span class="tok-keyword">WHERE</span>  <span class="tok-keyword">NOT</span> <span class="tok-keyword">EXISTS</span> (<span class="tok-keyword">SELECT</span> <span class="tok-number">1</span> <span class="tok-keyword">FROM</span> customers c <span class="tok-keyword">WHERE</span> c.customer_id <span class="tok-operator">=</span> o.customer_id);</code></pre></figure><p>Orphans usually mean a deletion cascade that did not cascade, or two systems syncing at different times. Either way, an INNER JOIN will silently drop that revenue from your totals.</p><h2 id="a-reusable-validation-query">A reusable validation query<a class="anchor" href="#a-reusable-validation-query" aria-label="Link to this section">#</a></h2><p>Run this as a single readable report before publishing any analysis:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">WITH</span> checks <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-string">'Row count'</span>         <span class="tok-keyword">AS</span> check_name,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)<span class="tok-operator">::</span>text      <span class="tok-keyword">AS</span> value,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">&gt;</span> <span class="tok-number">0</span>        <span class="tok-keyword">AS</span> passed          <span class="tok-keyword">FROM</span> orders
+    <span class="tok-keyword">UNION</span> <span class="tok-keyword">ALL</span>
+    <span class="tok-keyword">SELECT</span> <span class="tok-string">'No null customer_id'</span>, <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)<span class="tok-operator">::</span>text,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">=</span> <span class="tok-number">0</span>        <span class="tok-keyword">FROM</span> orders <span class="tok-keyword">WHERE</span> customer_id <span class="tok-keyword">IS</span> <span class="tok-keyword">NULL</span>
+    <span class="tok-keyword">UNION</span> <span class="tok-keyword">ALL</span>
+    <span class="tok-keyword">SELECT</span> <span class="tok-string">'No negative values'</span>, <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)<span class="tok-operator">::</span>text,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">=</span> <span class="tok-number">0</span>        <span class="tok-keyword">FROM</span> orders <span class="tok-keyword">WHERE</span> order_value <span class="tok-operator">&lt;</span> <span class="tok-number">0</span>
+    <span class="tok-keyword">UNION</span> <span class="tok-keyword">ALL</span>
+    <span class="tok-keyword">SELECT</span> <span class="tok-string">'No future dates'</span>, <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)<span class="tok-operator">::</span>text,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">=</span> <span class="tok-number">0</span>        <span class="tok-keyword">FROM</span> orders <span class="tok-keyword">WHERE</span> order_date <span class="tok-operator">&gt;</span> <span class="tok-builtin">current_date</span>
+    <span class="tok-keyword">UNION</span> <span class="tok-keyword">ALL</span>
+    <span class="tok-keyword">SELECT</span> <span class="tok-string">'No duplicate order_ids'</span>,
+           (<span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">-</span> <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> order_id))<span class="tok-operator">::</span>text,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-operator">=</span> <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> order_id) <span class="tok-keyword">FROM</span> orders
+    <span class="tok-keyword">UNION</span> <span class="tok-keyword">ALL</span>
+    <span class="tok-keyword">SELECT</span> <span class="tok-string">'Fresh data (&lt; 2 days old)'</span>, <span class="tok-builtin">max</span>(order_date)<span class="tok-operator">::</span>text,
+           <span class="tok-builtin">max</span>(order_date) <span class="tok-operator">&gt;=</span> <span class="tok-builtin">current_date</span> <span class="tok-operator">-</span> <span class="tok-number">2</span> <span class="tok-keyword">FROM</span> orders
+)
+<span class="tok-keyword">SELECT</span> check_name, value, <span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> passed <span class="tok-keyword">THEN</span> <span class="tok-string">'PASS'</span> <span class="tok-keyword">ELSE</span> <span class="tok-string">'FAIL'</span> <span class="tok-keyword">END</span> <span class="tok-keyword">AS</span> status
+<span class="tok-keyword">FROM</span>   checks
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> passed, check_name;</code></pre></figure><p>Scheduling this and alerting on failures is the cheapest data quality system that actually works. It catches the majority of real incidents — stopped pipelines, duplicated loads, schema changes — at a fraction of the cost of a data observability platform.</p><h2 id="documenting-your-cleaning">Documenting your cleaning<a class="anchor" href="#documenting-your-cleaning" aria-label="Link to this section">#</a></h2><p>Every cleaning decision must be reproducible and explainable, because someone will eventually ask why your number differs from theirs:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">/* Cleaning applied to orders, 2026-08-01
+   1. Excluded status = 'test' (412 rows, internal QA orders)
+   2. Excluded order_value &lt;= 0 (89 rows, refund adjustments booked as orders)
+   3. Deduplicated on (customer_id, order_date, order_value), keeping the
+      latest ingested_at (231 duplicate rows from the 2026-06-14 backfill)
+   4. Normalised city via city_mapping (37 spelling variants → 12 cities)
+   Net effect: 1,204,882 raw rows → 1,204,150 analysis rows (-0.06%)
+*/</span></code></pre></figure><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Always report the net effect of cleaning as a percentage of rows and of revenue. If cleaning removed 0.06% of rows but 12% of revenue, you have deleted your biggest customers — and you need to know that before publishing, not after.</p></aside><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Profile every unfamiliar table: grain, nulls, ranges, impossible values, volume over time.</li><li>Deduplicate with <code>row_number()</code> so you control which copy survives.</li><li>Diagnose <em>why</em> data is missing; MNAR cannot be safely imputed.</li><li>Keep a missingness flag — it is often genuinely predictive.</li><li>Separate impossible values (fix) from statistical outliers (investigate, usually keep).</li><li>Automate a small validation query and alert on it; document cleaning and its effect on revenue.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">SQL Basics for Analysts</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/joins-and-relationships/">Joins and Table Relationships</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">Aggregation and Grouping</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/sql/cohort-and-retention-analysis/"><span>← Previous</span><strong>Cohort and Retention Analysis in SQL</strong></a>
+  <span></span>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#profile-before-you-analyse">Profile before you analyse</a></li><li class="toc-l2"><a href="#duplicates">Duplicates</a></li><li class="toc-l2"><a href="#missing-values">Missing values</a></li><li class="toc-l2"><a href="#standardising-text">Standardising text</a></li><li class="toc-l2"><a href="#outliers-and-impossible-values">Outliers and impossible values</a></li><li class="toc-l2"><a href="#referential-integrity">Referential integrity</a></li><li class="toc-l2"><a href="#a-reusable-validation-query">A reusable validation query</a></li><li class="toc-l2"><a href="#documenting-your-cleaning">Documenting your cleaning</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"High earners systematically decline to state their income. What kind of missingness is this?","options":["MCAR — missing completely at random","MAR — missing at random, explainable by observed variables","MNAR — missing not at random, dependent on the unobserved value itself","It is not missing data"],"answer":2,"explain":"The probability of missingness depends on the value that is missing. Any imputation will be biased downward, and the missingness itself carries information."},{"q":"Which is the safest way to remove duplicate order records?","options":["SELECT DISTINCT * FROM orders","row_number() over a business key, ordered by ingestion time, keeping rn = 1","DELETE every row that appears more than once","GROUP BY every column"],"answer":1,"explain":"row_number() lets you define both the business key and which copy to keep, unlike DISTINCT which cannot resolve rows that differ in one irrelevant column."},{"q":"Your cleaning removed 0.06% of rows but 12% of total revenue. What should you do?","options":["Nothing — the row count impact is tiny","Investigate immediately; you have likely excluded the largest customers","Remove more rows to balance it out","Report the row percentage only"],"answer":1,"explain":"A revenue impact vastly larger than the row impact means the excluded rows are large-value orders. Always report cleaning impact in both rows and revenue."}]};</script>
+</body>
+</html>

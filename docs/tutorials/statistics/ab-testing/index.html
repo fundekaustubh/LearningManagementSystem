@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A/B Testing in Practice | AnalyticsAdda</title>
+<meta name="description" content="Designing, sizing, running and reading an online experiment — including the pitfalls of peeking, novelty effects and Simpson's paradox.">
+<meta property="og:title" content="A/B Testing in Practice | AnalyticsAdda">
+<meta property="og:description" content="Designing, sizing, running and reading an online experiment — including the pitfalls of peeking, novelty effects and Simpson's paradox.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" open style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#2563eb">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/statistics/">Statistics &amp; Probability</a></li><li aria-current="page">A/B Testing in Practice</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/statistics/" style="--track-color:#2563eb">
+          <span aria-hidden="true">📊</span> Statistics</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 7 min read</span>
+      </div>
+      <h1>A/B Testing in Practice</h1>
+      <p class="lede">Designing, sizing, running and reading an online experiment — including the pitfalls of peeking, novelty effects and Simpson's paradox.</p>
+      <div class="tag-row"><span class="tag">experimentation</span><span class="tag">ab-testing</span><span class="tag">statistics</span><span class="tag">causal</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/statistics/ab-testing/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>A/B testing is the most reliable causal tool available to a business analyst. Randomisation makes the two groups statistically identical in every respect except the treatment, so a difference in outcome can be attributed to the treatment. That property is worth protecting carefully — nearly every A/B testing failure is a failure of randomisation or of discipline, not of statistics.</p><h2 id="designing-the-test">Designing the test<a class="anchor" href="#designing-the-test" aria-label="Link to this section">#</a></h2><p><strong>1. One clear hypothesis.</strong> &quot;Moving the CTA above the fold will increase add-to-cart rate, because currently 40% of mobile users never scroll past the hero.&quot; A mechanism makes the result interpretable either way.</p><p><strong>2. One primary metric.</strong> Pre-registered. Secondary metrics are for diagnosis, not for declaring victory.</p><p><strong>3. Guardrail metrics.</strong> What must not degrade: revenue per session, page load time, refund rate, support contacts. A conversion win that tanks margin is not a win.</p><p><strong>4. Randomisation unit.</strong> Usually the <strong>user</strong>, not the session or the pageview. If you randomise by session, the same person sees both variants, which contaminates the comparison and breaks the independence assumption behind your test.</p><p><strong>5. Duration.</strong> At minimum one full business cycle — usually one or two complete weeks. Traffic on Tuesday differs from Sunday, and a test running Monday–Thursday measures weekday users only.</p><h2 id="sizing-the-test">Sizing the test<a class="anchor" href="#sizing-the-test" aria-label="Link to this section">#</a></h2><p>The sample size per variant, for comparing two proportions:</p><p><span class="math">n = \frac{2 × (z_{α/2} + z_β)² × p̄(1-p̄)}{(p_1 - p_2)²}</span></p><p>At α = 0.05 and 80% power, <span class="math">(z_{α/2} + z_β)² = (1.96 + 0.84)² ≈ 7.85</span>.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> statsmodels.stats.power <span class="tok-keyword">import</span> zt_ind_solve_power
+<span class="tok-keyword">from</span> statsmodels.stats.proportion <span class="tok-keyword">import</span> proportion_effectsize
+
+baseline <span class="tok-operator">=</span> <span class="tok-number">0.032</span>           <span class="tok-comment"># current conversion rate</span>
+mde      <span class="tok-operator">=</span> <span class="tok-number">0.10</span>            <span class="tok-comment"># smallest lift worth detecting: 10% relative</span>
+target   <span class="tok-operator">=</span> baseline <span class="tok-operator">*</span> (<span class="tok-number">1</span> <span class="tok-operator">+</span> mde)
+
+effect <span class="tok-operator">=</span> <span class="tok-function">proportion_effectsize</span>(target, baseline)
+n <span class="tok-operator">=</span> <span class="tok-function">zt_ind_solve_power</span>(effect_size<span class="tok-operator">=</span>effect, alpha<span class="tok-operator">=</span><span class="tok-number">0.05</span>, power<span class="tok-operator">=</span><span class="tok-number">0.80</span>,
+                       alternative<span class="tok-operator">=</span><span class="tok-string">'two-sided'</span>)
+<span class="tok-builtin">print</span>(<span class="tok-string">f&quot;{n:,.0f} users per variant&quot;</span>)   <span class="tok-comment"># ≈ 51,000 per variant</span></code></pre></figure><p>The critical input is the <strong>minimum detectable effect (MDE)</strong>: the smallest lift that would actually change your decision. Because n scales with <span class="math">1/effect²</span>, halving the MDE quadruples the required sample.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p>Baseline conversion 3.2%, 20,000 users/week.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Relative lift to detect</th><th style="text-align:left">Users per variant</th><th style="text-align:left">Weeks (2 variants)</th></tr></thead><tbody><tr><td style="text-align:left">20%</td><td style="text-align:left">~13,000</td><td style="text-align:left">1.3</td></tr><tr><td style="text-align:left">10%</td><td style="text-align:left">~51,000</td><td style="text-align:left">5.1</td></tr><tr><td style="text-align:left">5%</td><td style="text-align:left">~205,000</td><td style="text-align:left">20.5</td></tr><tr><td style="text-align:left">2%</td><td style="text-align:left">~1,280,000</td><td style="text-align:left">128</td></tr></tbody></table></div><p>This table is the most useful thing to bring to an experiment planning meeting. It converts &quot;let's test everything&quot; into an honest conversation about what is testable at your traffic level. Below a certain size, small effects are simply not measurable and should be decided on judgement instead.</p></aside><h2 id="validity-checks-before-reading-results">Validity checks before reading results<a class="anchor" href="#validity-checks-before-reading-results" aria-label="Link to this section">#</a></h2><p><strong>Sample ratio mismatch (SRM).</strong> You split 50/50 but observe 50.8/49.2. Run a chi-square test on the split; if p &lt; 0.001, something is broken — a redirect failing, a bot filter applied to one arm, differential tracking loss. <strong>Stop and fix, do not analyse.</strong> SRM is the single most valuable automated check in an experimentation platform.</p><p><strong>A/A test.</strong> Run the same experience against itself. You should see no significant difference (about 5% of the time you will, which is exactly the point). Regular A/A tests validate your infrastructure.</p><p><strong>Pre-period comparison.</strong> The groups should have been indistinguishable <em>before</em> the test started. If they were not, randomisation failed.</p><h2 id="reading-the-results">Reading the results<a class="anchor" href="#reading-the-results" aria-label="Link to this section">#</a></h2><p>Report all three of these together:</p><ol><li><strong>Effect size</strong> — absolute (+0.4pp) and relative (+12.5%).</li><li><strong>Confidence interval</strong> — [0.1pp, 0.7pp].</li><li><strong>Practical threshold</strong> — the lift needed to justify the cost.</li></ol><p>Then decide with the interval, not the p-value. If the whole interval sits above your threshold, ship. If it straddles zero, you learned the effect is not large — which is genuinely useful information.</p><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Translate results into annual money before presenting. &quot;+0.4pp conversion on 2.4M annual sessions at ₹1,850 AOV ≈ ₹1.8 crore of incremental revenue&quot; lands very differently from &quot;p = 0.03&quot;.</p></aside><h2 id="the-pitfalls">The pitfalls<a class="anchor" href="#the-pitfalls" aria-label="Link to this section">#</a></h2><p><strong>Peeking.</strong> Checking results daily and stopping when p &lt; 0.05 inflates your false positive rate from 5% to 20–30%. Every look is another chance to catch a random fluctuation.</p><p><em>Fixes:</em> commit to the sample size in advance; or use a <strong>sequential testing</strong> method (mSPRT, always-valid p-values, group sequential boundaries) that is designed for continuous monitoring.</p><p><strong>Novelty and primacy effects.</strong> Regular users react to <em>change</em>, not to the design. A new UI can lift engagement for a week and then decay; or existing users are temporarily worse off because they knew the old layout. Segment new versus returning users, and check whether the effect is stable across the test window.</p><p><strong>Simpson's paradox.</strong> The treatment wins in every segment yet loses overall (or vice versa), because the segment mix differs between arms. Almost always caused by an SRM or a segment-specific rollout. Always check headline results against the main segments.</p><p><strong>Interference between arms.</strong> Randomisation assumes one user's treatment does not affect another's outcome. This breaks in marketplaces (a discount to buyers in arm A consumes inventory that arm B needed), social networks and anything with shared supply. Fixes involve cluster or switchback randomisation.</p><p><strong>Multiple metric testing.</strong> Twenty metrics, α = 0.05, one false winner guaranteed. Pre-register the primary metric.</p><p><strong>Stopping early on a &quot;clear loser.&quot;</strong> Symmetric to peeking, and equally invalid, though usually more forgivable when the loss is large and expensive.</p><h2 id="when-you-cannot-randomise">When you cannot randomise<a class="anchor" href="#when-you-cannot-randomise" aria-label="Link to this section">#</a></h2><p>Sometimes an A/B test is impossible — pricing changes, brand campaigns, features that cannot be split. Quasi-experimental alternatives:</p><ul><li><strong>Difference-in-differences.</strong> Compare the before/after change in a treated group against the change in an untreated control group over the same period. Requires the &quot;parallel trends&quot; assumption: absent treatment, both groups would have moved together.</li><li><strong>Regression discontinuity.</strong> Exploit a sharp cutoff (customers above ₹10,000 spend get a perk) and compare just either side of it.</li><li><strong>Synthetic control.</strong> Build a weighted combination of untreated units that tracks the treated unit's pre-period, then compare after.</li><li><strong>Interrupted time series.</strong> Model the pre-period trend and measure the deviation after the change.</li></ul><p>All of these are weaker than randomisation. State the assumption each one rests on when you present it.</p><h2 id="an-experiment-readout-template">An experiment readout template<a class="anchor" href="#an-experiment-readout-template" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>EXPERIMENT:  CTA above the fold (mobile web)
+HYPOTHESIS:  40% of mobile users never scroll to the CTA; moving it up
+             will raise add-to-cart rate.
+DESIGN:      50/50 by user_id · 14 days · 2 full weeks
+PRIMARY:     Add-to-cart rate.  MDE 5% relative, 80% power.
+GUARDRAILS:  Revenue/session, page load p95, refund rate.
+
+VALIDITY:    SRM check p = 0.62 ✓ · pre-period balanced ✓
+
+RESULT:      Control 8.10% · Treatment 8.58%
+             Absolute +0.48pp · Relative +5.9%
+             95% CI [+0.14pp, +0.82pp] · p = 0.006
+GUARDRAILS:  Revenue/session +1.2% (ns) · load p95 unchanged ✓
+SEGMENTS:    Stable across new/returning, iOS/Android, all weeks.
+
+DECISION:    Ship. Estimated +₹1.8 crore annualised revenue.
+             Monitor for 4 weeks for decay.</code></pre></figure><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Randomise by user, run for whole business cycles, pre-register one primary metric plus guardrails.</li><li>Sample size scales with <span class="math">1/MDE²</span> — small effects are often untestable at real traffic levels.</li><li>Always check for sample ratio mismatch before reading any result.</li><li>Peeking inflates false positives; fix the sample size in advance or use sequential methods.</li><li>Report effect size and confidence interval in business units, not p-values alone.</li><li>Without randomisation, use diff-in-diff or synthetic control — and state the assumptions.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/statistics/correlation-vs-causation/">Correlation vs Causation</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/descriptive-statistics/">Descriptive Statistics for Business Data</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li><li><a href="../../../tutorials/statistics/probability-essentials/">Probability Essentials for Analysts</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/statistics/hypothesis-testing/"><span>← Previous</span><strong>Hypothesis Testing</strong></a>
+  <a class="pager-next" href="../../../tutorials/statistics/correlation-vs-causation/"><span>Next →</span><strong>Correlation vs Causation</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#designing-the-test">Designing the test</a></li><li class="toc-l2"><a href="#sizing-the-test">Sizing the test</a></li><li class="toc-l2"><a href="#validity-checks-before-reading-results">Validity checks before reading results</a></li><li class="toc-l2"><a href="#reading-the-results">Reading the results</a></li><li class="toc-l2"><a href="#the-pitfalls">The pitfalls</a></li><li class="toc-l2"><a href="#when-you-cannot-randomise">When you cannot randomise</a></li><li class="toc-l2"><a href="#an-experiment-readout-template">An experiment readout template</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"You planned a 14-day test but see p = 0.04 on day 4 and stop. What is the problem?","options":["Nothing — significance is significance","Peeking inflates the false positive rate well above the nominal 5%","Four days is always enough","The confidence interval becomes too narrow"],"answer":1,"explain":"Repeatedly testing as data accumulates gives many chances to catch a random fluctuation. Fixed-horizon tests must run to their planned size, or you need sequential methods designed for continuous monitoring."},{"q":"Your 50/50 test shows 50.9% of users in control and 49.1% in treatment, with millions of users. What should you do?","options":["Nothing, the split is close enough","Investigate — this is a sample ratio mismatch indicating a broken assignment or tracking pipeline","Reweight the groups and analyse","Extend the test until the split evens out"],"answer":1,"explain":"At large n a 1.8pp deviation from a 50/50 split is essentially impossible by chance. SRM signals a real defect, and results should not be trusted until it is resolved."},{"q":"Baseline conversion is 3.2% and you want to detect a 5% relative lift instead of 10%. What happens to the required sample size?","options":["It halves","It stays the same","It roughly doubles","It roughly quadruples"],"answer":3,"explain":"Required n scales with the inverse square of the effect size, so halving the detectable effect multiplies the required sample by about four."}]};</script>
+</body>
+</html>

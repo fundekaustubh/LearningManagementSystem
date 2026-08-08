@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linear Regression | AnalyticsAdda</title>
+<meta name="description" content="Fitting, reading and sanity-checking a regression — coefficient interpretation, R-squared, the assumptions, and why a good fit is not a causal claim.">
+<meta property="og:title" content="Linear Regression | AnalyticsAdda">
+<meta property="og:description" content="Fitting, reading and sanity-checking a regression — coefficient interpretation, R-squared, the assumptions, and why a good fit is not a causal claim.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" open style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#0891b2">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li aria-current="page">Linear Regression</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/predictive/" style="--track-color:#0891b2">
+          <span aria-hidden="true">🤖</span> Predictive</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 8 min read</span>
+      </div>
+      <h1>Linear Regression</h1>
+      <p class="lede">Fitting, reading and sanity-checking a regression — coefficient interpretation, R-squared, the assumptions, and why a good fit is not a causal claim.</p>
+      <div class="tag-row"><span class="tag">modelling</span><span class="tag">regression</span><span class="tag">statistics</span><span class="tag">prediction</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/predictive/linear-regression/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Linear regression models a continuous outcome as a weighted sum of inputs. It is the most-used model in business analytics, and its real value is less about prediction than <strong>interpretation</strong>: the coefficients quantify relationships in units a stakeholder understands.</p><p><span class="math">y = β_0 + β_1x_1 + β_2x_2 + ... + β_kx_k + ε</span></p><ul><li><span class="math">β_0</span> — intercept, the predicted value when all predictors are zero.</li><li><span class="math">β_i</span> — the change in y per one-unit change in <span class="math">x_i</span>, <strong>holding the other predictors constant</strong>.</li><li><span class="math">ε</span> — the error term, capturing everything the model does not.</li></ul><p>That &quot;holding others constant&quot; clause is the entire reason multiple regression is worth learning. It is how you separate the effect of price from the effect of the advertising that happened to run at the same time.</p><h2 id="reading-the-output">Reading the output<a class="anchor" href="#reading-the-output" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">import</span> statsmodels.api <span class="tok-keyword">as</span> sm
+
+X <span class="tok-operator">=</span> df[[<span class="tok-string">'price'</span>, <span class="tok-string">'ad_spend'</span>, <span class="tok-string">'is_holiday_week'</span>]]
+X <span class="tok-operator">=</span> <span class="tok-function">sm.add_constant</span>(X)
+model <span class="tok-operator">=</span> <span class="tok-function">sm.OLS</span>(df[<span class="tok-string">'units_sold'</span>], X).<span class="tok-function">fit</span>()
+<span class="tok-builtin">print</span>(<span class="tok-function">model.summary</span>())</code></pre></figure><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>                 coef    std err        t     P&gt;|t|     [0.025    0.975]
+const        1240.500     85.200   14.560     0.000   1073.100  1407.900
+price         -18.400      2.100   -8.762     0.000    -22.520   -14.280
+ad_spend        0.042      0.008    5.250     0.000      0.026     0.058
+is_holiday    310.700     45.600    6.814     0.000    221.300    400.100
+
+R-squared: 0.684    Adj. R-squared: 0.679    F-statistic: 142.3 (p &lt; 0.001)</code></pre></figure><p>Read it line by line:</p><ul><li><strong>price = −18.4</strong> — each ₹1 price increase reduces expected weekly units by 18.4, holding ad spend and holiday status constant.</li><li><strong>ad_spend = 0.042</strong> — each additional ₹1 of ad spend is associated with 0.042 more units. At ₹500 per unit of contribution, ₹1 of spend returns ₹21 — which sounds implausible and is a signal to check for confounding, not to increase the budget.</li><li><strong>is_holiday = 310.7</strong> — holiday weeks sell 311 more units on average.</li><li><strong>P&gt;|t| &lt; 0.05</strong> — the coefficient is distinguishable from zero.</li><li><strong>The confidence interval</strong> matters more than the p-value. Price is between −22.5 and −14.3; that range is what you should carry into a pricing decision.</li></ul><h2 id="r-and-what-it-does-not-tell-you">R² and what it does not tell you<a class="anchor" href="#r-and-what-it-does-not-tell-you" aria-label="Link to this section">#</a></h2><p><strong>R²</strong> is the share of variance in y explained by the model. 0.684 means the predictors account for about 68% of the variation in units sold.</p><ul><li><strong>Adjusted R²</strong> penalises added predictors; use it when comparing models with different numbers of variables.</li><li><strong>A high R² does not mean the model is correct.</strong> It can be inflated by overfitting, by a trend both variables share, or by a leaked variable.</li><li><strong>A low R² does not mean the model is useless.</strong> In noisy human-behaviour data, an R² of 0.15 with a reliable, well-estimated coefficient can be genuinely valuable.</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Never compare R² across models fitted on different outcome variables or different datasets. R² of 0.9 predicting revenue and 0.3 predicting churn probability say nothing about which model is better — they are measuring different things.</p></aside><h2 id="the-assumptions">The assumptions<a class="anchor" href="#the-assumptions" aria-label="Link to this section">#</a></h2><p>Regression coefficients are unbiased and their standard errors trustworthy only when these hold. Check them; do not assume them.</p><p><strong>1. Linearity.</strong> The relationship between each x and y is linear. Check by plotting residuals against fitted values — you want a formless cloud. A curve means you need a transformation or a polynomial term.</p><p><strong>2. Independence of errors.</strong> One observation's error tells you nothing about another's. Violated by time series (autocorrelation) and by grouped data (multiple observations per store). Standard errors become far too small, so everything looks significant. Use time-series methods or clustered standard errors.</p><p><strong>3. Homoscedasticity.</strong> Constant error variance. A funnel-shaped residual plot (spread growing with the fitted value) is extremely common with revenue data. Fix by modelling log(y), or use robust standard errors.</p><p><strong>4. Normality of residuals.</strong> Needed for exact small-sample inference; matters little for large samples thanks to the CLT.</p><p><strong>5. No perfect multicollinearity.</strong> Predictors must not be exact linear combinations of each other.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">import</span> matplotlib.pyplot <span class="tok-keyword">as</span> plt
+
+fitted <span class="tok-operator">=</span> model.fittedvalues
+residuals <span class="tok-operator">=</span> model.resid
+
+fig, axes <span class="tok-operator">=</span> <span class="tok-function">plt.subplots</span>(<span class="tok-number">1</span>, <span class="tok-number">2</span>, figsize<span class="tok-operator">=</span>(<span class="tok-number">11</span>, <span class="tok-number">4</span>))
+axes[<span class="tok-number">0</span>].<span class="tok-function">scatter</span>(fitted, residuals, alpha<span class="tok-operator">=</span><span class="tok-number">0.5</span>)
+axes[<span class="tok-number">0</span>].<span class="tok-function">axhline</span>(<span class="tok-number">0</span>, color<span class="tok-operator">=</span><span class="tok-string">'red'</span>, linestyle<span class="tok-operator">=</span><span class="tok-string">'--'</span>)
+axes[<span class="tok-number">0</span>].<span class="tok-builtin">set</span>(xlabel<span class="tok-operator">=</span><span class="tok-string">'Fitted values'</span>, ylabel<span class="tok-operator">=</span><span class="tok-string">'Residuals'</span>,
+            title<span class="tok-operator">=</span><span class="tok-string">'Residuals vs Fitted — want a formless cloud'</span>)
+<span class="tok-function">sm.qqplot</span>(residuals, line<span class="tok-operator">=</span><span class="tok-string">'45'</span>, fit<span class="tok-operator">=</span><span class="tok-keyword">True</span>, ax<span class="tok-operator">=</span>axes[<span class="tok-number">1</span>])
+axes[<span class="tok-number">1</span>].<span class="tok-function">set_title</span>(<span class="tok-string">'Q-Q plot — want points on the line'</span>)
+<span class="tok-function">plt.tight_layout</span>()</code></pre></figure><h2 id="multicollinearity">Multicollinearity<a class="anchor" href="#multicollinearity" aria-label="Link to this section">#</a></h2><p>When predictors are strongly correlated with each other, the model cannot attribute effect between them. Coefficients become unstable — large standard errors, signs that flip when you add a variable — even though overall predictions stay fine.</p><p>Detect with the <strong>variance inflation factor</strong>:</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> statsmodels.stats.outliers_influence <span class="tok-keyword">import</span> variance_inflation_factor
+
+vif <span class="tok-operator">=</span> <span class="tok-function">pd.DataFrame</span>({
+    <span class="tok-string">'variable'</span><span class="tok-operator">:</span> X.columns,
+    <span class="tok-string">'VIF'</span><span class="tok-operator">:</span> [<span class="tok-function">variance_inflation_factor</span>(X.values, i) <span class="tok-keyword">for</span> i <span class="tok-keyword">in</span> <span class="tok-builtin">range</span>(X.shape[<span class="tok-number">1</span>])]
+})
+<span class="tok-comment"># VIF &gt; 5 warrants attention; VIF &gt; 10 is a serious problem</span></code></pre></figure><p>Fixes: drop one of the correlated pair, combine them into an index, or use ridge regression. <strong>If you only care about prediction, multicollinearity is not a problem</strong> — it only damages the interpretation of individual coefficients.</p><h2 id="categorical-variables-and-interactions">Categorical variables and interactions<a class="anchor" href="#categorical-variables-and-interactions" aria-label="Link to this section">#</a></h2><p>Categorical predictors become dummy variables, with one level omitted as the reference:</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>X <span class="tok-operator">=</span> <span class="tok-function">pd.get_dummies</span>(df[[<span class="tok-string">'price'</span>, <span class="tok-string">'region'</span>]], columns<span class="tok-operator">=</span>[<span class="tok-string">'region'</span>], drop_first<span class="tok-operator">=</span><span class="tok-keyword">True</span>)
+<span class="tok-comment"># region_North = 120 means: North sells 120 units more than the reference</span>
+<span class="tok-comment"># region, holding price constant.</span></code></pre></figure><p>The <code>drop_first</code> is essential — including every level creates perfect multicollinearity (the &quot;dummy variable trap&quot;).</p><p><strong>Interactions</strong> let one predictor's effect depend on another:</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>df[<span class="tok-string">'price_x_holiday'</span>] <span class="tok-operator">=</span> df[<span class="tok-string">'price'</span>] <span class="tok-operator">*</span> df[<span class="tok-string">'is_holiday_week'</span>]
+<span class="tok-comment"># A significant interaction means price sensitivity differs during holidays —</span>
+<span class="tok-comment"># often a more actionable finding than either main effect alone.</span></code></pre></figure><h2 id="log-transformations">Log transformations<a class="anchor" href="#log-transformations" aria-label="Link to this section">#</a></h2><p>Because business data is right-skewed, logs are used constantly, and they change how coefficients read:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Model</th><th style="text-align:left">Coefficient interpretation</th></tr></thead><tbody><tr><td style="text-align:left"><span class="math">y = βx</span></td><td style="text-align:left">1 unit increase in x → β unit change in y</td></tr><tr><td style="text-align:left"><span class="math">log(y) = βx</span></td><td style="text-align:left">1 unit increase in x → approx. 100β% change in y</td></tr><tr><td style="text-align:left"><span class="math">y = β·log(x)</span></td><td style="text-align:left">1% increase in x → β/100 unit change in y</td></tr><tr><td style="text-align:left"><span class="math">log(y) = β·log(x)</span></td><td style="text-align:left">1% increase in x → <strong>β% change in y</strong> (an elasticity)</td></tr></tbody></table></div><p>The log-log form is the standard way to estimate <strong>price elasticity of demand</strong> — a coefficient of −1.4 means a 1% price increase reduces demand by 1.4%, which is directly usable in a pricing decision.</p><h2 id="prediction-vs-inference">Prediction vs inference<a class="anchor" href="#prediction-vs-inference" aria-label="Link to this section">#</a></h2><p>Two different goals with different priorities, and confusing them causes real mistakes:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left"></th><th style="text-align:left">Inference</th><th style="text-align:left">Prediction</th></tr></thead><tbody><tr><td style="text-align:left">Goal</td><td style="text-align:left">Understand relationships</td><td style="text-align:left">Forecast accurately</td></tr><tr><td style="text-align:left">Cares about</td><td style="text-align:left">Coefficients, CIs, assumptions</td><td style="text-align:left">Out-of-sample error</td></tr><tr><td style="text-align:left">Multicollinearity</td><td style="text-align:left">Serious problem</td><td style="text-align:left">Not a problem</td></tr><tr><td style="text-align:left">Model choice</td><td style="text-align:left">Interpretable, few variables</td><td style="text-align:left">Whatever performs best</td></tr><tr><td style="text-align:left">Validation</td><td style="text-align:left">Assumption checks</td><td style="text-align:left">Train/test split</td></tr></tbody></table></div><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><strong>A regression coefficient is not a causal effect</strong> unless the design supports it. &quot;Ad spend has a positive coefficient&quot; does not mean more ads cause more sales — you probably spend more on advertising when you expect a good week. Omitted variable bias affects observational regression constantly. See <a href="../../statistics/correlation-vs-causation/">Correlation vs Causation</a>.</p></aside><h2 id="outliers-and-influence">Outliers and influence<a class="anchor" href="#outliers-and-influence" aria-label="Link to this section">#</a></h2><p>A single point can dominate a fit. <strong>Leverage</strong> measures how unusual a point's predictor values are; <strong>Cook's distance</strong> measures how much removing it would change the coefficients.</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>influence <span class="tok-operator">=</span> <span class="tok-function">model.get_influence</span>()
+cooks_d <span class="tok-operator">=</span> influence.cooks_distance[<span class="tok-number">0</span>]
+<span class="tok-comment"># Points with Cook's D &gt; 4/n deserve investigation</span></code></pre></figure><p>Investigate influential points; do not delete them reflexively. A large customer that drives the whole relationship is a finding — one that says your model is really about that customer.</p><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Coefficients read as &quot;change in y per unit of x, holding others constant&quot; — that clause is the point.</li><li>Use confidence intervals rather than p-values when carrying a coefficient into a decision.</li><li>R² measures explained variance, not correctness; never compare it across different outcomes.</li><li>Check residual plots for linearity and constant variance; independence is violated by time series and grouped data.</li><li>Multicollinearity destroys interpretation but not prediction.</li><li>Log-log models give elasticities directly; regression coefficients are not causal by default.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">Logistic Regression and Classification</a>
+      <span class="mini-meta">Predictive Analytics</span></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">Decision Trees and Ensembles</a>
+      <span class="mini-meta">Predictive Analytics</span></li><li><a href="../../../tutorials/statistics/probability-distributions/">Probability Distributions You Will Actually Use</a>
+      <span class="mini-meta">Statistics &amp; Probability</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <span></span>
+  <a class="pager-next" href="../../../tutorials/predictive/logistic-regression-and-classification/"><span>Next →</span><strong>Logistic Regression and Classification</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#reading-the-output">Reading the output</a></li><li class="toc-l2"><a href="#r-and-what-it-does-not-tell-you">R² and what it does not tell you</a></li><li class="toc-l2"><a href="#the-assumptions">The assumptions</a></li><li class="toc-l2"><a href="#multicollinearity">Multicollinearity</a></li><li class="toc-l2"><a href="#categorical-variables-and-interactions">Categorical variables and interactions</a></li><li class="toc-l2"><a href="#log-transformations">Log transformations</a></li><li class="toc-l2"><a href="#prediction-vs-inference">Prediction vs inference</a></li><li class="toc-l2"><a href="#outliers-and-influence">Outliers and influence</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"In a regression of units sold, the coefficient on price is -18.4. What does this mean?","options":["Price causes an 18.4 unit decline in sales","Each ₹1 price increase is associated with 18.4 fewer units, holding the other predictors constant","Sales decline 18.4% when price rises","Price explains 18.4% of the variation in sales"],"answer":1,"explain":"A coefficient is the associated change in y per unit of x with other predictors held constant. It is causal only if the study design supports a causal reading."},{"q":"Your residuals vs fitted plot shows a funnel widening to the right. What does this indicate?","options":["Multicollinearity","Heteroscedasticity — error variance grows with the fitted value","Non-independence of errors","The model is overfitting"],"answer":1,"explain":"A funnel shape means non-constant error variance, common with revenue data. Modelling log(y) or using robust standard errors are the usual fixes."},{"q":"In a log-log model, the coefficient on log(price) is -1.4. What does this tell you?","options":["A ₹1 price rise reduces demand by 1.4 units","A 1% price increase reduces demand by about 1.4% — the price elasticity","Price explains 140% of demand variation","Demand falls by 1.4 units per percent"],"answer":1,"explain":"In a log-log specification the coefficient is an elasticity: the percentage change in y per percentage change in x."}]};</script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL Basics for Analysts | AnalyticsAdda</title>
+<meta name="description" content="SELECT, WHERE, ORDER BY, CASE and the logical order of execution — the query fundamentals that everything else in analytics is built on.">
+<meta property="og:title" content="SQL Basics for Analysts | AnalyticsAdda">
+<meta property="og:description" content="SELECT, WHERE, ORDER BY, CASE and the logical order of execution — the query fundamentals that everything else in analytics is built on.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#9333ea">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/sql/">SQL &amp; Data Wrangling</a></li><li aria-current="page">SQL Basics for Analysts</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/sql/" style="--track-color:#9333ea">
+          <span aria-hidden="true">🗄️</span> SQL</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 12 min read</span>
+      </div>
+      <h1>SQL Basics for Analysts</h1>
+      <p class="lede">SELECT, WHERE, ORDER BY, CASE and the logical order of execution — the query fundamentals that everything else in analytics is built on.</p>
+      <div class="tag-row"><span class="tag">sql</span><span class="tag">fundamentals</span><span class="tag">querying</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/sql/sql-basics-for-analysts/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>SQL is how analysts get data. Every BI tool, every notebook, every dashboard eventually issues SQL. It is also the highest-leverage skill to learn first, because it is stable — the SQL you learn today will still work in fifteen years.</p><h2 id="the-dataset-used-throughout-this-track">The dataset used throughout this track<a class="anchor" href="#the-dataset-used-throughout-this-track" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-function">customers</span>  (customer_id, name, email, city, segment, signup_date, is_active)
+<span class="tok-function">orders</span>     (order_id, customer_id, order_date, status, order_value, channel)
+<span class="tok-function">order_items</span>(order_item_id, order_id, product_id, quantity, unit_price)
+<span class="tok-function">products</span>   (product_id, product_name, category, cost_price)</code></pre></figure><h2 id="the-anatomy-of-a-query">The anatomy of a query<a class="anchor" href="#the-anatomy-of-a-query" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span>   c.city,
+         <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)          <span class="tok-keyword">AS</span> order_count,
+         <span class="tok-builtin">sum</span>(o.order_value) <span class="tok-keyword">AS</span> revenue
+<span class="tok-keyword">FROM</span>     orders o
+<span class="tok-keyword">JOIN</span>     customers c <span class="tok-keyword">ON</span> c.customer_id <span class="tok-operator">=</span> o.customer_id
+<span class="tok-keyword">WHERE</span>    o.order_date <span class="tok-operator">&gt;=</span> <span class="tok-string">'2026-01-01'</span>
+  <span class="tok-keyword">AND</span>    o.status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+<span class="tok-keyword">GROUP</span> <span class="tok-keyword">BY</span> c.city
+<span class="tok-keyword">HAVING</span>   <span class="tok-builtin">sum</span>(o.order_value) <span class="tok-operator">&gt;</span> <span class="tok-number">100000</span>
+<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> revenue <span class="tok-keyword">DESC</span>
+<span class="tok-keyword">LIMIT</span>    <span class="tok-number">10</span>;</code></pre></figure><h2 id="logical-order-of-execution">Logical order of execution<a class="anchor" href="#logical-order-of-execution" aria-label="Link to this section">#</a></h2><p>You write a query in one order; the database evaluates it in another. Internalising this order explains nearly every beginner error.</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>1. FROM / JOIN     →  assemble the rows
+2. WHERE           →  filter individual rows
+3. GROUP BY        →  collapse rows into groups
+4. HAVING          →  filter the groups
+5. SELECT          →  compute output columns
+6. DISTINCT        →  remove duplicate output rows
+7. ORDER BY        →  sort
+8. LIMIT / OFFSET  →  truncate</code></pre></figure><p>Three consequences that answer the most common questions:</p><ul><li><strong>You cannot use a SELECT alias in WHERE.</strong> WHERE runs before SELECT, so the alias does not exist yet. You <em>can</em> use it in ORDER BY, which runs after.</li><li><strong>WHERE filters rows, HAVING filters groups.</strong> <code>WHERE order_value &gt; 1000</code> keeps large orders; <code>HAVING sum(order_value) &gt; 1000</code> keeps customers with large totals. These are completely different questions.</li><li><strong>Filter early.</strong> Conditions in WHERE reduce the rows that ever reach the aggregation, which is both faster and usually what you meant.</li></ul><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>When a query returns something surprising, mentally walk the eight steps in order. The bug is almost always a step happening earlier or later than you assumed.</p></aside><h2 id="filtering">Filtering<a class="anchor" href="#filtering" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Comparison and logic</span>
+<span class="tok-keyword">WHERE</span> order_value <span class="tok-operator">&gt;</span> <span class="tok-number">1000</span>
+  <span class="tok-keyword">AND</span> status <span class="tok-keyword">IN</span> (<span class="tok-string">'completed'</span>, <span class="tok-string">'shipped'</span>)
+  <span class="tok-keyword">AND</span> order_date <span class="tok-keyword">BETWEEN</span> <span class="tok-string">'2026-01-01'</span> <span class="tok-keyword">AND</span> <span class="tok-string">'2026-03-31'</span>
+  <span class="tok-keyword">AND</span> channel <span class="tok-operator">&lt;&gt;</span> <span class="tok-string">'internal'</span>
+
+<span class="tok-comment">-- Pattern matching</span>
+<span class="tok-keyword">WHERE</span> email <span class="tok-keyword">LIKE</span> <span class="tok-string">'%@gmail.com'</span>        <span class="tok-comment">-- ends with</span>
+  <span class="tok-keyword">AND</span> name <span class="tok-keyword">ILIKE</span> <span class="tok-string">'a%'</span>                 <span class="tok-comment">-- starts with a, case-insensitive (Postgres)</span>
+
+<span class="tok-comment">-- NULL handling</span>
+<span class="tok-keyword">WHERE</span> discount_code <span class="tok-keyword">IS</span> <span class="tok-keyword">NULL</span>           <span class="tok-comment">-- never &quot;= NULL&quot;</span>
+  <span class="tok-keyword">AND</span> <span class="tok-builtin">coalesce</span>(refund_amount, <span class="tok-number">0</span>) <span class="tok-operator">=</span> <span class="tok-number">0</span>  <span class="tok-comment">-- treat NULL as zero</span></code></pre></figure><h3 id="null-is-the-number-one-source-of-silent-bugs">NULL is the number one source of silent bugs<a class="anchor" href="#null-is-the-number-one-source-of-silent-bugs" aria-label="Link to this section">#</a></h3><p>NULL means <em>unknown</em>, not zero and not empty string. Any comparison with NULL yields NULL, which is not true, so the row is filtered out.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Given: 1000 orders, 200 of which have channel = NULL</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">FROM</span> orders <span class="tok-keyword">WHERE</span> channel <span class="tok-operator">&lt;&gt;</span> <span class="tok-string">'email'</span>;
+<span class="tok-comment">-- Returns 600, not 800. The 200 NULL rows are excluded,</span>
+<span class="tok-comment">-- because NULL &lt;&gt; 'email' evaluates to NULL, not TRUE.</span>
+
+<span class="tok-comment">-- What you almost certainly meant:</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">FROM</span> orders
+<span class="tok-keyword">WHERE</span> channel <span class="tok-keyword">IS</span> <span class="tok-keyword">DISTINCT</span> <span class="tok-keyword">FROM</span> <span class="tok-string">'email'</span>;   <span class="tok-comment">-- Postgres</span>
+<span class="tok-comment">-- or</span>
+<span class="tok-keyword">WHERE</span> <span class="tok-builtin">coalesce</span>(channel, <span class="tok-string">'(none)'</span>) <span class="tok-operator">&lt;&gt;</span> <span class="tok-string">'email'</span>;</code></pre></figure><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>This bug does not error. It silently returns a smaller number, and the analysis based on it looks perfectly reasonable. Whenever you write a <code>&lt;&gt;</code> or <code>NOT IN</code> filter, ask yourself what happens to NULLs in that column.</p></aside><p><code>NOT IN</code> with a subquery that can return NULL is even worse — it returns <em>no rows at all</em>. Use <code>NOT EXISTS</code> instead.</p><h2 id="case-expressions">CASE expressions<a class="anchor" href="#case-expressions" aria-label="Link to this section">#</a></h2><p>CASE is how you build business logic inside SQL: bucketing, pivoting and conditional aggregation.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Bucketing a continuous variable</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> order_value <span class="tok-operator">&lt;</span> <span class="tok-number">500</span>              <span class="tok-keyword">THEN</span> <span class="tok-string">'small'</span>
+            <span class="tok-keyword">WHEN</span> order_value <span class="tok-operator">&lt;</span> <span class="tok-number">2000</span>             <span class="tok-keyword">THEN</span> <span class="tok-string">'medium'</span>
+            <span class="tok-keyword">WHEN</span> order_value <span class="tok-operator">&lt;</span> <span class="tok-number">10000</span>            <span class="tok-keyword">THEN</span> <span class="tok-string">'large'</span>
+            <span class="tok-keyword">ELSE</span> <span class="tok-string">'enterprise'</span>
+       <span class="tok-keyword">END</span>                <span class="tok-keyword">AS</span> order_size,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)           <span class="tok-keyword">AS</span> orders,
+       <span class="tok-builtin">sum</span>(order_value)   <span class="tok-keyword">AS</span> revenue
+<span class="tok-keyword">FROM</span>   orders
+<span class="tok-keyword">WHERE</span>  status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> <span class="tok-builtin">min</span>(order_value);</code></pre></figure><p><strong>Conditional aggregation</strong> is the single most useful SQL idiom for analysts — it turns rows into columns and replaces most self-joins:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, order_date)                              <span class="tok-keyword">AS</span> month,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                                                      <span class="tok-keyword">AS</span> all_orders,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> channel <span class="tok-operator">=</span> <span class="tok-string">'mobile'</span>)                    <span class="tok-keyword">AS</span> mobile_orders,
+       <span class="tok-builtin">sum</span>(order_value) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> channel <span class="tok-operator">=</span> <span class="tok-string">'mobile'</span>)            <span class="tok-keyword">AS</span> mobile_revenue,
+       <span class="tok-builtin">avg</span>(<span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> status <span class="tok-operator">=</span> <span class="tok-string">'returned'</span> <span class="tok-keyword">THEN</span> <span class="tok-number">1.0</span> <span class="tok-keyword">ELSE</span> <span class="tok-number">0.0</span> <span class="tok-keyword">END</span>)      <span class="tok-keyword">AS</span> return_rate
+<span class="tok-keyword">FROM</span>   orders
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>;</code></pre></figure><p><code>FILTER (WHERE ...)</code> is standard SQL and supported by Postgres, DuckDB and SQLite. In MySQL, BigQuery or older engines, use <code>sum(CASE WHEN cond THEN 1 ELSE 0 END)</code>, which is equivalent.</p><h2 id="aliasing-and-readability">Aliasing and readability<a class="anchor" href="#aliasing-and-readability" aria-label="Link to this section">#</a></h2><p>An analytics query is read many more times than it is written — often by you, six months later, trying to work out why a number is wrong.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Hard to review</span>
+<span class="tok-keyword">select</span> c.city, <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>), <span class="tok-builtin">sum</span>(o.order_value) <span class="tok-keyword">from</span> orders o, customers c
+<span class="tok-keyword">where</span> o.customer_id<span class="tok-operator">=</span>c.customer_id <span class="tok-keyword">and</span> o.status<span class="tok-operator">=</span><span class="tok-string">'completed'</span> <span class="tok-keyword">group</span> <span class="tok-keyword">by</span> <span class="tok-number">1</span>;
+
+<span class="tok-comment">-- Reviewable</span>
+<span class="tok-keyword">SELECT</span>   c.city,
+         <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)           <span class="tok-keyword">AS</span> order_count,
+         <span class="tok-builtin">sum</span>(o.order_value) <span class="tok-keyword">AS</span> revenue
+<span class="tok-keyword">FROM</span>     orders    o
+<span class="tok-keyword">JOIN</span>     customers c <span class="tok-keyword">ON</span> c.customer_id <span class="tok-operator">=</span> o.customer_id
+<span class="tok-keyword">WHERE</span>    o.status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+<span class="tok-keyword">GROUP</span> <span class="tok-keyword">BY</span> c.city;</code></pre></figure><p>Conventions worth adopting: keywords uppercase, one column per line, meaningful aliases (<code>o</code>, <code>c</code>), explicit <code>JOIN ... ON</code> rather than comma joins, and every aggregate given an alias.</p><h2 id="common-table-expressions-ctes">Common table expressions (CTEs)<a class="anchor" href="#common-table-expressions-ctes" aria-label="Link to this section">#</a></h2><p><code>WITH</code> clauses let you name intermediate steps. They turn an unreadable nested query into a sequence you can reason about — and debug one step at a time.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">WITH</span> completed_orders <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-operator">*</span>
+    <span class="tok-keyword">FROM</span>   orders
+    <span class="tok-keyword">WHERE</span>  status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+      <span class="tok-keyword">AND</span>  order_date <span class="tok-operator">&gt;=</span> <span class="tok-string">'2026-01-01'</span>
+),
+customer_totals <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> customer_id,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)           <span class="tok-keyword">AS</span> orders,
+           <span class="tok-builtin">sum</span>(order_value)   <span class="tok-keyword">AS</span> lifetime_value
+    <span class="tok-keyword">FROM</span>   completed_orders
+    <span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> customer_id
+)
+<span class="tok-keyword">SELECT</span> c.segment,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                       <span class="tok-keyword">AS</span> customers,
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(t.lifetime_value), <span class="tok-number">0</span>) <span class="tok-keyword">AS</span> avg_ltv,
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(t.orders), <span class="tok-number">2</span>)         <span class="tok-keyword">AS</span> avg_orders
+<span class="tok-keyword">FROM</span>   customer_totals t
+<span class="tok-keyword">JOIN</span>   customers c <span class="tok-keyword">ON</span> c.customer_id <span class="tok-operator">=</span> t.customer_id
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> c.segment
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> avg_ltv <span class="tok-keyword">DESC</span>;</code></pre></figure><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Build long queries CTE by CTE. Write the first block, run it, check the row count and a few rows, then add the next. Debugging a 60-line query written all at once is far slower than building it in verified steps.</p></aside><h2 id="dates">Dates<a class="anchor" href="#dates" aria-label="Link to this section">#</a></h2><p>Date handling is the most dialect-specific part of SQL, and where most portability problems appear.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- PostgreSQL</span>
+<span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, order_date)                 <span class="tok-comment">-- first day of the month</span>
+order_date <span class="tok-operator">&gt;=</span> <span class="tok-builtin">current_date</span> <span class="tok-operator">-</span> <span class="tok-keyword">interval</span> <span class="tok-string">'30 days'</span> <span class="tok-comment">-- rolling window</span>
+<span class="tok-builtin">extract</span>(dow <span class="tok-keyword">FROM</span> order_date)                    <span class="tok-comment">-- day of week</span>
+<span class="tok-function">age</span>(<span class="tok-builtin">current_date</span>, signup_date)                  <span class="tok-comment">-- interval between</span>
+
+<span class="tok-comment">-- BigQuery</span>
+<span class="tok-builtin">DATE_TRUNC</span>(order_date, MONTH)
+order_date <span class="tok-operator">&gt;=</span> <span class="tok-function">DATE_SUB</span>(<span class="tok-builtin">CURRENT_DATE</span>(), <span class="tok-keyword">INTERVAL</span> <span class="tok-number">30</span> DAY)
+
+<span class="tok-comment">-- MySQL</span>
+<span class="tok-function">DATE_FORMAT</span>(order_date, <span class="tok-string">'%Y-%m-01'</span>)
+order_date <span class="tok-operator">&gt;=</span> <span class="tok-function">CURDATE</span>() <span class="tok-operator">-</span> <span class="tok-keyword">INTERVAL</span> <span class="tok-number">30</span> DAY</code></pre></figure><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><code>WHERE date_trunc('month', order_date) = '2026-03-01'</code> prevents the database from using an index on <code>order_date</code>, because the column is wrapped in a function. On a large table this turns a fast lookup into a full scan. Write a range instead: <code>WHERE order_date &gt;= '2026-03-01' AND order_date &lt; '2026-04-01'</code>.</p></aside><h2 id="a-checklist-before-you-trust-a-query-result">A checklist before you trust a query result<a class="anchor" href="#a-checklist-before-you-trust-a-query-result" aria-label="Link to this section">#</a></h2><ol><li>Does the row count make sense? Compare against a simple <code>count(*)</code> on the base table.</li><li>Did any join multiply rows? Check <code>count(*)</code> before and after each join.</li><li>Are NULLs handled explicitly in every filter and aggregate?</li><li>Does the date range include the boundaries you intended? (<code>BETWEEN</code> is inclusive.)</li><li>Does one row of the output represent what you think it does — the grain?</li><li>Does a total tie out against a known number from another source?</li></ol><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Learn the logical execution order; it explains most surprising query behaviour.</li><li>WHERE filters rows, HAVING filters groups — they answer different questions.</li><li>NULL comparisons are silently false, which shrinks results without erroring.</li><li>Conditional aggregation (<code>FILTER</code> / <code>CASE</code>) replaces most self-joins.</li><li>Build long queries as CTEs, verifying each step.</li><li>Never wrap an indexed date column in a function inside WHERE; use a range.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/sql/joins-and-relationships/">Joins and Table Relationships</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">Aggregation and Grouping</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/window-functions/">Window Functions</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <span></span>
+  <a class="pager-next" href="../../../tutorials/sql/joins-and-relationships/"><span>Next →</span><strong>Joins and Table Relationships</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-dataset-used-throughout-this-track">The dataset used throughout this track</a></li><li class="toc-l2"><a href="#the-anatomy-of-a-query">The anatomy of a query</a></li><li class="toc-l2"><a href="#logical-order-of-execution">Logical order of execution</a></li><li class="toc-l2"><a href="#filtering">Filtering</a></li><li class="toc-l3"><a href="#null-is-the-number-one-source-of-silent-bugs">NULL is the number one source of silent bugs</a></li><li class="toc-l2"><a href="#case-expressions">CASE expressions</a></li><li class="toc-l2"><a href="#aliasing-and-readability">Aliasing and readability</a></li><li class="toc-l2"><a href="#common-table-expressions-ctes">Common table expressions (CTEs)</a></li><li class="toc-l2"><a href="#dates">Dates</a></li><li class="toc-l2"><a href="#a-checklist-before-you-trust-a-query-result">A checklist before you trust a query result</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"A table has 1,000 orders, 200 with channel = NULL. What does `SELECT count(*) FROM orders WHERE channel <> 'email'` return if 200 rows have channel = 'email'?","options":["800","600","1000","200"],"answer":1,"explain":"The 200 NULL rows evaluate to NULL (not TRUE) and are excluded along with the 200 'email' rows, giving 600. This is the most common silent SQL bug."},{"q":"Which clause would you use to keep only customers whose total spend exceeds ₹1,00,000?","options":["WHERE order_value > 100000","HAVING sum(order_value) > 100000","WHERE sum(order_value) > 100000","ORDER BY sum(order_value)"],"answer":1,"explain":"The condition applies to a group aggregate, so it belongs in HAVING. WHERE runs before grouping and cannot see aggregates."},{"q":"Why should you avoid `WHERE date_trunc('month', order_date) = '2026-03-01'` on a large table?","options":["It returns incorrect results","Wrapping the column in a function prevents index use, forcing a full scan","date_trunc is not valid SQL","It only works in MySQL"],"answer":1,"explain":"A function applied to the column makes the predicate non-sargable, so the index on order_date cannot be used. A range condition preserves index access."}]};</script>
+</body>
+</html>

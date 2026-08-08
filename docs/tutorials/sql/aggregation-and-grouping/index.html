@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aggregation and Grouping | AnalyticsAdda</title>
+<meta name="description" content="GROUP BY, the grain of your result, conditional aggregation, GROUPING SETS and the aggregate NULL behaviour that quietly changes your averages.">
+<meta property="og:title" content="Aggregation and Grouping | AnalyticsAdda">
+<meta property="og:description" content="GROUP BY, the grain of your result, conditional aggregation, GROUPING SETS and the aggregate NULL behaviour that quietly changes your averages.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#9333ea">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/sql/">SQL &amp; Data Wrangling</a></li><li aria-current="page">Aggregation and Grouping</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/sql/" style="--track-color:#9333ea">
+          <span aria-hidden="true">🗄️</span> SQL</a>
+        <span class="badge badge-beginner">Beginner</span>
+        <span class="mini-meta">⏱ 10 min read</span>
+      </div>
+      <h1>Aggregation and Grouping</h1>
+      <p class="lede">GROUP BY, the grain of your result, conditional aggregation, GROUPING SETS and the aggregate NULL behaviour that quietly changes your averages.</p>
+      <div class="tag-row"><span class="tag">sql</span><span class="tag">aggregation</span><span class="tag">group-by</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/sql/aggregation-and-grouping/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Aggregation collapses many rows into summary rows. The whole skill is controlling <strong>what one output row represents</strong> — the grain — and knowing exactly what each aggregate function does with NULLs and duplicates.</p><h2 id="group-by-and-grain">GROUP BY and grain<a class="anchor" href="#group-by-and-grain" aria-label="Link to this section">#</a></h2><p>Every column in SELECT must either appear in GROUP BY or be inside an aggregate function. This is not an arbitrary rule: the database cannot know which of many <code>city</code> values to show for a group defined only by <code>segment</code>.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Grain: one row per (month, channel)</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, order_date)  <span class="tok-keyword">AS</span> month,
+       channel,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                          <span class="tok-keyword">AS</span> orders,
+       <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> customer_id)       <span class="tok-keyword">AS</span> customers,
+       <span class="tok-builtin">sum</span>(order_value)                  <span class="tok-keyword">AS</span> revenue,
+       <span class="tok-builtin">avg</span>(order_value)                  <span class="tok-keyword">AS</span> avg_order_value
+<span class="tok-keyword">FROM</span>   orders
+<span class="tok-keyword">WHERE</span>  status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>, <span class="tok-number">2</span>
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>, <span class="tok-number">2</span>;</code></pre></figure><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Write the grain as a comment above every aggregate query. &quot;One row per customer per month&quot; makes a wrong join or a duplicated key immediately obvious to whoever reads it next — including you.</p></aside><h2 id="aggregate-functions-and-nulls">Aggregate functions and NULLs<a class="anchor" href="#aggregate-functions-and-nulls" aria-label="Link to this section">#</a></h2><p><strong>All aggregates except <code>count(*)</code> ignore NULLs.</strong> This one rule explains most confusing aggregate results.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Function</th><th style="text-align:left">NULL behaviour</th><th style="text-align:left">Note</th></tr></thead><tbody><tr><td style="text-align:left"><code>count(*)</code></td><td style="text-align:left">Counts all rows</td><td style="text-align:left">The only aggregate that counts NULLs</td></tr><tr><td style="text-align:left"><code>count(col)</code></td><td style="text-align:left">Ignores NULLs</td><td style="text-align:left">Use to count non-missing values</td></tr><tr><td style="text-align:left"><code>count(DISTINCT col)</code></td><td style="text-align:left">Ignores NULLs</td><td style="text-align:left">Expensive on large tables</td></tr><tr><td style="text-align:left"><code>sum(col)</code></td><td style="text-align:left">Ignores NULLs</td><td style="text-align:left">Returns NULL if <em>all</em> values are NULL</td></tr><tr><td style="text-align:left"><code>avg(col)</code></td><td style="text-align:left">Ignores NULLs</td><td style="text-align:left"><strong>Denominator excludes NULLs</strong></td></tr><tr><td style="text-align:left"><code>min</code> / <code>max</code></td><td style="text-align:left">Ignore NULLs</td><td style="text-align:left">Work on text and dates too</td></tr></tbody></table></div><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><code>avg()</code> divides by the count of <strong>non-NULL</strong> values, not by the number of rows.
+Ten customers, six with a rating and four with none: <code>avg(rating)</code> divides by 6. If missing ratings should count as zero, write <code>avg(coalesce(rating, 0))</code> — which divides by 10. These give very different answers, and neither is universally correct. Decide deliberately, and say which you used.</p></aside><p>The same trap applies to <code>sum()</code>: summing a column that is entirely NULL gives NULL, not 0. Wrap it in <code>coalesce(sum(x), 0)</code> when a zero is the sensible business answer.</p><h2 id="conditional-aggregation">Conditional aggregation<a class="anchor" href="#conditional-aggregation" aria-label="Link to this section">#</a></h2><p>The most valuable aggregation idiom for analysts: compute several different measures in a single pass over the data.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, order_date)                          <span class="tok-keyword">AS</span> month,
+
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                                                  <span class="tok-keyword">AS</span> all_orders,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> channel <span class="tok-operator">=</span> <span class="tok-string">'mobile'</span>)                <span class="tok-keyword">AS</span> mobile_orders,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> channel <span class="tok-operator">=</span> <span class="tok-string">'web'</span>)                   <span class="tok-keyword">AS</span> web_orders,
+
+       <span class="tok-builtin">sum</span>(order_value)                                          <span class="tok-keyword">AS</span> revenue,
+       <span class="tok-builtin">sum</span>(order_value) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> is_first_order)            <span class="tok-keyword">AS</span> new_customer_revenue,
+
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> status <span class="tok-operator">=</span> <span class="tok-string">'returned'</span>)
+                   <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(<span class="tok-builtin">count</span>(<span class="tok-operator">*</span>), <span class="tok-number">0</span>), <span class="tok-number">2</span>)                     <span class="tok-keyword">AS</span> return_rate_pct
+<span class="tok-keyword">FROM</span>   orders
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>;</code></pre></figure><p>Portable equivalent for engines without <code>FILTER</code>:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-builtin">sum</span>(<span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> channel <span class="tok-operator">=</span> <span class="tok-string">'mobile'</span> <span class="tok-keyword">THEN</span> <span class="tok-number">1</span> <span class="tok-keyword">ELSE</span> <span class="tok-number">0</span> <span class="tok-keyword">END</span>)          <span class="tok-keyword">AS</span> mobile_orders,
+<span class="tok-builtin">sum</span>(<span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> channel <span class="tok-operator">=</span> <span class="tok-string">'mobile'</span> <span class="tok-keyword">THEN</span> order_value <span class="tok-keyword">ELSE</span> <span class="tok-number">0</span> <span class="tok-keyword">END</span>) <span class="tok-keyword">AS</span> mobile_revenue</code></pre></figure><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p><code>nullif(x, 0)</code> in a denominator prevents division-by-zero errors. <code>x / nullif(y, 0)</code> returns NULL rather than erroring, and NULL is usually the honest answer for &quot;rate with no denominator&quot;.</p></aside><h2 id="integer-division">Integer division<a class="anchor" href="#integer-division" aria-label="Link to this section">#</a></h2><p>A classic silent bug in Postgres, SQL Server and other strongly-typed engines:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> status <span class="tok-operator">=</span> <span class="tok-string">'returned'</span>) <span class="tok-operator">/</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">AS</span> return_rate
+<span class="tok-keyword">FROM</span>   orders;
+<span class="tok-comment">-- Returns 0. Integer / integer = integer, so 340/10000 truncates to 0.</span>
+
+<span class="tok-comment">-- Fix: force floating point</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-number">1.0</span> <span class="tok-operator">*</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> status <span class="tok-operator">=</span> <span class="tok-string">'returned'</span>) <span class="tok-operator">/</span> <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">AS</span> return_rate
+<span class="tok-keyword">FROM</span>   orders;</code></pre></figure><h2 id="percent-of-total">Percent of total<a class="anchor" href="#percent-of-total" aria-label="Link to this section">#</a></h2><p>Comparing each group to the whole is a constant need. Three approaches, in increasing order of elegance:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- 1. Window function (preferred — one pass)</span>
+<span class="tok-keyword">SELECT</span> category,
+       <span class="tok-builtin">sum</span>(revenue)                                        <span class="tok-keyword">AS</span> revenue,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> <span class="tok-builtin">sum</span>(revenue) <span class="tok-operator">/</span> <span class="tok-builtin">sum</span>(<span class="tok-builtin">sum</span>(revenue)) <span class="tok-keyword">OVER</span> (), <span class="tok-number">2</span>) <span class="tok-keyword">AS</span> pct_of_total
+<span class="tok-keyword">FROM</span>   sales
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> category
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> revenue <span class="tok-keyword">DESC</span>;
+
+<span class="tok-comment">-- 2. CTE with a cross join to the total</span>
+<span class="tok-keyword">WITH</span> by_category <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> category, <span class="tok-builtin">sum</span>(revenue) <span class="tok-keyword">AS</span> revenue <span class="tok-keyword">FROM</span> sales <span class="tok-keyword">GROUP</span> <span class="tok-keyword">BY</span> category
+), total <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-builtin">sum</span>(revenue) <span class="tok-keyword">AS</span> grand_total <span class="tok-keyword">FROM</span> sales
+)
+<span class="tok-keyword">SELECT</span> b.category, b.revenue,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> b.revenue <span class="tok-operator">/</span> t.grand_total, <span class="tok-number">2</span>) <span class="tok-keyword">AS</span> pct_of_total
+<span class="tok-keyword">FROM</span>   by_category b <span class="tok-keyword">CROSS</span> <span class="tok-keyword">JOIN</span> total t;</code></pre></figure><p>The nested <code>sum(sum(revenue)) OVER ()</code> in the first version looks strange but is correct and standard: the inner <code>sum</code> aggregates within the group, and the window <code>sum</code> totals those group results. See <a href="../window-functions/">Window Functions</a>.</p><h2 id="grouping-sets-rollup-and-cube">GROUPING SETS, ROLLUP and CUBE<a class="anchor" href="#grouping-sets-rollup-and-cube" aria-label="Link to this section">#</a></h2><p>Produce subtotals at multiple levels in one query instead of UNIONing several.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Revenue by region, by region+category, and grand total — one pass</span>
+<span class="tok-keyword">SELECT</span> <span class="tok-builtin">coalesce</span>(region, <span class="tok-string">'ALL REGIONS'</span>)     <span class="tok-keyword">AS</span> region,
+       <span class="tok-builtin">coalesce</span>(category, <span class="tok-string">'ALL CATEGORIES'</span>) <span class="tok-keyword">AS</span> category,
+       <span class="tok-builtin">sum</span>(revenue)                         <span class="tok-keyword">AS</span> revenue
+<span class="tok-keyword">FROM</span>   sales
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> GROUPING <span class="tok-function">SETS</span> ((region, category), (region), ())
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> region, category;</code></pre></figure><ul><li><code>ROLLUP(a, b)</code> → (a,b), (a), () — hierarchical subtotals.</li><li><code>CUBE(a, b)</code> → (a,b), (a), (b), () — every combination.</li><li><code>GROUPING SETS</code> → exactly the combinations you list.</li></ul><p>Use <code>grouping(col)</code> to distinguish a subtotal row's NULL from a genuine NULL in the data.</p><h2 id="distinct-vs-group-by">DISTINCT vs GROUP BY<a class="anchor" href="#distinct-vs-group-by" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> <span class="tok-keyword">DISTINCT</span> city <span class="tok-keyword">FROM</span> customers;         <span class="tok-comment">-- these two are</span>
+<span class="tok-keyword">SELECT</span> city <span class="tok-keyword">FROM</span> customers <span class="tok-keyword">GROUP</span> <span class="tok-keyword">BY</span> city;    <span class="tok-comment">-- equivalent</span></code></pre></figure><p>Use <code>DISTINCT</code> for simple deduplication, <code>GROUP BY</code> when you are also aggregating. Both are expensive on large tables because they require sorting or hashing.</p><p><code>count(DISTINCT x)</code> is particularly costly at scale. Warehouses offer approximate alternatives — <code>approx_count_distinct</code> (BigQuery/Spark), <code>HLL</code> functions (Postgres extensions) — which trade ~1% error for an enormous speed-up. For dashboard-level user counts that is almost always a good trade.</p><h2 id="aggregating-at-multiple-grains">Aggregating at multiple grains<a class="anchor" href="#aggregating-at-multiple-grains" aria-label="Link to this section">#</a></h2><p>A frequent requirement: per-customer statistics summarised by segment. Do it in two stages, never in one.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Stage 1: one row per customer</span>
+<span class="tok-keyword">WITH</span> customer_stats <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> o.customer_id,
+           <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                             <span class="tok-keyword">AS</span> order_count,
+           <span class="tok-builtin">sum</span>(o.order_value)                   <span class="tok-keyword">AS</span> total_spend,
+           <span class="tok-builtin">min</span>(o.order_date)                    <span class="tok-keyword">AS</span> first_order,
+           <span class="tok-builtin">max</span>(o.order_date)                    <span class="tok-keyword">AS</span> last_order
+    <span class="tok-keyword">FROM</span>   orders o
+    <span class="tok-keyword">WHERE</span>  o.status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+    <span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> o.customer_id
+)
+<span class="tok-comment">-- Stage 2: one row per segment</span>
+<span class="tok-keyword">SELECT</span> c.segment,
+       <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>)                                  <span class="tok-keyword">AS</span> customers,
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(s.order_count), <span class="tok-number">2</span>)              <span class="tok-keyword">AS</span> avg_orders_per_customer,
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(s.total_spend), <span class="tok-number">0</span>)              <span class="tok-keyword">AS</span> avg_spend,
+       <span class="tok-builtin">percentile_cont</span>(<span class="tok-number">0.5</span>) WITHIN <span class="tok-keyword">GROUP</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> s.total_spend) <span class="tok-keyword">AS</span> median_spend
+<span class="tok-keyword">FROM</span>   customer_stats s
+<span class="tok-keyword">JOIN</span>   customers c <span class="tok-keyword">ON</span> c.customer_id <span class="tok-operator">=</span> s.customer_id
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> c.segment
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> avg_spend <span class="tok-keyword">DESC</span>;</code></pre></figure><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Averaging in one step gives the wrong answer. <code>avg(order_value)</code> over all orders is the average <em>order</em> value; <code>avg(total_spend)</code> over customers is the average <em>customer</em> value. Customers with many orders dominate the first and are weighted equally in the second. Know which one the question asked for.</p></aside><p>This is the single most common analytical error in aggregation work, and it never produces an error message.</p><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>State the grain of every aggregate query; most bugs are grain bugs.</li><li>All aggregates except <code>count(*)</code> skip NULLs — including <code>avg()</code>'s denominator.</li><li>Conditional aggregation with <code>FILTER</code>/<code>CASE</code> computes many measures in one pass.</li><li>Guard denominators with <code>nullif(x, 0)</code> and force float division with <code>1.0 *</code>.</li><li>Use GROUPING SETS/ROLLUP for subtotals rather than UNIONing queries.</li><li>Aggregate per-entity first, then across entities — averaging in one step weights by activity.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">SQL Basics for Analysts</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/joins-and-relationships/">Joins and Table Relationships</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/window-functions/">Window Functions</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/sql/joins-and-relationships/"><span>← Previous</span><strong>Joins and Table Relationships</strong></a>
+  <a class="pager-next" href="../../../tutorials/sql/window-functions/"><span>Next →</span><strong>Window Functions</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#group-by-and-grain">GROUP BY and grain</a></li><li class="toc-l2"><a href="#aggregate-functions-and-nulls">Aggregate functions and NULLs</a></li><li class="toc-l2"><a href="#conditional-aggregation">Conditional aggregation</a></li><li class="toc-l2"><a href="#integer-division">Integer division</a></li><li class="toc-l2"><a href="#percent-of-total">Percent of total</a></li><li class="toc-l2"><a href="#grouping-sets-rollup-and-cube">GROUPING SETS, ROLLUP and CUBE</a></li><li class="toc-l2"><a href="#distinct-vs-group-by">DISTINCT vs GROUP BY</a></li><li class="toc-l2"><a href="#aggregating-at-multiple-grains">Aggregating at multiple grains</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"A table has 10 customers; 6 have a satisfaction rating and 4 are NULL. What does avg(rating) divide by?","options":["10","6","4","It returns NULL"],"answer":1,"explain":"avg() ignores NULLs entirely, including in its denominator. Use avg(coalesce(rating, 0)) if missing ratings should count as zero."},{"q":"You need 'average revenue per customer' by segment. What is the correct approach?","options":["avg(order_value) grouped by segment","Aggregate to one row per customer first, then average those totals by segment","sum(order_value) / count(*) grouped by segment","avg(DISTINCT order_value) grouped by segment"],"answer":1,"explain":"Averaging order rows gives average order value, weighted toward frequent buyers. Average revenue per customer requires aggregating per customer first, then averaging across customers."},{"q":"In PostgreSQL, `count(*) FILTER (WHERE status = 'returned') / count(*)` returns 0. Why?","options":["The FILTER clause is invalid","Integer division truncates the fractional result to 0","There are no returned orders","count(*) cannot be used in division"],"answer":1,"explain":"Both operands are integers, so the result is integer-divided and truncated. Multiply by 1.0 to force floating-point division."}]};</script>
+</body>
+</html>

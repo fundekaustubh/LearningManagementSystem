@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window Functions | AnalyticsAdda</title>
+<meta name="description" content="Running totals, month-over-month growth, rankings and moving averages — the SQL feature that separates intermediate analysts from beginners.">
+<meta property="og:title" content="Window Functions | AnalyticsAdda">
+<meta property="og:description" content="Running totals, month-over-month growth, rankings and moving averages — the SQL feature that separates intermediate analysts from beginners.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#9333ea">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/sql/">SQL &amp; Data Wrangling</a></li><li aria-current="page">Window Functions</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/sql/" style="--track-color:#9333ea">
+          <span aria-hidden="true">🗄️</span> SQL</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 11 min read</span>
+      </div>
+      <h1>Window Functions</h1>
+      <p class="lede">Running totals, month-over-month growth, rankings and moving averages — the SQL feature that separates intermediate analysts from beginners.</p>
+      <div class="tag-row"><span class="tag">sql</span><span class="tag">window-functions</span><span class="tag">advanced</span><span class="tag">growth</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/sql/window-functions/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>A window function computes a value across a set of rows <strong>related to the current row, without collapsing them</strong>. That is the entire idea, and it is what makes running totals, growth rates and rankings possible in a single readable query.</p><p>Contrast with GROUP BY: aggregation returns one row per group; a window function returns every original row, with the group calculation attached.</p><h2 id="anatomy">Anatomy<a class="anchor" href="#anatomy" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-function">function</span>() <span class="tok-keyword">OVER</span> (
+    <span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span>  column      <span class="tok-comment">-- optional: reset the calculation per group</span>
+    <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span>      column      <span class="tok-comment">-- optional: define row order within the partition</span>
+    <span class="tok-keyword">ROWS</span> <span class="tok-keyword">BETWEEN</span> ... <span class="tok-keyword">AND</span> ...  <span class="tok-comment">-- optional: the frame of rows to include</span>
+)</code></pre></figure><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> order_id,
+       customer_id,
+       order_value,
+       <span class="tok-builtin">sum</span>(order_value) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span> customer_id <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> order_date)
+           <span class="tok-keyword">AS</span> running_customer_total,
+       <span class="tok-builtin">avg</span>(order_value) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span> customer_id)
+           <span class="tok-keyword">AS</span> customer_avg_order
+<span class="tok-keyword">FROM</span>   orders;</code></pre></figure><p>Note that the two windows differ only by <code>ORDER BY</code> — and that changes one from a <em>cumulative</em> sum to a <em>whole-partition</em> average. That is the most important detail in the entire topic.</p><h2 id="ranking-functions">Ranking functions<a class="anchor" href="#ranking-functions" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> product_name,
+       category,
+       revenue,
+       <span class="tok-builtin">row_number</span>() <span class="tok-keyword">OVER</span> (<span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span> category <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> revenue <span class="tok-keyword">DESC</span>) <span class="tok-keyword">AS</span> rn,
+       <span class="tok-builtin">rank</span>()       <span class="tok-keyword">OVER</span> (<span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span> category <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> revenue <span class="tok-keyword">DESC</span>) <span class="tok-keyword">AS</span> rnk,
+       <span class="tok-builtin">dense_rank</span>() <span class="tok-keyword">OVER</span> (<span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span> category <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> revenue <span class="tok-keyword">DESC</span>) <span class="tok-keyword">AS</span> dense_rnk,
+       <span class="tok-builtin">ntile</span>(<span class="tok-number">4</span>)     <span class="tok-keyword">OVER</span> (<span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span> category <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> revenue <span class="tok-keyword">DESC</span>) <span class="tok-keyword">AS</span> quartile
+<span class="tok-keyword">FROM</span>   product_revenue;</code></pre></figure><p>With revenue values 100, 90, 90, 80:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Function</th><th style="text-align:left">Result</th><th style="text-align:left">Behaviour on ties</th></tr></thead><tbody><tr><td style="text-align:left"><code>row_number()</code></td><td style="text-align:left">1, 2, 3, 4</td><td style="text-align:left">Arbitrary tie-break; always unique</td></tr><tr><td style="text-align:left"><code>rank()</code></td><td style="text-align:left">1, 2, 2, 4</td><td style="text-align:left">Ties share a rank, then skip</td></tr><tr><td style="text-align:left"><code>dense_rank()</code></td><td style="text-align:left">1, 2, 2, 3</td><td style="text-align:left">Ties share a rank, no gap</td></tr><tr><td style="text-align:left"><code>ntile(4)</code></td><td style="text-align:left">1, 2, 3, 4</td><td style="text-align:left">Splits into equal-sized buckets</td></tr></tbody></table></div><p><strong>Top-N per group</strong> is the classic application, and one of the most common SQL interview questions:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">WITH</span> ranked <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> category, product_name, revenue,
+           <span class="tok-builtin">row_number</span>() <span class="tok-keyword">OVER</span> (<span class="tok-keyword">PARTITION</span> <span class="tok-keyword">BY</span> category <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> revenue <span class="tok-keyword">DESC</span>) <span class="tok-keyword">AS</span> rn
+    <span class="tok-keyword">FROM</span>   product_revenue
+)
+<span class="tok-keyword">SELECT</span> category, product_name, revenue
+<span class="tok-keyword">FROM</span>   ranked
+<span class="tok-keyword">WHERE</span>  rn <span class="tok-operator">&lt;=</span> <span class="tok-number">3</span>
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> category, rn;</code></pre></figure><p>The CTE is required because window functions are computed <em>after</em> WHERE in the logical execution order, so you cannot filter on <code>rn</code> in the same query block.</p><h2 id="lag-and-lead-period-over-period-growth">LAG and LEAD: period-over-period growth<a class="anchor" href="#lag-and-lead-period-over-period-growth" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> month,
+       revenue,
+       <span class="tok-builtin">lag</span>(revenue)    <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month)                <span class="tok-keyword">AS</span> prev_month,
+       revenue <span class="tok-operator">-</span> <span class="tok-builtin">lag</span>(revenue) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month)         <span class="tok-keyword">AS</span> mom_change,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> (revenue <span class="tok-operator">-</span> <span class="tok-builtin">lag</span>(revenue) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month))
+                   <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(<span class="tok-builtin">lag</span>(revenue) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month), <span class="tok-number">0</span>), <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> mom_growth_pct,
+       <span class="tok-builtin">lag</span>(revenue, <span class="tok-number">12</span>) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month)               <span class="tok-keyword">AS</span> same_month_last_year
+<span class="tok-keyword">FROM</span>   monthly_revenue
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> month;</code></pre></figure><p><code>lag(col, n, default)</code> looks n rows back; <code>lead()</code> looks forward. This replaces the awkward self-join on <code>month = month - 1</code>, and — importantly — handles missing months correctly only if your data has no gaps. <strong>Generate a complete date scaffold first</strong> if months can be missing, otherwise &quot;previous row&quot; silently means &quot;two months ago&quot;.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Date scaffold so gaps do not corrupt period comparisons</span>
+<span class="tok-keyword">WITH</span> months <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-function">generate_series</span>(<span class="tok-string">'2025-01-01'</span><span class="tok-operator">::</span>date, <span class="tok-string">'2026-12-01'</span><span class="tok-operator">::</span>date, <span class="tok-string">'1 month'</span>)<span class="tok-operator">::</span>date <span class="tok-keyword">AS</span> month
+)
+<span class="tok-keyword">SELECT</span> m.month, <span class="tok-builtin">coalesce</span>(r.revenue, <span class="tok-number">0</span>) <span class="tok-keyword">AS</span> revenue
+<span class="tok-keyword">FROM</span>   months m
+<span class="tok-keyword">LEFT</span>   <span class="tok-keyword">JOIN</span> monthly_revenue r <span class="tok-keyword">ON</span> r.month <span class="tok-operator">=</span> m.month;</code></pre></figure><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Year-over-year comparison via <code>lag(revenue, 12)</code> is more robust than month-over-month for seasonal businesses. December always beats November; the useful question is whether this December beats last December.</p></aside><h2 id="frames-running-totals-and-moving-averages">Frames: running totals and moving averages<a class="anchor" href="#frames-running-totals-and-moving-averages" aria-label="Link to this section">#</a></h2><p>The frame clause defines which rows around the current row are included.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> order_date,
+       daily_revenue,
+
+       <span class="tok-comment">-- Cumulative total from the start of the partition</span>
+       <span class="tok-builtin">sum</span>(daily_revenue) <span class="tok-keyword">OVER</span> (
+           <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> order_date
+           <span class="tok-keyword">ROWS</span> <span class="tok-keyword">BETWEEN</span> <span class="tok-keyword">UNBOUNDED</span> <span class="tok-keyword">PRECEDING</span> <span class="tok-keyword">AND</span> <span class="tok-keyword">CURRENT</span> <span class="tok-keyword">ROW</span>
+       ) <span class="tok-keyword">AS</span> running_total,
+
+       <span class="tok-comment">-- 7-day moving average (smooths weekday seasonality)</span>
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(daily_revenue) <span class="tok-keyword">OVER</span> (
+           <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> order_date
+           <span class="tok-keyword">ROWS</span> <span class="tok-keyword">BETWEEN</span> <span class="tok-number">6</span> <span class="tok-keyword">PRECEDING</span> <span class="tok-keyword">AND</span> <span class="tok-keyword">CURRENT</span> <span class="tok-keyword">ROW</span>
+       ), <span class="tok-number">0</span>) <span class="tok-keyword">AS</span> ma_7d,
+
+       <span class="tok-comment">-- Centred 7-day average</span>
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(daily_revenue) <span class="tok-keyword">OVER</span> (
+           <span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> order_date
+           <span class="tok-keyword">ROWS</span> <span class="tok-keyword">BETWEEN</span> <span class="tok-number">3</span> <span class="tok-keyword">PRECEDING</span> <span class="tok-keyword">AND</span> <span class="tok-number">3</span> <span class="tok-keyword">FOLLOWING</span>
+       ), <span class="tok-number">0</span>) <span class="tok-keyword">AS</span> ma_7d_centred
+<span class="tok-keyword">FROM</span>   daily_sales
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> order_date;</code></pre></figure><p><strong>Default frames are a genuine trap:</strong></p><ul><li>With <code>ORDER BY</code> and no explicit frame, the default is <code>RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</code> — a running total.</li><li>Without <code>ORDER BY</code>, the frame is the whole partition — a total.</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>The default is <code>RANGE</code>, not <code>ROWS</code>. They differ when the ORDER BY column has ties: <code>RANGE</code> includes <strong>all peer rows with the same value</strong>, so a running total over a date column with several rows per date jumps to include the entire day at once. When you mean &quot;the previous N rows&quot;, always write <code>ROWS</code> explicitly.</p></aside><h2 id="cumulative-distribution-and-percentiles">Cumulative distribution and percentiles<a class="anchor" href="#cumulative-distribution-and-percentiles" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> customer_id,
+       lifetime_value,
+       <span class="tok-function">percent_rank</span>() <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> lifetime_value)                <span class="tok-keyword">AS</span> pct_rank,
+       <span class="tok-function">cume_dist</span>()    <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> lifetime_value)                <span class="tok-keyword">AS</span> cumulative_dist,
+       <span class="tok-builtin">ntile</span>(<span class="tok-number">100</span>)     <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> lifetime_value)                <span class="tok-keyword">AS</span> percentile,
+       <span class="tok-builtin">sum</span>(lifetime_value) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> lifetime_value <span class="tok-keyword">DESC</span>
+                                 <span class="tok-keyword">ROWS</span> <span class="tok-keyword">UNBOUNDED</span> <span class="tok-keyword">PRECEDING</span>)
+           <span class="tok-operator">/</span> <span class="tok-builtin">sum</span>(lifetime_value) <span class="tok-keyword">OVER</span> ()                            <span class="tok-keyword">AS</span> cum_revenue_share
+<span class="tok-keyword">FROM</span>   customer_ltv;</code></pre></figure><p>That last column answers &quot;what share of revenue comes from the top N customers?&quot; — the Pareto curve, straight out of SQL. It is a one-query answer to a question that usually gets exported to a spreadsheet.</p><h2 id="a-complete-worked-example">A complete worked example<a class="anchor" href="#a-complete-worked-example" aria-label="Link to this section">#</a></h2><p>Monthly revenue with growth, cumulative total, moving average and rank — the kind of query that backs an executive dashboard:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">WITH</span> monthly <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, order_date) <span class="tok-keyword">AS</span> month,
+           <span class="tok-builtin">sum</span>(order_value)                <span class="tok-keyword">AS</span> revenue,
+           <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> customer_id)     <span class="tok-keyword">AS</span> customers
+    <span class="tok-keyword">FROM</span>   orders
+    <span class="tok-keyword">WHERE</span>  status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+    <span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>
+)
+<span class="tok-keyword">SELECT</span> month,
+       revenue,
+       customers,
+       <span class="tok-builtin">round</span>(revenue <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(customers, <span class="tok-number">0</span>), <span class="tok-number">0</span>)              <span class="tok-keyword">AS</span> revenue_per_customer,
+
+       <span class="tok-builtin">lag</span>(revenue) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month)                    <span class="tok-keyword">AS</span> prev_month_revenue,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> (revenue <span class="tok-operator">-</span> <span class="tok-builtin">lag</span>(revenue) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month))
+                   <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(<span class="tok-builtin">lag</span>(revenue) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month), <span class="tok-number">0</span>), <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> mom_pct,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> (revenue <span class="tok-operator">-</span> <span class="tok-builtin">lag</span>(revenue, <span class="tok-number">12</span>) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month))
+                   <span class="tok-operator">/</span> <span class="tok-builtin">nullif</span>(<span class="tok-builtin">lag</span>(revenue, <span class="tok-number">12</span>) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month), <span class="tok-number">0</span>), <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> yoy_pct,
+
+       <span class="tok-builtin">sum</span>(revenue) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month
+                          <span class="tok-keyword">ROWS</span> <span class="tok-keyword">UNBOUNDED</span> <span class="tok-keyword">PRECEDING</span>)          <span class="tok-keyword">AS</span> cumulative_revenue,
+       <span class="tok-builtin">round</span>(<span class="tok-builtin">avg</span>(revenue) <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month
+                                <span class="tok-keyword">ROWS</span> <span class="tok-keyword">BETWEEN</span> <span class="tok-number">2</span> <span class="tok-keyword">PRECEDING</span> <span class="tok-keyword">AND</span> <span class="tok-keyword">CURRENT</span> <span class="tok-keyword">ROW</span>), <span class="tok-number">0</span>) <span class="tok-keyword">AS</span> ma_3m,
+
+       <span class="tok-builtin">rank</span>() <span class="tok-keyword">OVER</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> revenue <span class="tok-keyword">DESC</span>)                   <span class="tok-keyword">AS</span> revenue_rank
+<span class="tok-keyword">FROM</span>   monthly
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> month;</code></pre></figure><h2 id="performance-notes">Performance notes<a class="anchor" href="#performance-notes" aria-label="Link to this section">#</a></h2><ul><li>Window functions require sorting. A <code>PARTITION BY x ORDER BY y</code> benefits enormously from an index on <code>(x, y)</code>.</li><li>Reusing the same window several times? Name it once with a <code>WINDOW</code> clause:</li></ul><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> month, revenue,
+       <span class="tok-builtin">lag</span>(revenue)  <span class="tok-keyword">OVER</span> w <span class="tok-keyword">AS</span> prev,
+       <span class="tok-builtin">lead</span>(revenue) <span class="tok-keyword">OVER</span> w <span class="tok-keyword">AS</span> next,
+       <span class="tok-builtin">sum</span>(revenue)  <span class="tok-keyword">OVER</span> w <span class="tok-keyword">AS</span> running
+<span class="tok-keyword">FROM</span>   monthly
+<span class="tok-keyword">WINDOW</span> w <span class="tok-keyword">AS</span> (<span class="tok-keyword">ORDER</span> <span class="tok-keyword">BY</span> month);</code></pre></figure><ul><li>Window functions run after WHERE/GROUP BY/HAVING but before ORDER BY and LIMIT — hence the CTE requirement for filtering on their output.</li></ul><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Window functions add group-level calculations without collapsing rows.</li><li>Adding <code>ORDER BY</code> to a window turns a partition-wide aggregate into a cumulative one.</li><li><code>row_number</code>/<code>rank</code>/<code>dense_rank</code> differ only in tie handling; use a CTE to filter on them.</li><li><code>lag</code>/<code>lead</code> give period-over-period growth — build a date scaffold so gaps do not corrupt them.</li><li>Always write <code>ROWS</code> explicitly for moving windows; the <code>RANGE</code> default includes tied peers.</li><li>Cumulative share of a sorted total gives you the Pareto curve in one query.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">Cohort and Retention Analysis in SQL</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">SQL Basics for Analysts</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/joins-and-relationships/">Joins and Table Relationships</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/sql/aggregation-and-grouping/"><span>← Previous</span><strong>Aggregation and Grouping</strong></a>
+  <a class="pager-next" href="../../../tutorials/sql/cohort-and-retention-analysis/"><span>Next →</span><strong>Cohort and Retention Analysis in SQL</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#anatomy">Anatomy</a></li><li class="toc-l2"><a href="#ranking-functions">Ranking functions</a></li><li class="toc-l2"><a href="#lag-and-lead-period-over-period-growth">LAG and LEAD: period-over-period growth</a></li><li class="toc-l2"><a href="#frames-running-totals-and-moving-averages">Frames: running totals and moving averages</a></li><li class="toc-l2"><a href="#cumulative-distribution-and-percentiles">Cumulative distribution and percentiles</a></li><li class="toc-l2"><a href="#a-complete-worked-example">A complete worked example</a></li><li class="toc-l2"><a href="#performance-notes">Performance notes</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"What is the difference between `sum(x) OVER (PARTITION BY c)` and `sum(x) OVER (PARTITION BY c ORDER BY d)`?","options":["No difference, ORDER BY only affects display order","The first is a partition-wide total on every row; the second is a running total up to each row","The second is faster","The first requires a GROUP BY"],"answer":1,"explain":"Adding ORDER BY introduces a default frame of UNBOUNDED PRECEDING to CURRENT ROW, converting the total into a cumulative sum."},{"q":"You want the top 3 products per category. Why can't you filter with `WHERE row_number() OVER (...) <= 3`?","options":["row_number() is not a valid function","Window functions are evaluated after WHERE, so the alias does not exist yet — wrap it in a CTE","You need HAVING instead","It only works with rank()"],"answer":1,"explain":"In logical execution order, WHERE runs before window functions are computed. Compute the row number in a CTE or subquery, then filter on it in the outer query."},{"q":"Why should you write `ROWS BETWEEN 6 PRECEDING AND CURRENT ROW` rather than relying on the default frame?","options":["ROWS is faster to type","The default is RANGE, which includes all rows tied on the ORDER BY value rather than a fixed row count","The default frame excludes the current row","ROWS is required by the SQL standard"],"answer":1,"explain":"RANGE treats ties as peers and includes all of them, so with duplicate dates the window size varies unexpectedly. ROWS counts physical rows, which is what a moving average needs."}]};</script>
+</body>
+</html>

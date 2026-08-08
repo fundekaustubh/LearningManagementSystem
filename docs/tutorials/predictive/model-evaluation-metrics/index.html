@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Evaluation Metrics | AnalyticsAdda</title>
+<meta name="description" content="Choosing the right metric for regression, classification and ranking — plus the validation discipline that stops a great offline score becoming a bad production model.">
+<meta property="og:title" content="Model Evaluation Metrics | AnalyticsAdda">
+<meta property="og:description" content="Choosing the right metric for regression, classification and ranking — plus the validation discipline that stops a great offline score becoming a bad production model.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" open style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#0891b2">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li aria-current="page">Model Evaluation Metrics</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/predictive/" style="--track-color:#0891b2">
+          <span aria-hidden="true">🤖</span> Predictive</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 5 min read</span>
+      </div>
+      <h1>Model Evaluation Metrics</h1>
+      <p class="lede">Choosing the right metric for regression, classification and ranking — plus the validation discipline that stops a great offline score becoming a bad production model.</p>
+      <div class="tag-row"><span class="tag">modelling</span><span class="tag">evaluation</span><span class="tag">metrics</span><span class="tag">validation</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/predictive/model-evaluation-metrics/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>A model is only as good as the metric you judged it on. Choosing the wrong one produces a model that optimises something nobody wanted — and the mistake is invisible until the model is in production.</p><h2 id="regression-metrics">Regression metrics<a class="anchor" href="#regression-metrics" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Metric</th><th style="text-align:left">Formula</th><th style="text-align:left">Properties</th></tr></thead><tbody><tr><td style="text-align:left">MAE</td><td style="text-align:left">mean(\</td><td style="text-align:left">y − ŷ\</td><td style="text-align:left">)</td><td style="text-align:left">Same units, robust to outliers, easy to explain</td></tr><tr><td style="text-align:left">RMSE</td><td style="text-align:left">√mean((y − ŷ)²)</td><td style="text-align:left">Penalises large errors; sensitive to outliers</td></tr><tr><td style="text-align:left">MAPE</td><td style="text-align:left">mean(\</td><td style="text-align:left">y − ŷ\</td><td style="text-align:left">/y) × 100</td><td style="text-align:left">Scale-free; undefined at y = 0, asymmetric</td></tr><tr><td style="text-align:left">R²</td><td style="text-align:left">1 − SS_res/SS_tot</td><td style="text-align:left">Share of variance explained; not an error measure</td></tr><tr><td style="text-align:left">MASE</td><td style="text-align:left">MAE ÷ naive MAE</td><td style="text-align:left">Scale-free with a built-in benchmark</td></tr></tbody></table></div><p><strong>MAE vs RMSE is a business decision, not a technical one.</strong> RMSE punishes big misses disproportionately. If one large error is much worse than several small ones — a stockout of a critical component — RMSE reflects your preference. If all errors cost proportionally, MAE does.</p><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>Optimising MAE fits the conditional <strong>median</strong>; optimising RMSE fits the conditional <strong>mean</strong>. With skewed business data those differ substantially, and the choice determines whether your forecasts are systematically above or below the typical outcome.</p></aside><h2 id="classification-metrics">Classification metrics<a class="anchor" href="#classification-metrics" aria-label="Link to this section">#</a></h2><p>Everything derives from the confusion matrix:</p><div class="table-wrap"><table><thead><tr><th style="text-align:left"></th><th style="text-align:left">Predicted +</th><th style="text-align:left">Predicted −</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Actual +</strong></td><td style="text-align:left">TP</td><td style="text-align:left">FN</td></tr><tr><td style="text-align:left"><strong>Actual −</strong></td><td style="text-align:left">FP</td><td style="text-align:left">TN</td></tr></tbody></table></div><div class="table-wrap"><table><thead><tr><th style="text-align:left">Metric</th><th style="text-align:left">Formula</th><th style="text-align:left">Use when</th></tr></thead><tbody><tr><td style="text-align:left">Accuracy</td><td style="text-align:left">(TP+TN)/all</td><td style="text-align:left">Balanced classes only</td></tr><tr><td style="text-align:left">Precision</td><td style="text-align:left">TP/(TP+FP)</td><td style="text-align:left">False positives are costly</td></tr><tr><td style="text-align:left">Recall</td><td style="text-align:left">TP/(TP+FN)</td><td style="text-align:left">False negatives are costly</td></tr><tr><td style="text-align:left">F1</td><td style="text-align:left">2PR/(P+R)</td><td style="text-align:left">Need one balanced number</td></tr><tr><td style="text-align:left">Specificity</td><td style="text-align:left">TN/(TN+FP)</td><td style="text-align:left">Correctly clearing negatives matters</td></tr><tr><td style="text-align:left">AUC-ROC</td><td style="text-align:left">Area under ROC</td><td style="text-align:left">Ranking quality, balanced classes</td></tr><tr><td style="text-align:left">AUC-PR</td><td style="text-align:left">Area under PR curve</td><td style="text-align:left">Ranking quality, <strong>imbalanced classes</strong></td></tr><tr><td style="text-align:left">Log loss</td><td style="text-align:left">−mean(y·log p + …)</td><td style="text-align:left">Probability quality matters</td></tr><tr><td style="text-align:left">Brier score</td><td style="text-align:left">mean((p − y)²)</td><td style="text-align:left">Calibration</td></tr></tbody></table></div><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><strong>Accuracy is nearly always the wrong metric in business.</strong> Fraud at 0.1% means &quot;predict never fraud&quot; scores 99.9%. Whenever someone reports accuracy on an imbalanced problem, ask for the confusion matrix.</p></aside><p><strong>AUC-ROC vs AUC-PR.</strong> ROC uses the false positive rate, whose denominator is the huge negative class, so it stays flattering under imbalance. The precision-recall curve exposes the real difficulty. <strong>Use AUC-PR whenever positives are under ~10% of the data.</strong></p><h2 id="the-metric-should-mirror-the-decision">The metric should mirror the decision<a class="anchor" href="#the-metric-should-mirror-the-decision" aria-label="Link to this section">#</a></h2><p>The best evaluation metric is often not a standard one at all — it is expected value in currency.</p><aside class="callout callout-example"><p class="callout-title"><span aria-hidden="true">🧪</span> Worked example</p><p><strong>Churn model, evaluated properly.</strong></p><ul><li>10,000 active customers; 500 will churn (5%).</li><li>Retention call costs ₹500; succeeds 30% of the time; a saved customer is worth ₹8,000.</li></ul><div class="table-wrap"><table><thead><tr><th style="text-align:right">Threshold</th><th style="text-align:right">Flagged</th><th style="text-align:right">True churners caught</th><th style="text-align:right">Cost</th><th style="text-align:right">Value saved</th><th style="text-align:right"><strong>Net</strong></th></tr></thead><tbody><tr><td style="text-align:right">0.50</td><td style="text-align:right">300</td><td style="text-align:right">210</td><td style="text-align:right">₹1.5L</td><td style="text-align:right">₹5.04L</td><td style="text-align:right"><strong>₹3.54L</strong></td></tr><tr><td style="text-align:right">0.30</td><td style="text-align:right">800</td><td style="text-align:right">380</td><td style="text-align:right">₹4.0L</td><td style="text-align:right">₹9.12L</td><td style="text-align:right"><strong>₹5.12L</strong></td></tr><tr><td style="text-align:right">0.21</td><td style="text-align:right">1,200</td><td style="text-align:right">440</td><td style="text-align:right">₹6.0L</td><td style="text-align:right">₹10.56L</td><td style="text-align:right"><strong>₹4.56L</strong></td></tr><tr><td style="text-align:right">0.10</td><td style="text-align:right">2,600</td><td style="text-align:right">480</td><td style="text-align:right">₹13.0L</td><td style="text-align:right">₹11.52L</td><td style="text-align:right"><strong>−₹1.48L</strong></td></tr></tbody></table></div><p>Net value peaks near a 0.30 threshold — not at 0.5, and not at the F1-optimal point either. <strong>Build this table for every classification model you deploy.</strong> It converts a modelling choice into a business one, and it is what the budget conversation actually needs.</p></aside><h2 id="validation-discipline">Validation discipline<a class="anchor" href="#validation-discipline" aria-label="Link to this section">#</a></h2><p>The metric is only meaningful if computed on data the model has never influenced.</p><p><strong>Three-way split:</strong></p><ul><li><strong>Train</strong> (60%) — fit parameters.</li><li><strong>Validation</strong> (20%) — tune hyperparameters, select features, choose thresholds.</li><li><strong>Test</strong> (20%) — touched <strong>once</strong>, at the end.</li></ul><p>Every time you look at the test set and change something, it becomes a validation set. Its estimate is no longer unbiased.</p><p><strong>Cross-validation</strong> uses the data more efficiently:</p><figure class="code-block" data-lang="python"><figcaption><span class="code-lang">PYTHON</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">from</span> sklearn.model_selection <span class="tok-keyword">import</span> cross_val_score, StratifiedKFold
+
+cv <span class="tok-operator">=</span> <span class="tok-function">StratifiedKFold</span>(n_splits<span class="tok-operator">=</span><span class="tok-number">5</span>, shuffle<span class="tok-operator">=</span><span class="tok-keyword">True</span>, random_state<span class="tok-operator">=</span><span class="tok-number">42</span>)
+scores <span class="tok-operator">=</span> <span class="tok-function">cross_val_score</span>(pipeline, X, y, cv<span class="tok-operator">=</span>cv, scoring<span class="tok-operator">=</span><span class="tok-string">'average_precision'</span>)
+<span class="tok-builtin">print</span>(<span class="tok-string">f&quot;AUC-PR: {scores.mean():.3f} ± {scores.std():.3f}&quot;</span>)</code></pre></figure><p>The standard deviation across folds matters. High variance means the estimate is unstable and small differences between models are not real.</p><p><strong>Split by the right unit.</strong> With repeat customers, splitting by row puts the same customer in both train and test — the model recognises them rather than generalising. Use <code>GroupKFold</code> on customer_id. For temporal data, split by time.</p><h2 id="leakage">Leakage<a class="anchor" href="#leakage" aria-label="Link to this section">#</a></h2><p>Leakage is the most common cause of a model that scores brilliantly and fails in production.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Type</th><th style="text-align:left">Example</th><th style="text-align:left">Symptom</th></tr></thead><tbody><tr><td style="text-align:left">Target leakage</td><td style="text-align:left"><code>cancellation_reason</code> in a churn model</td><td style="text-align:left">Near-perfect accuracy</td></tr><tr><td style="text-align:left">Train-test contamination</td><td style="text-align:left">Scaling fitted on the whole dataset</td><td style="text-align:left">Small optimistic bias</td></tr><tr><td style="text-align:left">Temporal leakage</td><td style="text-align:left">Using future data in features</td><td style="text-align:left">Great backtest, poor live</td></tr><tr><td style="text-align:left">Group leakage</td><td style="text-align:left">Same customer in train and test</td><td style="text-align:left">Overstated generalisation</td></tr><tr><td style="text-align:left">Duplicate leakage</td><td style="text-align:left">Duplicated rows across splits</td><td style="text-align:left">Overstated performance</td></tr></tbody></table></div><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p><strong>A model that looks too good almost certainly is.</strong> Above ~0.95 AUC on a business problem, stop and hunt for leakage before celebrating. The single best defence is asking, for every feature: <em>would this value be available, with this value, at the moment I need to predict?</em></p></aside><p>Keep all preprocessing inside a <code>Pipeline</code> so scalers and encoders are fitted on training folds only.</p><h2 id="comparing-models-honestly">Comparing models honestly<a class="anchor" href="#comparing-models-honestly" aria-label="Link to this section">#</a></h2><ul><li><strong>Same test set, same metric.</strong> Otherwise the comparison is meaningless.</li><li><strong>Report variability</strong>, not just the mean score.</li><li><strong>Include a trivial baseline</strong> — majority class, seasonal naive, or the existing business rule.</li><li><strong>Weigh complexity.</strong> A 1% gain that requires a real-time feature store, monitoring and retraining is often not worth it. The simpler model that ships beats the better model that does not.</li></ul><h2 id="monitoring-in-production">Monitoring in production<a class="anchor" href="#monitoring-in-production" aria-label="Link to this section">#</a></h2><p>Offline metrics decay. Track:</p><ul><li><strong>Input drift</strong> — have feature distributions moved from training?</li><li><strong>Prediction drift</strong> — has the score distribution shifted?</li><li><strong>Performance</strong> — actual outcomes versus predictions, once labels arrive.</li><li><strong>Business metric</strong> — is the programme delivering value?</li><li><strong>Calibration</strong> — do 30%-scored customers still churn 30% of the time?</li></ul><p>Set the retraining trigger before deployment: on a schedule, on a drift threshold, or on measured performance decay. Deciding this afterwards means it never gets decided.</p><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Choose the metric from the cost structure: MAE vs RMSE, precision vs recall.</li><li>Accuracy is misleading under imbalance; use AUC-PR when positives are rare.</li><li>Build the expected-value table across thresholds — it usually changes the decision.</li><li>Touch the test set once; keep preprocessing inside a pipeline.</li><li>Split by customer or by time when rows are not independent.</li><li>Suspiciously good results mean leakage until proven otherwise.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/predictive/linear-regression/">Linear Regression</a>
+      <span class="mini-meta">Predictive Analytics</span></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">Logistic Regression and Classification</a>
+      <span class="mini-meta">Predictive Analytics</span></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">Decision Trees and Ensembles</a>
+      <span class="mini-meta">Predictive Analytics</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/predictive/time-series-forecasting/"><span>← Previous</span><strong>Time Series Forecasting</strong></a>
+  <span></span>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#regression-metrics">Regression metrics</a></li><li class="toc-l2"><a href="#classification-metrics">Classification metrics</a></li><li class="toc-l2"><a href="#the-metric-should-mirror-the-decision">The metric should mirror the decision</a></li><li class="toc-l2"><a href="#validation-discipline">Validation discipline</a></li><li class="toc-l2"><a href="#leakage">Leakage</a></li><li class="toc-l2"><a href="#comparing-models-honestly">Comparing models honestly</a></li><li class="toc-l2"><a href="#monitoring-in-production">Monitoring in production</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"Positives make up 2% of your data. Which ranking metric should you prefer?","options":["Accuracy","AUC-ROC","AUC-PR","R-squared"],"answer":2,"explain":"ROC's false positive rate has a huge denominator under imbalance and stays flattering. The precision-recall curve reflects the real difficulty of finding rare positives."},{"q":"Your churn model achieves 0.98 AUC on the test set. What is the first thing to check?","options":["Deploy it immediately","Look for leakage — a feature that would not be available at prediction time","Increase the training set size","Reduce the number of features"],"answer":1,"explain":"Business churn models rarely exceed ~0.85 AUC. A near-perfect score almost always means a feature encodes the outcome, such as a cancellation timestamp or reason."},{"q":"You have repeat customers with multiple rows each. Why is a random row-level train/test split a problem?","options":["It creates class imbalance","The same customer appears in both splits, so the model recognises individuals rather than generalising","It reduces the training set size","Random splits require stratification"],"answer":1,"explain":"Group leakage inflates test performance because the model has already seen that customer. Use GroupKFold on customer_id so all of a customer's rows stay on one side."}]};</script>
+</body>
+</html>

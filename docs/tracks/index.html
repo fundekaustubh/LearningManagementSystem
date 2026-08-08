@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning tracks | AnalyticsAdda</title>
+<meta name="description" content="All business analytics learning tracks: foundations, statistics, SQL, visualization, predictive analytics and applied analytics.">
+<meta property="og:title" content="Learning tracks | AnalyticsAdda">
+<meta property="og:description" content="All business analytics learning tracks: foundations, statistics, SQL, visualization, predictive analytics and applied analytics.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../tracks/" class="active">Tracks</a></li><li><a href="../tutorials/">Tutorials</a></li><li><a href="../practice/">Practice</a></li><li><a href="../cheatsheets/">Cheat Sheets</a></li><li><a href="../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../tracks/" class="active">Tracks</a></li><li><a href="../tutorials/">Tutorials</a></li><li><a href="../practice/">Practice</a></li><li><a href="../cheatsheets/">Cheat Sheets</a></li><li><a href="../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="wrap page-head">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../">Home</a></li><li aria-current="page">Tracks</li></ol></nav>
+  <h1>Learning tracks</h1>
+  <p class="lede">Six tracks that build on each other. Each one is a self-contained
+  syllabus you can finish in a few evenings.</p>
+</div>
+<div class="wrap section track-details"><section class="track-detail" style="--track-color:#2f8f5b">
+  <header>
+    <span class="track-icon" aria-hidden="true">🧭</span>
+    <div>
+      <h2><a href="../tutorials/foundations/">Analytics Foundations</a></h2>
+      <p class="track-level">Beginner · 6 tutorials ·
+        30 min total</p>
+    </div>
+  </header>
+  <p>What business analytics actually is, the four analytics types, the project lifecycle, data measurement scales and how to turn a vague business ask into an answerable question.</p>
+  <ol class="track-list"><li><a href="../tutorials/foundations/what-is-business-analytics/">What is Business Analytics?</a>
+          <span class="mini-meta">4 min</span></li><li><a href="../tutorials/foundations/types-of-analytics/">The Four Types of Analytics</a>
+          <span class="mini-meta">5 min</span></li><li><a href="../tutorials/foundations/analytics-lifecycle/">The Analytics Project Lifecycle (CRISP-DM)</a>
+          <span class="mini-meta">5 min</span></li><li><a href="../tutorials/foundations/data-types-and-measurement-scales/">Data Types and Measurement Scales</a>
+          <span class="mini-meta">4 min</span></li><li><a href="../tutorials/foundations/kpis-and-metric-design/">Designing KPIs and Metrics That Work</a>
+          <span class="mini-meta">6 min</span></li><li><a href="../tutorials/foundations/framing-business-problems/">Framing a Business Problem as an Analytics Question</a>
+          <span class="mini-meta">6 min</span></li></ol>
+</section><section class="track-detail" style="--track-color:#2563eb">
+  <header>
+    <span class="track-icon" aria-hidden="true">📊</span>
+    <div>
+      <h2><a href="../tutorials/statistics/">Statistics &amp; Probability</a></h2>
+      <p class="track-level">Beginner → Intermediate · 8 tutorials ·
+        45 min total</p>
+    </div>
+  </header>
+  <p>The statistical core every analyst is expected to know: summarising data, probability, distributions, sampling, confidence intervals, hypothesis tests and A/B testing.</p>
+  <ol class="track-list"><li><a href="../tutorials/statistics/descriptive-statistics/">Descriptive Statistics for Business Data</a>
+          <span class="mini-meta">6 min</span></li><li><a href="../tutorials/statistics/probability-essentials/">Probability Essentials for Analysts</a>
+          <span class="mini-meta">4 min</span></li><li><a href="../tutorials/statistics/probability-distributions/">Probability Distributions You Will Actually Use</a>
+          <span class="mini-meta">5 min</span></li><li><a href="../tutorials/statistics/sampling-and-central-limit-theorem/">Sampling and the Central Limit Theorem</a>
+          <span class="mini-meta">6 min</span></li><li><a href="../tutorials/statistics/confidence-intervals/">Confidence Intervals</a>
+          <span class="mini-meta">6 min</span></li><li><a href="../tutorials/statistics/hypothesis-testing/">Hypothesis Testing</a>
+          <span class="mini-meta">6 min</span></li><li><a href="../tutorials/statistics/ab-testing/">A/B Testing in Practice</a>
+          <span class="mini-meta">7 min</span></li><li><a href="../tutorials/statistics/correlation-vs-causation/">Correlation vs Causation</a>
+          <span class="mini-meta">5 min</span></li></ol>
+</section><section class="track-detail" style="--track-color:#9333ea">
+  <header>
+    <span class="track-icon" aria-hidden="true">🗄️</span>
+    <div>
+      <h2><a href="../tutorials/sql/">SQL &amp; Data Wrangling</a></h2>
+      <p class="track-level">Beginner → Intermediate · 6 tutorials ·
+        64 min total</p>
+    </div>
+  </header>
+  <p>The language analysts live in. Query fundamentals, joins, aggregation, window functions, cohort/retention analysis and practical data cleaning.</p>
+  <ol class="track-list"><li><a href="../tutorials/sql/sql-basics-for-analysts/">SQL Basics for Analysts</a>
+          <span class="mini-meta">12 min</span></li><li><a href="../tutorials/sql/joins-and-relationships/">Joins and Table Relationships</a>
+          <span class="mini-meta">9 min</span></li><li><a href="../tutorials/sql/aggregation-and-grouping/">Aggregation and Grouping</a>
+          <span class="mini-meta">10 min</span></li><li><a href="../tutorials/sql/window-functions/">Window Functions</a>
+          <span class="mini-meta">11 min</span></li><li><a href="../tutorials/sql/cohort-and-retention-analysis/">Cohort and Retention Analysis in SQL</a>
+          <span class="mini-meta">10 min</span></li><li><a href="../tutorials/sql/data-cleaning-techniques/">Data Cleaning and Validation</a>
+          <span class="mini-meta">12 min</span></li></ol>
+</section><section class="track-detail" style="--track-color:#ea580c">
+  <header>
+    <span class="track-icon" aria-hidden="true">📈</span>
+    <div>
+      <h2><a href="../tutorials/visualization/">Visualization &amp; Storytelling</a></h2>
+      <p class="track-level">Beginner · 4 tutorials ·
+        23 min total</p>
+    </div>
+  </header>
+  <p>How to choose the right chart, design a dashboard people actually use, and turn a finding into a narrative that drives a decision.</p>
+  <ol class="track-list"><li><a href="../tutorials/visualization/principles-of-data-visualization/">Principles of Data Visualization</a>
+          <span class="mini-meta">5 min</span></li><li><a href="../tutorials/visualization/choosing-the-right-chart/">Choosing the Right Chart</a>
+          <span class="mini-meta">6 min</span></li><li><a href="../tutorials/visualization/dashboard-design/">Dashboard Design</a>
+          <span class="mini-meta">6 min</span></li><li><a href="../tutorials/visualization/storytelling-with-data/">Storytelling with Data</a>
+          <span class="mini-meta">6 min</span></li></ol>
+</section><section class="track-detail" style="--track-color:#0891b2">
+  <header>
+    <span class="track-icon" aria-hidden="true">🤖</span>
+    <div>
+      <h2><a href="../tutorials/predictive/">Predictive Analytics</a></h2>
+      <p class="track-level">Intermediate · 6 tutorials ·
+        43 min total</p>
+    </div>
+  </header>
+  <p>Regression, classification, trees and ensembles, clustering, forecasting and the evaluation metrics that tell you whether a model is worth deploying.</p>
+  <ol class="track-list"><li><a href="../tutorials/predictive/linear-regression/">Linear Regression</a>
+          <span class="mini-meta">8 min</span></li><li><a href="../tutorials/predictive/logistic-regression-and-classification/">Logistic Regression and Classification</a>
+          <span class="mini-meta">8 min</span></li><li><a href="../tutorials/predictive/decision-trees-and-ensembles/">Decision Trees and Ensembles</a>
+          <span class="mini-meta">8 min</span></li><li><a href="../tutorials/predictive/clustering-and-segmentation/">Clustering and Customer Segmentation</a>
+          <span class="mini-meta">6 min</span></li><li><a href="../tutorials/predictive/time-series-forecasting/">Time Series Forecasting</a>
+          <span class="mini-meta">8 min</span></li><li><a href="../tutorials/predictive/model-evaluation-metrics/">Model Evaluation Metrics</a>
+          <span class="mini-meta">5 min</span></li></ol>
+</section><section class="track-detail" style="--track-color:#be123c">
+  <header>
+    <span class="track-icon" aria-hidden="true">💼</span>
+    <div>
+      <h2><a href="../tutorials/domains/">Applied Business Analytics</a></h2>
+      <p class="track-level">Intermediate · 6 tutorials ·
+        41 min total</p>
+    </div>
+  </header>
+  <p>Analytics as it is practised inside functions: marketing, finance, supply chain, people analytics, customer lifetime value and RFM segmentation.</p>
+  <ol class="track-list"><li><a href="../tutorials/domains/marketing-analytics/">Marketing Analytics</a>
+          <span class="mini-meta">5 min</span></li><li><a href="../tutorials/domains/customer-lifetime-value/">Customer Lifetime Value</a>
+          <span class="mini-meta">7 min</span></li><li><a href="../tutorials/domains/rfm-analysis/">RFM Analysis</a>
+          <span class="mini-meta">8 min</span></li><li><a href="../tutorials/domains/financial-analytics/">Financial Analytics for Non-Finance Analysts</a>
+          <span class="mini-meta">7 min</span></li><li><a href="../tutorials/domains/supply-chain-analytics/">Supply Chain and Operations Analytics</a>
+          <span class="mini-meta">7 min</span></li><li><a href="../tutorials/domains/people-analytics/">HR and People Analytics</a>
+          <span class="mini-meta">7 min</span></li></ol>
+</section></div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../tutorials/">All tutorials</a></li>
+        <li><a href="../practice/">Practice questions</a></li>
+        <li><a href="../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../about/">About this site</a></li>
+        <li><a href="../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../";</script>
+<script src="../assets/js/search-index.js" defer></script>
+<script src="../assets/js/site.js" defer></script>
+
+</body>
+</html>

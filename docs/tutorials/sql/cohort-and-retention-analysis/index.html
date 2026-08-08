@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cohort and Retention Analysis in SQL | AnalyticsAdda</title>
+<meta name="description" content="Building a cohort retention table from raw events, reading the triangle correctly, and the difference between classic, rolling and unbounded retention.">
+<meta property="og:title" content="Cohort and Retention Analysis in SQL | AnalyticsAdda">
+<meta property="og:description" content="Building a cohort retention table from raw events, reading the triangle correctly, and the difference between classic, rolling and unbounded retention.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#9333ea">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/sql/">SQL &amp; Data Wrangling</a></li><li aria-current="page">Cohort and Retention Analysis in SQL</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/sql/" style="--track-color:#9333ea">
+          <span aria-hidden="true">🗄️</span> SQL</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 10 min read</span>
+      </div>
+      <h1>Cohort and Retention Analysis in SQL</h1>
+      <p class="lede">Building a cohort retention table from raw events, reading the triangle correctly, and the difference between classic, rolling and unbounded retention.</p>
+      <div class="tag-row"><span class="tag">sql</span><span class="tag">retention</span><span class="tag">cohort</span><span class="tag">growth</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/sql/cohort-and-retention-analysis/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Aggregate retention hides everything interesting. &quot;Monthly retention is 78%&quot; mixes users who joined three years ago with users who joined last week — two completely different populations. <strong>Cohort analysis</strong> fixes this by grouping users by when they started and tracking each group separately over time.</p><p>It is the single most informative analysis in a subscription or marketplace business, because it separates <em>&quot;is the product improving?&quot;</em> from <em>&quot;are we acquiring more people?&quot;</em></p><h2 id="the-shape-of-a-cohort-table">The shape of a cohort table<a class="anchor" href="#the-shape-of-a-cohort-table" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Cohort</th><th style="text-align:right">Size</th><th style="text-align:right">M0</th><th style="text-align:right">M1</th><th style="text-align:right">M2</th><th style="text-align:right">M3</th><th style="text-align:right">M4</th></tr></thead><tbody><tr><td style="text-align:left">2026-01</td><td style="text-align:right">1,240</td><td style="text-align:right">100%</td><td style="text-align:right">42%</td><td style="text-align:right">34%</td><td style="text-align:right">30%</td><td style="text-align:right">29%</td></tr><tr><td style="text-align:left">2026-02</td><td style="text-align:right">1,580</td><td style="text-align:right">100%</td><td style="text-align:right">45%</td><td style="text-align:right">36%</td><td style="text-align:right">32%</td><td style="text-align:right"></td></tr><tr><td style="text-align:left">2026-03</td><td style="text-align:right">1,910</td><td style="text-align:right">100%</td><td style="text-align:right">51%</td><td style="text-align:right">41%</td><td style="text-align:right"></td><td style="text-align:right"></td></tr><tr><td style="text-align:left">2026-04</td><td style="text-align:right">2,240</td><td style="text-align:right">100%</td><td style="text-align:right">53%</td><td style="text-align:right"></td><td style="text-align:right"></td><td style="text-align:right"></td></tr></tbody></table></div><p>Read it three ways, and each answers a different question:</p><ul><li><strong>Across a row</strong> — how one cohort decays. Note the curve flattening after M2: that plateau is your durable base.</li><li><strong>Down a column</strong> — whether newer cohorts behave better at the same age. M1 rising from 42% → 53% means onboarding improvements are working. <strong>This is the column that tells you whether the product is getting better.</strong></li><li><strong>The diagonal</strong> — everyone in the same calendar month. Useful for spotting a site-wide incident that hit all cohorts at once.</li></ul><h2 id="building-it-in-sql">Building it in SQL<a class="anchor" href="#building-it-in-sql" aria-label="Link to this section">#</a></h2><p>Three steps: assign each user to a cohort, compute their activity periods, then pivot.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">WITH</span> cohorts <span class="tok-keyword">AS</span> (
+    <span class="tok-comment">-- Step 1: each user's cohort = the month of their first order</span>
+    <span class="tok-keyword">SELECT</span> customer_id,
+           <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, <span class="tok-builtin">min</span>(order_date)) <span class="tok-keyword">AS</span> cohort_month
+    <span class="tok-keyword">FROM</span>   orders
+    <span class="tok-keyword">WHERE</span>  status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+    <span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> customer_id
+),
+activity <span class="tok-keyword">AS</span> (
+    <span class="tok-comment">-- Step 2: distinct months in which each user was active</span>
+    <span class="tok-keyword">SELECT</span> <span class="tok-keyword">DISTINCT</span>
+           o.customer_id,
+           c.cohort_month,
+           <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, o.order_date) <span class="tok-keyword">AS</span> activity_month
+    <span class="tok-keyword">FROM</span>   orders o
+    <span class="tok-keyword">JOIN</span>   cohorts c <span class="tok-keyword">ON</span> c.customer_id <span class="tok-operator">=</span> o.customer_id
+    <span class="tok-keyword">WHERE</span>  o.status <span class="tok-operator">=</span> <span class="tok-string">'completed'</span>
+),
+periods <span class="tok-keyword">AS</span> (
+    <span class="tok-comment">-- Step 3: months elapsed since the cohort started</span>
+    <span class="tok-keyword">SELECT</span> cohort_month,
+           customer_id,
+           (<span class="tok-builtin">extract</span>(year <span class="tok-keyword">FROM</span> activity_month) <span class="tok-operator">-</span> <span class="tok-builtin">extract</span>(year <span class="tok-keyword">FROM</span> cohort_month)) <span class="tok-operator">*</span> <span class="tok-number">12</span>
+             <span class="tok-operator">+</span> (<span class="tok-builtin">extract</span>(month <span class="tok-keyword">FROM</span> activity_month) <span class="tok-operator">-</span> <span class="tok-builtin">extract</span>(month <span class="tok-keyword">FROM</span> cohort_month))
+             <span class="tok-keyword">AS</span> period_number
+    <span class="tok-keyword">FROM</span>   activity
+),
+sizes <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> cohort_month, <span class="tok-builtin">count</span>(<span class="tok-operator">*</span>) <span class="tok-keyword">AS</span> cohort_size
+    <span class="tok-keyword">FROM</span>   cohorts
+    <span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> cohort_month
+)
+<span class="tok-keyword">SELECT</span> p.cohort_month,
+       s.cohort_size,
+       p.period_number,
+       <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> p.customer_id)                                   <span class="tok-keyword">AS</span> active_users,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> p.customer_id) <span class="tok-operator">/</span> s.cohort_size, <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> retention_pct
+<span class="tok-keyword">FROM</span>   periods p
+<span class="tok-keyword">JOIN</span>   sizes s <span class="tok-keyword">ON</span> s.cohort_month <span class="tok-operator">=</span> p.cohort_month
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> p.cohort_month, s.cohort_size, p.period_number
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> p.cohort_month, p.period_number;</code></pre></figure><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Computing <code>period_number</code> as a difference in <em>days divided by 30</em> produces off-by-one errors that scramble the whole table. Compute it in whole months from the year and month components, as above.</p></aside><h2 id="pivoting-into-the-triangle">Pivoting into the triangle<a class="anchor" href="#pivoting-into-the-triangle" aria-label="Link to this section">#</a></h2><p>The long format above is correct and easiest to chart. For a table people can read, pivot with conditional aggregation:</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">SELECT</span> cohort_month,
+       <span class="tok-builtin">max</span>(cohort_size)                                            <span class="tok-keyword">AS</span> size,
+       <span class="tok-builtin">max</span>(retention_pct) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> period_number <span class="tok-operator">=</span> <span class="tok-number">0</span>)         <span class="tok-keyword">AS</span> m0,
+       <span class="tok-builtin">max</span>(retention_pct) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> period_number <span class="tok-operator">=</span> <span class="tok-number">1</span>)         <span class="tok-keyword">AS</span> m1,
+       <span class="tok-builtin">max</span>(retention_pct) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> period_number <span class="tok-operator">=</span> <span class="tok-number">2</span>)         <span class="tok-keyword">AS</span> m2,
+       <span class="tok-builtin">max</span>(retention_pct) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> period_number <span class="tok-operator">=</span> <span class="tok-number">3</span>)         <span class="tok-keyword">AS</span> m3,
+       <span class="tok-builtin">max</span>(retention_pct) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> period_number <span class="tok-operator">=</span> <span class="tok-number">6</span>)         <span class="tok-keyword">AS</span> m6,
+       <span class="tok-builtin">max</span>(retention_pct) <span class="tok-function">FILTER</span> (<span class="tok-keyword">WHERE</span> period_number <span class="tok-operator">=</span> <span class="tok-number">12</span>)        <span class="tok-keyword">AS</span> m12
+<span class="tok-keyword">FROM</span>   cohort_retention
+<span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> cohort_month
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> cohort_month;</code></pre></figure><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p><strong>The incomplete-cohort trap.</strong> The April cohort cannot have an M3 number if only one month has passed. If your query returns 0% instead of NULL for those cells, every chart and average built on it is wrong — and the error always makes recent cohorts look terrible.
+Filter explicitly: only include cohort-period combinations where <code>cohort_month + period_number months &lt;= current_month</code>.</p></aside><h2 id="three-definitions-of-retention">Three definitions of retention<a class="anchor" href="#three-definitions-of-retention" aria-label="Link to this section">#</a></h2><p>They give very different numbers, and the mismatch is a frequent source of arguments between teams.</p><p><strong>Classic (bounded).</strong> Active specifically in period N. Strictest. Suits products with an expected regular cadence, like a weekly grocery order.</p><p><strong>Rolling (unbounded).</strong> Active in period N <em>or any period after</em>. Higher numbers, and more forgiving of irregular usage. Suits products used sporadically — travel booking, tax software.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-comment">-- Rolling retention: active in period N or later</span>
+<span class="tok-keyword">SELECT</span> c.cohort_month, p.period_number,
+       <span class="tok-builtin">count</span>(<span class="tok-keyword">DISTINCT</span> <span class="tok-keyword">CASE</span> <span class="tok-keyword">WHEN</span> a.max_period <span class="tok-operator">&gt;=</span> p.period_number
+                           <span class="tok-keyword">THEN</span> a.customer_id <span class="tok-keyword">END</span>) <span class="tok-keyword">AS</span> retained
+<span class="tok-keyword">FROM</span>   ...</code></pre></figure><p><strong>Range retention.</strong> Active at any point within a window (e.g. days 7–13). The standard for products used a few times a week, and less noisy than single-day retention.</p><p>Pick one, define it in writing, and use it consistently. Comparing your rolling retention to a competitor's classic retention is meaningless.</p><h2 id="revenue-retention">Revenue retention<a class="anchor" href="#revenue-retention" aria-label="Link to this section">#</a></h2><p>For subscription businesses, revenue retention matters more than user retention, because expansion from existing customers can outweigh churn.</p><ul><li><strong>Gross revenue retention (GRR)</strong> — revenue from a cohort this period ÷ its original revenue, <strong>capped at 100%</strong>. Measures leakage only.</li><li><strong>Net revenue retention (NRR)</strong> — the same but allowing upgrades to push above 100%.</li></ul><p>NRR above 100% means the company grows from its existing base even with zero new customers. It is the metric SaaS investors care about most.</p><figure class="code-block" data-lang="sql"><figcaption><span class="code-lang">SQL</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">WITH</span> cohort_revenue <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> c.cohort_month,
+           <span class="tok-builtin">date_trunc</span>(<span class="tok-string">'month'</span>, s.billing_month) <span class="tok-keyword">AS</span> revenue_month,
+           <span class="tok-builtin">sum</span>(s.mrr)                           <span class="tok-keyword">AS</span> mrr
+    <span class="tok-keyword">FROM</span>   subscriptions s
+    <span class="tok-keyword">JOIN</span>   cohorts c <span class="tok-keyword">ON</span> c.customer_id <span class="tok-operator">=</span> s.customer_id
+    <span class="tok-keyword">GROUP</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>, <span class="tok-number">2</span>
+),
+base <span class="tok-keyword">AS</span> (
+    <span class="tok-keyword">SELECT</span> cohort_month, mrr <span class="tok-keyword">AS</span> initial_mrr
+    <span class="tok-keyword">FROM</span>   cohort_revenue
+    <span class="tok-keyword">WHERE</span>  revenue_month <span class="tok-operator">=</span> cohort_month
+)
+<span class="tok-keyword">SELECT</span> r.cohort_month,
+       r.revenue_month,
+       <span class="tok-builtin">round</span>(<span class="tok-number">100.0</span> <span class="tok-operator">*</span> r.mrr <span class="tok-operator">/</span> b.initial_mrr, <span class="tok-number">1</span>) <span class="tok-keyword">AS</span> net_revenue_retention_pct
+<span class="tok-keyword">FROM</span>   cohort_revenue r
+<span class="tok-keyword">JOIN</span>   base b <span class="tok-keyword">ON</span> b.cohort_month <span class="tok-operator">=</span> r.cohort_month
+<span class="tok-keyword">ORDER</span>  <span class="tok-keyword">BY</span> <span class="tok-number">1</span>, <span class="tok-number">2</span>;</code></pre></figure><h2 id="reading-a-retention-curve">Reading a retention curve<a class="anchor" href="#reading-a-retention-curve" aria-label="Link to this section">#</a></h2><p>A healthy curve <strong>flattens</strong>. The plateau level is what matters — a product that stabilises at 30% has a durable base of a third of every cohort; one that keeps declining toward zero has no product-market fit no matter how good the M1 number is.</p><div class="table-wrap"><table><thead><tr><th style="text-align:left">Pattern</th><th style="text-align:left">Interpretation</th></tr></thead><tbody><tr><td style="text-align:left">Steep drop then flat plateau</td><td style="text-align:left">Normal. Plateau height = durable base</td></tr><tr><td style="text-align:left">Continuous decline toward zero</td><td style="text-align:left">No retained base; growth requires ever more acquisition</td></tr><tr><td style="text-align:left">Smile curve (dips then rises)</td><td style="text-align:left">Users return after a natural gap — check the cadence assumption</td></tr><tr><td style="text-align:left">Newer cohorts strictly above older</td><td style="text-align:left">Product improvements are working</td></tr><tr><td style="text-align:left">Newer cohorts below older</td><td style="text-align:left">Acquisition quality is degrading — check channel mix</td></tr></tbody></table></div><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>That last row is the most common real finding. When a paid acquisition channel scales up, later cohorts often retain worse simply because the channel reaches less-qualified users. Always cut cohort retention <strong>by acquisition channel</strong> before concluding the product got worse.</p></aside><h2 id="common-mistakes">Common mistakes<a class="anchor" href="#common-mistakes" aria-label="Link to this section">#</a></h2><ol><li><strong>Zero instead of NULL for incomplete periods</strong> — makes recent cohorts look catastrophic.</li><li><strong>Mixing cohort definitions</strong> — first order vs signup vs first payment give different tables.</li><li><strong>Ignoring cohort size</strong> — a 90% retention on a 12-user cohort is noise.</li><li><strong>Only reporting the average across cohorts</strong> — that is exactly the aggregation cohort analysis exists to avoid.</li><li><strong>Wrong period granularity</strong> — daily for a monthly product, monthly for a daily product. Match the natural usage cadence.</li><li><strong>Not segmenting</strong> — the aggregate curve is a mix of very different behaviours by channel, plan and geography.</li></ol><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Cohorts separate product quality from acquisition volume; aggregate retention conflates them.</li><li>Read rows for decay, columns for improvement, diagonals for incidents.</li><li>Compute period numbers in whole months, and leave incomplete cells NULL.</li><li>Classic, rolling and range retention are different metrics — define which you use.</li><li>NRR above 100% means growth without new customers; GRR is capped and measures leakage.</li><li>A flattening curve is healthy; the plateau height is the number that matters.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/sql/window-functions/">Window Functions</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">SQL Basics for Analysts</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li><li><a href="../../../tutorials/sql/joins-and-relationships/">Joins and Table Relationships</a>
+      <span class="mini-meta">SQL &amp; Data Wrangling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/sql/window-functions/"><span>← Previous</span><strong>Window Functions</strong></a>
+  <a class="pager-next" href="../../../tutorials/sql/data-cleaning-techniques/"><span>Next →</span><strong>Data Cleaning and Validation</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#the-shape-of-a-cohort-table">The shape of a cohort table</a></li><li class="toc-l2"><a href="#building-it-in-sql">Building it in SQL</a></li><li class="toc-l2"><a href="#pivoting-into-the-triangle">Pivoting into the triangle</a></li><li class="toc-l2"><a href="#three-definitions-of-retention">Three definitions of retention</a></li><li class="toc-l2"><a href="#revenue-retention">Revenue retention</a></li><li class="toc-l2"><a href="#reading-a-retention-curve">Reading a retention curve</a></li><li class="toc-l2"><a href="#common-mistakes">Common mistakes</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"Your cohort table shows the April cohort at 0% for month 3, but April was only two months ago. What is wrong?","options":["The April cohort churned completely","Incomplete periods are being reported as 0% instead of NULL","The cohort definition is wrong","The retention formula has a division error"],"answer":1,"explain":"That period has not happened yet. Reporting 0% instead of NULL makes recent cohorts appear to collapse and corrupts any average computed over the column."},{"q":"Reading down the M1 column, retention rises from 42% to 53% across successive cohorts. What does this indicate?","options":["Older cohorts are churning faster","Newer cohorts retain better at the same age — likely onboarding or product improvements","The cohort sizes are increasing","Seasonality"],"answer":1,"explain":"Comparing the same age across cohorts controls for cohort maturity, so an improving column indicates genuine product or onboarding improvement."},{"q":"Net revenue retention is 112%. What does that mean?","options":["12% of customers churned","The existing customer base generates more revenue than it did originally, so the company grows without new customers","Revenue was miscalculated — NRR cannot exceed 100%","Gross retention is also 112%"],"answer":1,"explain":"NRR includes expansion revenue and is uncapped. Above 100% means upgrades from existing customers more than offset churn and downgrades."}]};</script>
+</body>
+</html>

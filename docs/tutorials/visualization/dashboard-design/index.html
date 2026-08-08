@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Design | AnalyticsAdda</title>
+<meta name="description" content="Designing dashboards people actually use — audience-first layout, the five-second rule, context over raw numbers, and knowing when not to build one.">
+<meta property="og:title" content="Dashboard Design | AnalyticsAdda">
+<meta property="og:description" content="Designing dashboards people actually use — audience-first layout, the five-second rule, context over raw numbers, and knowing when not to build one.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="page-doc">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../../../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../../../tracks/">Tracks</a></li><li><a href="../../../tutorials/" class="active">Tutorials</a></li><li><a href="../../../practice/">Practice</a></li><li><a href="../../../cheatsheets/">Cheat Sheets</a></li><li><a href="../../../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="doc-layout">
+  <aside class="doc-sidebar" data-sidebar>
+    <div class="sidebar-inner">
+      <p class="sidebar-title">Course contents</p>
+      <details class="side-track" style="--track-color:#2f8f5b">
+  <summary><span aria-hidden="true">🧭</span> Foundations
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/foundations/what-is-business-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/what-is-business-analytics/"></span>What is Business Analytics?</a></li><li><a href="../../../tutorials/foundations/types-of-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/types-of-analytics/"></span>The Four Types of Analytics</a></li><li><a href="../../../tutorials/foundations/analytics-lifecycle/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/analytics-lifecycle/"></span>The Analytics Project Lifecycle (CRISP-DM)</a></li><li><a href="../../../tutorials/foundations/data-types-and-measurement-scales/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/data-types-and-measurement-scales/"></span>Data Types and Measurement Scales</a></li><li><a href="../../../tutorials/foundations/kpis-and-metric-design/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/kpis-and-metric-design/"></span>Designing KPIs and Metrics That Work</a></li><li><a href="../../../tutorials/foundations/framing-business-problems/">
+            <span class="dot-check" data-done-dot="/tutorials/foundations/framing-business-problems/"></span>Framing a Business Problem as an Analytics Question</a></li></ul>
+</details><details class="side-track" style="--track-color:#2563eb">
+  <summary><span aria-hidden="true">📊</span> Statistics
+    <span class="side-count">8</span></summary>
+  <ul><li><a href="../../../tutorials/statistics/descriptive-statistics/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/descriptive-statistics/"></span>Descriptive Statistics for Business Data</a></li><li><a href="../../../tutorials/statistics/probability-essentials/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-essentials/"></span>Probability Essentials for Analysts</a></li><li><a href="../../../tutorials/statistics/probability-distributions/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/probability-distributions/"></span>Probability Distributions You Will Actually Use</a></li><li><a href="../../../tutorials/statistics/sampling-and-central-limit-theorem/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/sampling-and-central-limit-theorem/"></span>Sampling and the Central Limit Theorem</a></li><li><a href="../../../tutorials/statistics/confidence-intervals/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/confidence-intervals/"></span>Confidence Intervals</a></li><li><a href="../../../tutorials/statistics/hypothesis-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/hypothesis-testing/"></span>Hypothesis Testing</a></li><li><a href="../../../tutorials/statistics/ab-testing/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/ab-testing/"></span>A/B Testing in Practice</a></li><li><a href="../../../tutorials/statistics/correlation-vs-causation/">
+            <span class="dot-check" data-done-dot="/tutorials/statistics/correlation-vs-causation/"></span>Correlation vs Causation</a></li></ul>
+</details><details class="side-track" style="--track-color:#9333ea">
+  <summary><span aria-hidden="true">🗄️</span> SQL
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/sql/sql-basics-for-analysts/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/sql-basics-for-analysts/"></span>SQL Basics for Analysts</a></li><li><a href="../../../tutorials/sql/joins-and-relationships/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/joins-and-relationships/"></span>Joins and Table Relationships</a></li><li><a href="../../../tutorials/sql/aggregation-and-grouping/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/aggregation-and-grouping/"></span>Aggregation and Grouping</a></li><li><a href="../../../tutorials/sql/window-functions/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/window-functions/"></span>Window Functions</a></li><li><a href="../../../tutorials/sql/cohort-and-retention-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/cohort-and-retention-analysis/"></span>Cohort and Retention Analysis in SQL</a></li><li><a href="../../../tutorials/sql/data-cleaning-techniques/">
+            <span class="dot-check" data-done-dot="/tutorials/sql/data-cleaning-techniques/"></span>Data Cleaning and Validation</a></li></ul>
+</details><details class="side-track" open style="--track-color:#ea580c">
+  <summary><span aria-hidden="true">📈</span> Visualization
+    <span class="side-count">4</span></summary>
+  <ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/principles-of-data-visualization/"></span>Principles of Data Visualization</a></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/choosing-the-right-chart/"></span>Choosing the Right Chart</a></li><li><a href="../../../tutorials/visualization/dashboard-design/" class="active" aria-current="page">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/dashboard-design/"></span>Dashboard Design</a></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">
+            <span class="dot-check" data-done-dot="/tutorials/visualization/storytelling-with-data/"></span>Storytelling with Data</a></li></ul>
+</details><details class="side-track" style="--track-color:#0891b2">
+  <summary><span aria-hidden="true">🤖</span> Predictive
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/predictive/linear-regression/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/linear-regression/"></span>Linear Regression</a></li><li><a href="../../../tutorials/predictive/logistic-regression-and-classification/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/logistic-regression-and-classification/"></span>Logistic Regression and Classification</a></li><li><a href="../../../tutorials/predictive/decision-trees-and-ensembles/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/decision-trees-and-ensembles/"></span>Decision Trees and Ensembles</a></li><li><a href="../../../tutorials/predictive/clustering-and-segmentation/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/clustering-and-segmentation/"></span>Clustering and Customer Segmentation</a></li><li><a href="../../../tutorials/predictive/time-series-forecasting/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/time-series-forecasting/"></span>Time Series Forecasting</a></li><li><a href="../../../tutorials/predictive/model-evaluation-metrics/">
+            <span class="dot-check" data-done-dot="/tutorials/predictive/model-evaluation-metrics/"></span>Model Evaluation Metrics</a></li></ul>
+</details><details class="side-track" style="--track-color:#be123c">
+  <summary><span aria-hidden="true">💼</span> Applied
+    <span class="side-count">6</span></summary>
+  <ul><li><a href="../../../tutorials/domains/marketing-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/marketing-analytics/"></span>Marketing Analytics</a></li><li><a href="../../../tutorials/domains/customer-lifetime-value/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/customer-lifetime-value/"></span>Customer Lifetime Value</a></li><li><a href="../../../tutorials/domains/rfm-analysis/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/rfm-analysis/"></span>RFM Analysis</a></li><li><a href="../../../tutorials/domains/financial-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/financial-analytics/"></span>Financial Analytics for Non-Finance Analysts</a></li><li><a href="../../../tutorials/domains/supply-chain-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/supply-chain-analytics/"></span>Supply Chain and Operations Analytics</a></li><li><a href="../../../tutorials/domains/people-analytics/">
+            <span class="dot-check" data-done-dot="/tutorials/domains/people-analytics/"></span>HR and People Analytics</a></li></ul>
+</details>
+    </div>
+  </aside>
+
+  <article class="doc-main" style="--track-color:#ea580c">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../../../">Home</a></li><li><a href="../../../tutorials/">Tutorials</a></li><li><a href="../../../tutorials/visualization/">Visualization &amp; Storytelling</a></li><li aria-current="page">Dashboard Design</li></ol></nav>
+    <header class="doc-header">
+      <div class="doc-meta-row">
+        <a class="card-track" href="../../../tutorials/visualization/" style="--track-color:#ea580c">
+          <span aria-hidden="true">📈</span> Visualization</a>
+        <span class="badge badge-intermediate">Intermediate</span>
+        <span class="mini-meta">⏱ 6 min read</span>
+      </div>
+      <h1>Dashboard Design</h1>
+      <p class="lede">Designing dashboards people actually use — audience-first layout, the five-second rule, context over raw numbers, and knowing when not to build one.</p>
+      <div class="tag-row"><span class="tag">visualization</span><span class="tag">dashboards</span><span class="tag">bi</span><span class="tag">design</span></div>
+      <div class="doc-actions">
+        <button type="button" class="btn btn-small btn-done" data-mark-done="/tutorials/visualization/dashboard-design/">
+          Mark as complete</button>
+        <button type="button" class="btn btn-small btn-ghost" data-print>Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="doc-body"><p>Most dashboards are abandoned within three months. They get built because someone asked for &quot;visibility&quot;, they answer no specific question, and they slowly rot as definitions drift. Designing one that survives is mostly about restraint and knowing who it is for.</p><h2 id="start-with-the-decision-not-the-data">Start with the decision, not the data<a class="anchor" href="#start-with-the-decision-not-the-data" aria-label="Link to this section">#</a></h2><p>Before laying out a single chart, answer:</p><ol><li><strong>Who opens this, and how often?</strong> Daily by an ops manager, or quarterly by a VP? That single answer determines granularity, refresh rate and density.</li><li><strong>What decision does it support?</strong> &quot;Should I reallocate spend today?&quot; is a dashboard. &quot;How is the business doing?&quot; is not — it is a wish.</li><li><strong>What action follows a red number?</strong> If none, the metric is decoration.</li><li><strong>What is the alternative?</strong> Sometimes a weekly email with three numbers and a sentence beats a dashboard nobody opens.</li></ol><aside class="callout callout-tip"><p class="callout-title"><span aria-hidden="true">💡</span> Tip</p><p>The best filter on a dashboard request: &quot;if this number goes bad, what will you do differently tomorrow?&quot; Metrics without an answer get cut. This one question typically removes half of a requested metric list.</p></aside><h2 id="three-types-of-dashboard">Three types of dashboard<a class="anchor" href="#three-types-of-dashboard" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Type</th><th style="text-align:left">Audience</th><th style="text-align:left">Update</th><th style="text-align:left">Design emphasis</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Strategic</strong></td><td style="text-align:left">Executives</td><td style="text-align:left">Weekly / monthly</td><td style="text-align:left">Few KPIs, trends, targets, heavy annotation</td></tr><tr><td style="text-align:left"><strong>Operational</strong></td><td style="text-align:left">Team leads, on-shift staff</td><td style="text-align:left">Real time / hourly</td><td style="text-align:left">Current state, thresholds, alerts, drill-down</td></tr><tr><td style="text-align:left"><strong>Analytical</strong></td><td style="text-align:left">Analysts</td><td style="text-align:left">On demand</td><td style="text-align:left">Dense, filterable, exploratory</td></tr></tbody></table></div><p>Mixing them is the most common failure. An executive dashboard with 40 filters and a real-time feed is unusable for an executive and too shallow for an analyst. <strong>Build separate views rather than one dashboard that compromises for everyone.</strong></p><h2 id="layout-how-people-read">Layout: how people read<a class="anchor" href="#layout-how-people-read" aria-label="Link to this section">#</a></h2><p>Attention in left-to-right languages moves in an F-pattern: top-left first, across the top, then down the left. Place accordingly:</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>┌──────────────────────────────────────────────────────────────┐
+│  Title: what this shows · as-of timestamp · filters          │
+├───────────────┬───────────────┬───────────────┬──────────────┤
+│  KPI 1        │  KPI 2        │  KPI 3        │  KPI 4       │
+│  vs target    │  vs target    │  vs target    │  vs target   │
+├───────────────┴───────────────┴───────┬───────┴──────────────┤
+│  Primary trend chart                  │  Breakdown by the    │
+│  (the main story over time)           │  dimension that      │
+│                                       │  matters most        │
+├───────────────────────────────────────┴──────────────────────┤
+│  Supporting detail · table · secondary segments              │
+└──────────────────────────────────────────────────────────────┘</code></pre></figure><ul><li><strong>Top-left</strong>: the single most important number.</li><li><strong>Above the fold</strong>: everything needed for the primary decision. Scrolling is where dashboards go to die.</li><li><strong>Grouped by question</strong>, not by data source. Users do not care which system a number came from.</li></ul><h2 id="the-five-second-rule">The five-second rule<a class="anchor" href="#the-five-second-rule" aria-label="Link to this section">#</a></h2><p>A user should grasp the headline state within five seconds of opening the dashboard. Testing this is straightforward: show it to someone for five seconds, then ask what is going on.</p><p>Ways to pass:</p><ul><li>Big numbers for the primary KPIs, small numbers for everything else — size should track importance.</li><li>Colour used only for status, and used sparingly. If everything is coloured, nothing stands out.</li><li>A clear visual hierarchy: one dominant element, then supporting ones.</li><li>Titles that state the metric and the current judgement (&quot;Revenue: 4% ahead of plan&quot;).</li></ul><h2 id="a-number-without-context-is-not-information">A number without context is not information<a class="anchor" href="#a-number-without-context-is-not-information" aria-label="Link to this section">#</a></h2><p>&quot;Revenue: ₹4.2 crore&quot; tells a reader nothing. Every KPI tile should carry at least two of:</p><ul><li><strong>Comparison</strong> — vs last period, vs the same period last year</li><li><strong>Target</strong> — vs plan or SLA</li><li><strong>Trend</strong> — a sparkline of recent history</li><li><strong>Variance</strong> — absolute and percentage change</li><li><strong>Range</strong> — is this within normal variation, or genuinely unusual?</li></ul><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>┌──────────────────────────┐   ┌──────────────────────────┐
+│ Revenue                  │   │ REVENUE (MTD)            │
+│                          │   │ ₹4.2 Cr    ▲ 12% MoM     │
+│    ₹4.2 Cr               │   │ ▁▂▃▅▆▇█  Target ₹4.0 Cr  │
+│                          │   │ ✓ 5% ahead of plan       │
+└──────────────────────────┘   └──────────────────────────┘
+        Not useful                      Useful</code></pre></figure><p>That last line — the judgement — is what turns a dashboard from a data display into a decision aid.</p><h2 id="metric-count">Metric count<a class="anchor" href="#metric-count" aria-label="Link to this section">#</a></h2><p>Ruthless limits, by dashboard type:</p><ul><li>Executive: <strong>3–5 KPIs</strong>, at most 6 charts.</li><li>Operational: 8–12 metrics, arranged so the abnormal one stands out.</li><li>Analytical: as dense as the analyst can use.</li></ul><p>If a stakeholder wants 30 metrics, the correct response is to ask which three they would check if they only had thirty seconds. Those go on the front page; the rest go into a drill-down.</p><h2 id="filters-and-interactivity">Filters and interactivity<a class="anchor" href="#filters-and-interactivity" aria-label="Link to this section">#</a></h2><p>Interactivity is not free — every filter is a decision the user must make before they see anything.</p><ul><li><strong>Default to the most common view.</strong> Never open on an empty state requiring selections.</li><li><strong>Show which filters are active</strong>, prominently. A stale filter causing someone to misread the business is a real and frequent incident.</li><li><strong>Limit filter count.</strong> Three to five that matter beat fifteen that might.</li><li><strong>Make drill-downs discoverable.</strong> Hidden interactions might as well not exist.</li></ul><h2 id="refresh-freshness-and-trust">Refresh, freshness and trust<a class="anchor" href="#refresh-freshness-and-trust" aria-label="Link to this section">#</a></h2><ul><li><strong>Always display the data timestamp.</strong> &quot;As of 08 Aug 2026, 06:00 IST&quot; — a dashboard whose freshness is uncertain will not be trusted.</li><li><strong>Match refresh rate to the decision cycle.</strong> Real-time data for a weekly decision creates noise-chasing, not insight.</li><li><strong>Show failures explicitly.</strong> A pipeline failure must display &quot;data unavailable&quot;, never yesterday's numbers presented as today's. Silent staleness destroys trust permanently — one incident is enough.</li></ul><h2 id="documentation">Documentation<a class="anchor" href="#documentation" aria-label="Link to this section">#</a></h2><p>Every dashboard needs, on the page and not in a separate wiki:</p><ul><li>What each metric means, in one line, on hover or in an info panel</li><li>The source table and refresh schedule</li><li>Known caveats (&quot;excludes B2B orders&quot;, &quot;Bengaluru data starts March 2026&quot;)</li><li>An owner's name and a way to report a problem</li></ul><aside class="callout callout-warning"><p class="callout-title"><span aria-hidden="true">⚠️</span> Watch out</p><p>Undocumented metrics get reinterpreted. Six months on, &quot;active users&quot; means four different things to four teams, all quoting the same dashboard. The definition must live next to the number.</p></aside><h2 id="maintenance">Maintenance<a class="anchor" href="#maintenance" aria-label="Link to this section">#</a></h2><p>Dashboards accumulate. Two habits keep the estate healthy:</p><ul><li><strong>Track usage.</strong> Most BI tools log views. Anything with no views in 90 days should be archived — ask first, but archive.</li><li><strong>Review quarterly.</strong> Definitions drift, business questions change, metrics stop mattering. A dashboard is a product with a lifecycle, not an artefact.</li></ul><h2 id="anti-patterns">Anti-patterns<a class="anchor" href="#anti-patterns" aria-label="Link to this section">#</a></h2><div class="table-wrap"><table><thead><tr><th style="text-align:left">Anti-pattern</th><th style="text-align:left">Why it fails</th></tr></thead><tbody><tr><td style="text-align:left">The everything dashboard</td><td style="text-align:left">40 charts, no hierarchy, nobody knows where to look</td></tr><tr><td style="text-align:left">Vanity metrics</td><td style="text-align:left">Cumulative counters that only rise</td></tr><tr><td style="text-align:left">No comparison</td><td style="text-align:left">Numbers with no baseline mean nothing</td></tr><tr><td style="text-align:left">Dashboard as data dump</td><td style="text-align:left">A giant table is not a dashboard</td></tr><tr><td style="text-align:left">Real-time everything</td><td style="text-align:left">Encourages reacting to noise</td></tr><tr><td style="text-align:left">Rainbow palette</td><td style="text-align:left">Every chart differently coloured, colour meaning nothing</td></tr><tr><td style="text-align:left">Mystery metrics</td><td style="text-align:left">Undefined, unowned, unverifiable</td></tr></tbody></table></div><h2 id="key-takeaways">Key takeaways<a class="anchor" href="#key-takeaways" aria-label="Link to this section">#</a></h2><ul><li>Design from the decision and the audience; separate strategic, operational and analytical views.</li><li>Most important number top-left; everything for the primary decision above the fold.</li><li>Pass the five-second test — size and colour should track importance.</li><li>Every KPI needs comparison, target or trend; a bare number is not information.</li><li>Show the data timestamp, and fail loudly rather than showing stale numbers.</li><li>Document definitions on the dashboard, track usage and archive what nobody opens.</li></ul><div class="quiz" data-quiz="quiz-0"></div></div>
+
+    <section class="related"><h2>Related tutorials</h2><ul><li><a href="../../../tutorials/visualization/principles-of-data-visualization/">Principles of Data Visualization</a>
+      <span class="mini-meta">Visualization &amp; Storytelling</span></li><li><a href="../../../tutorials/visualization/choosing-the-right-chart/">Choosing the Right Chart</a>
+      <span class="mini-meta">Visualization &amp; Storytelling</span></li><li><a href="../../../tutorials/visualization/storytelling-with-data/">Storytelling with Data</a>
+      <span class="mini-meta">Visualization &amp; Storytelling</span></li></ul></section>
+    <nav class="pager" aria-label="Tutorial navigation">
+  <a class="pager-prev" href="../../../tutorials/visualization/choosing-the-right-chart/"><span>← Previous</span><strong>Choosing the Right Chart</strong></a>
+  <a class="pager-next" href="../../../tutorials/visualization/storytelling-with-data/"><span>Next →</span><strong>Storytelling with Data</strong></a>
+</nav>
+  </article>
+
+  <aside class="doc-toc"><nav class="toc" aria-label="On this page">
+  <p class="toc-title">On this page</p>
+  <ul><li class="toc-l2"><a href="#start-with-the-decision-not-the-data">Start with the decision, not the data</a></li><li class="toc-l2"><a href="#three-types-of-dashboard">Three types of dashboard</a></li><li class="toc-l2"><a href="#layout-how-people-read">Layout: how people read</a></li><li class="toc-l2"><a href="#the-five-second-rule">The five-second rule</a></li><li class="toc-l2"><a href="#a-number-without-context-is-not-information">A number without context is not information</a></li><li class="toc-l2"><a href="#metric-count">Metric count</a></li><li class="toc-l2"><a href="#filters-and-interactivity">Filters and interactivity</a></li><li class="toc-l2"><a href="#refresh-freshness-and-trust">Refresh, freshness and trust</a></li><li class="toc-l2"><a href="#documentation">Documentation</a></li><li class="toc-l2"><a href="#maintenance">Maintenance</a></li><li class="toc-l2"><a href="#anti-patterns">Anti-patterns</a></li><li class="toc-l2"><a href="#key-takeaways">Key takeaways</a></li></ul>
+</nav>
+    <div class="toc-cta">
+      <p><strong>Ready to test yourself?</strong></p>
+      <a class="btn btn-small btn-primary" href="../../../practice/">Practice questions</a>
+    </div>
+  </aside>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../../../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../../../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../../../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../../../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../../../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../../../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../../../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../../../tutorials/">All tutorials</a></li>
+        <li><a href="../../../practice/">Practice questions</a></li>
+        <li><a href="../../../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../../../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../../../about/">About this site</a></li>
+        <li><a href="../../../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../../../";</script>
+<script src="../../../assets/js/search-index.js" defer></script>
+<script src="../../../assets/js/site.js" defer></script>
+<script>window.AA_QUIZZES = {"quiz-0":[{"q":"A stakeholder asks for 30 metrics on one executive dashboard. What is the best response?","options":["Build all 30 as requested","Ask which three they would check with only thirty seconds, feature those, and put the rest in drill-downs","Refuse to build the dashboard","Split the 30 across ten dashboards"],"answer":1,"explain":"Forcing prioritisation surfaces what actually drives decisions. The rest remain available through drill-downs without destroying the visual hierarchy."},{"q":"A data pipeline fails overnight. What should the dashboard display?","options":["Yesterday's numbers, since they are the most recent available","An explicit 'data unavailable' state with the last successful refresh time","Nothing at all — a blank page","Estimated values based on the trend"],"answer":1,"explain":"Showing stale data as current is how trust is permanently lost. Failing loudly with a clear timestamp keeps the dashboard credible."},{"q":"Which KPI tile is most useful?","options":["Revenue: ₹4.2 Cr","Revenue: ₹4.2 Cr, up 12% MoM, 5% ahead of a ₹4.0 Cr target, with a sparkline","Revenue: ₹42,183,914.27","Revenue chart with no title"],"answer":1,"explain":"A number needs context — comparison, target and trend — before a reader can judge whether it is good or bad and decide whether to act."}]};</script>
+</body>
+</html>

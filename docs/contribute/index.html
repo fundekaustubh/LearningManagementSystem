@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contribute a Tutorial | AnalyticsAdda</title>
+<meta name="description" content="How the content is structured and what makes a good addition to the site.">
+<meta property="og:title" content="Contribute a Tutorial | AnalyticsAdda">
+<meta property="og:description" content="How the content is structured and what makes a good addition to the site.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2f8f5b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f8f5b'/%3E%3Crect x='7' y='16' width='4' height='9' rx='1.5' fill='white'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='white'/%3E%3Crect x='21' y='6' width='4' height='19' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<script>
+// Applied before first paint so the page never flashes the wrong theme.
+(function () {
+  try {
+    var t = localStorage.getItem('aa-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+})();
+</script>
+</head>
+<body class="">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../">
+      <svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+      <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul><li><a href="../tracks/">Tracks</a></li><li><a href="../tutorials/">Tutorials</a></li><li><a href="../practice/">Practice</a></li><li><a href="../cheatsheets/">Cheat Sheets</a></li><li><a href="../glossary/">Glossary</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <button class="search-trigger" type="button" data-search-open aria-label="Search tutorials">
+        <span aria-hidden="true">🔍</span>
+        <span class="search-trigger-text">Search</span>
+        <kbd>/</kbd>
+      </button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+        <span class="theme-icon-light" aria-hidden="true">☀️</span>
+        <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+      </button>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" data-mobile-nav aria-label="Mobile">
+    <ul><li><a href="../tracks/">Tracks</a></li><li><a href="../tutorials/">Tutorials</a></li><li><a href="../practice/">Practice</a></li><li><a href="../cheatsheets/">Cheat Sheets</a></li><li><a href="../glossary/">Glossary</a></li></ul>
+  </nav>
+</header>
+<main id="main">
+<div class="wrap page-head">
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../">Home</a></li><li aria-current="page">Contribute a Tutorial</li></ol></nav>
+  <h1>Contribute a Tutorial</h1>
+  <p class="lede">How the content is structured and what makes a good addition to the site.</p>
+</div>
+<div class="wrap section narrow"><div class="doc-body"><h2 id="adding-or-editing-content">Adding or editing content<a class="anchor" href="#adding-or-editing-content" aria-label="Link to this section">#</a></h2><p>Every tutorial is a single Markdown file under <code>content/&lt;track&gt;/</code>. The build script turns it into a page, adds it to the navigation, the search index and the practice bank automatically. There is nothing else to register.</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>content/
+├── foundations/
+├── statistics/
+├── sql/
+├── visualization/
+├── predictive/
+├── domains/
+├── cheatsheets/
+├── _data/glossary.json
+└── _pages/</code></pre></figure><h2 id="front-matter">Front matter<a class="anchor" href="#front-matter" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>---
+title: Window Functions
+description: One sentence that appears in cards, search results and meta tags.
+order: 4
+difficulty: Intermediate
+tags: [sql, window-functions, growth]
+---</code></pre></figure><p><code>order</code> controls position within the track and therefore the prev/next links. <code>difficulty</code> is one of Beginner, Intermediate or Advanced.</p><h2 id="available-markdown">Available Markdown<a class="anchor" href="#available-markdown" aria-label="Link to this section">#</a></h2><p>Standard Markdown, plus two extensions.</p><p><strong>Callouts</strong> — blockquotes with a type marker:</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>&gt; [!NOTE]      informational aside
+&gt; [!TIP]       practical advice
+&gt; [!WARNING]   a trap worth avoiding
+&gt; [!EXAMPLE]   a worked example
+&gt; [!INTERVIEW] how the topic comes up in interviews</code></pre></figure><p><strong>Quizzes</strong> — a fenced block of JSON, rendered as an interactive widget and added to the practice bank:</p><figure class="code-block" data-lang="text"><figcaption><span class="code-lang">TEXT</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code>```quiz
+[
+  {
+    &quot;q&quot;: &quot;The question text.&quot;,
+    &quot;options&quot;: [&quot;First&quot;, &quot;Second&quot;, &quot;Third&quot;, &quot;Fourth&quot;],
+    &quot;answer&quot;: 1,
+    &quot;explain&quot;: &quot;Why that answer is right, and why the tempting wrong one is wrong.&quot;
+  }
+]
+```</code></pre></figure><p><code>answer</code> is a zero-based index. Two to four questions per tutorial works well.</p><p>Inline <code>$formula$</code> renders as styled mathematical text. Code fences support <code>sql</code>, <code>python</code>, <code>r</code>, <code>bash</code> and <code>text</code> highlighting.</p><h2 id="what-makes-a-good-tutorial">What makes a good tutorial<a class="anchor" href="#what-makes-a-good-tutorial" aria-label="Link to this section">#</a></h2><ul><li><strong>One topic, done thoroughly.</strong> Better to cover window functions properly than to survey ten SQL features shallowly.</li><li><strong>A realistic business example</strong> with concrete numbers. Abstract examples are forgotten immediately.</li><li><strong>The failure modes.</strong> What goes wrong in practice is usually the most valuable part of the page, and the part missing from most other material.</li><li><strong>Honest caveats.</strong> If a technique is commonly misused, say so.</li><li><strong>Links to related tutorials</strong>, using relative paths like <code>../../sql/window-functions/</code>.</li><li><strong>Key takeaways</strong> as a short bulleted list before the quiz.</li></ul><h2 id="building-locally">Building locally<a class="anchor" href="#building-locally" aria-label="Link to this section">#</a></h2><figure class="code-block" data-lang="bash"><figcaption><span class="code-lang">BASH</span><button class="copy-btn" type="button" aria-label="Copy code">Copy</button></figcaption><pre><code><span class="tok-keyword">npm</span> run build     <span class="tok-comment"># generate docs/</span>
+<span class="tok-keyword">npm</span> run serve     <span class="tok-comment"># build and serve at http://localhost:4173</span></code></pre></figure><p>The build has no dependencies — Node 18 or later is all that is required. It regenerates <code>docs/</code> from scratch each time, so any change to content or templates is reflected immediately.</p><h2 id="style-notes">Style notes<a class="anchor" href="#style-notes" aria-label="Link to this section">#</a></h2><ul><li>Write in the second person, plainly, and avoid hype.</li><li>Define every term the first time it appears.</li><li>Prefer a table to a long list when comparing options.</li><li>Round numbers in prose; full precision belongs in code.</li><li>Keep code examples runnable and commented where the intent is not obvious.</li></ul></div></div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="../"><svg viewBox="0 0 32 32" aria-hidden="true" class="logo-mark">
+  <rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor" opacity=".12"/>
+  <rect x="7" y="16" width="4" height="9" rx="1.5" fill="currentColor"/>
+  <rect x="14" y="11" width="4" height="14" rx="1.5" fill="currentColor"/>
+  <rect x="21" y="6" width="4" height="19" rx="1.5" fill="currentColor"/>
+</svg>
+        <span class="brand-text">Analytics<span class="brand-accent">Adda</span></span></a>
+      <p>A free, structured learning portal for business analytics: statistics, SQL, visualization, predictive modelling and real business use-cases, with worked examples and practice quizzes.</p>
+    </div>
+    <div>
+      <h3>Learning tracks</h3>
+      <ul><li><a href="../tutorials/foundations/">Analytics Foundations</a></li><li><a href="../tutorials/statistics/">Statistics & Probability</a></li><li><a href="../tutorials/sql/">SQL & Data Wrangling</a></li><li><a href="../tutorials/visualization/">Visualization & Storytelling</a></li><li><a href="../tutorials/predictive/">Predictive Analytics</a></li><li><a href="../tutorials/domains/">Applied Business Analytics</a></li></ul>
+    </div>
+    <div>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="../tutorials/">All tutorials</a></li>
+        <li><a href="../practice/">Practice questions</a></li>
+        <li><a href="../cheatsheets/">Cheat sheets</a></li>
+        <li><a href="../glossary/">Glossary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="../about/">About this site</a></li>
+        <li><a href="../contribute/">Contribute a tutorial</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 AnalyticsAdda. Educational content, free to read and share.</p>
+  </div>
+</footer>
+<div class="search-modal" data-search-modal hidden>
+  <div class="search-backdrop" data-search-close></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search tutorials">
+    <div class="search-input-row">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" placeholder="Search concepts, e.g. p-value, window function, churn…"
+             data-search-input autocomplete="off" spellcheck="false">
+      <button type="button" data-search-close aria-label="Close search">Esc</button>
+    </div>
+    <div class="search-results" data-search-results>
+      <p class="search-hint">Type at least two characters to search 36 tutorials.</p>
+    </div>
+  </div>
+</div>
+<script>window.AA_BASE = "../";</script>
+<script src="../assets/js/search-index.js" defer></script>
+<script src="../assets/js/site.js" defer></script>
+
+</body>
+</html>
