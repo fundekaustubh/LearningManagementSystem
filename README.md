@@ -109,11 +109,34 @@ See [`content/_pages/contribute.md`](content/_pages/contribute.md) for the full 
 
 ## Deployment
 
-The build writes to `docs/`, so GitHub Pages can serve it directly:
+The site is published to GitHub Pages automatically. **Merge into `main` and the live site updates** — no manual step, no build run locally.
 
-**Settings → Pages → Source: Deploy from a branch → Branch: `main`, folder: `/docs`**
+### One-time setup
 
-Internal links are generated relative to each page, so the site works from a repository sub-path (`user.github.io/RepoName/`) with no configuration. A GitHub Actions workflow at `.github/workflows/build.yml` rebuilds and verifies the site on every push.
+**Settings → Pages → Source: `GitHub Actions`**
+
+That is the only thing that has to be done by hand; GitHub does not allow a workflow to enable Pages on its own. The site then goes live at:
+
+```
+https://<your-username>.github.io/LearningManagementSystem/
+```
+
+Free, and no custom domain required.
+
+### How the pipeline works
+
+| Workflow | Runs on | Does |
+|---|---|---|
+| `.github/workflows/build.yml` | every branch and PR | Builds, verifies committed `docs/` is current, runs the link checker. Gates merges. |
+| `.github/workflows/deploy.yml` | pushes to `main` | Rebuilds from source, validates, publishes to Pages. |
+
+The deploy workflow rebuilds from the Markdown sources rather than serving the committed `docs/` folder, so what goes live always matches the source in the merge commit. Validation runs *before* publishing, so a broken build fails the workflow instead of replacing a working site with a broken one.
+
+Typical merge-to-live time is under a minute. You can also re-publish by hand from **Actions → Deploy to GitHub Pages → Run workflow**.
+
+### Why it works on a project sub-path
+
+Project Pages sites are served from `/RepoName/`, not the domain root, which breaks any site using absolute paths. Every internal link here is generated relative to the page it appears on, so no base-path configuration is needed. This is verified by serving the build under a simulated `/LearningManagementSystem/` prefix and exercising navigation, search, and asset loading in a browser.
 
 ## Design notes
 
