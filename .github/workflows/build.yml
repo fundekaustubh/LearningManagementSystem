@@ -27,5 +27,8 @@ jobs:
           fi
           echo "docs/ is up to date."
 
+      - name: Unit tests
+        run: node scripts/test-math.js
+
       - name: Check for broken internal links
         run: node scripts/check-links.js

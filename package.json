@@ -5,9 +5,10 @@
   "description": "AnalyticsAdda - a GeeksforGeeks-style learning portal for Business Analytics concepts.",
   "scripts": {
     "build": "node build.js",
-    "check": "node build.js && node scripts/check-links.js",
+    "check": "node build.js && node scripts/test-math.js && node scripts/check-links.js",
     "serve": "node build.js && node scripts/serve.js",
-    "clean": "rm -rf docs"
+    "clean": "rm -rf docs",
+    "test": "node scripts/test-math.js"
   },
   "keywords": [
     "business-analytics",

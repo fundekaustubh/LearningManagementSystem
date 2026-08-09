@@ -82,6 +82,12 @@ Two extensions beyond standard Markdown:
 - **Quizzes** — a fenced ```` ```quiz ```` block of JSON (`q`, `options`,
   `answer` as a zero-based index, `explain`), lifted into both the article and
   `/practice/`
+- **Formulas** — `$...$`, rendered by `lib/math.js`, which covers the LaTeX
+  subset the content uses (`\frac`, `\sqrt`, `^`, `_`, `\left`/`\right`,
+  symbols and Greek letters) as HTML plus CSS. Unicode (`Σ`, `²`, `x̄`) passes
+  through. Extend `SYMBOLS` there rather than reaching for a math library — an
+  unknown command degrades to readable text, so nothing breaks meanwhile.
+  `scripts/test-math.js` covers it; run it via `npm run check`.
 
 Use ```` ```` ```` (four backticks) to show a three-backtick fence verbatim.
 

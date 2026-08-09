@@ -65,7 +65,24 @@ Standard Markdown, plus two extensions.
 
 `answer` is a zero-based index. Two to four questions per tutorial works well.
 
-Inline `$formula$` renders as styled mathematical text. Code fences support `sql`, `python`, `r`, `bash` and `text` highlighting.
+**Formulas** — wrap them in `$...$`. A LaTeX subset is rendered to HTML:
+
+| Syntax | Result |
+| --- | --- |
+| `\frac{a}{b}` | stacked fraction |
+| `\sqrt{x}`, `\sqrt[3]{x}` | radical, with optional index |
+| `x^2`, `e^{-x}` | superscript |
+| `β_0`, `z_{α/2}` | subscript |
+| `\left( … \right)` | parentheses sized to their contents |
+| `\times \cdot \pm \approx \le \ge \sum \infty` | symbols |
+| `\alpha \beta \sigma \mu \Sigma` | Greek letters |
+| `\ ` | a space between words inside a formula |
+
+Unicode is fine directly too — `Σ`, `√`, `²`, `x̄`, `α` all pass through. An
+unrecognised command degrades to readable text rather than breaking the page,
+and a `$` inside backticks is never treated as a formula.
+
+Code fences support `sql`, `python`, `r`, `bash` and `text` highlighting.
 
 ## What makes a good tutorial
 

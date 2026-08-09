@@ -650,10 +650,42 @@ blockquote {
 .callout-example { border-left-color: #9333ea; }
 .callout-interview { border-left-color: #be123c; }
 
+/* Formulas. Rendered from a LaTeX subset by lib/math.js into these classes;
+   no italics, because most formulas here are built from whole words rather
+   than single-letter symbols. Rules stay on currentColor so fraction bars and
+   radicals follow the theme. Deliberately no nowrap: a long formula must be
+   allowed to wrap rather than overflow the page on a narrow screen. */
 .math {
-  font-family: "Cambria Math", Cambria, Georgia, serif; font-style: italic;
-  font-size: 1.03em; white-space: nowrap;
+  font-family: "Cambria Math", Cambria, "Latin Modern Math", Georgia, serif;
+  font-size: 1.05em;
+  line-height: 1.35;
 }
+
+.m-frac {
+  display: inline-flex; flex-direction: column; vertical-align: middle;
+  text-align: center; margin: 0 .2em; font-size: .92em;
+}
+.m-num { border-bottom: 1.5px solid currentColor; padding: 0 .4em .12em; }
+.m-den { padding: .12em .4em 0; }
+
+.m-sqrt { display: inline-flex; align-items: stretch; margin: 0 .1em; }
+.m-radical { font-size: 1.15em; line-height: 1.1; }
+.m-sqrt-body {
+  border-top: 1.5px solid currentColor; padding: .12em .3em 0 .12em;
+}
+.m-root { font-size: .7em; align-self: flex-start; margin-right: -.35em; }
+
+/* \left( ... \right) — laid out as a flex row so tall delimiters centre on
+   their contents rather than sitting on the text baseline. */
+.m-delims { display: inline-flex; align-items: center; }
+.m-open, .m-close { font-size: 2em; line-height: .72; font-weight: 300; }
+
+.math sup, .math sub { font-size: .72em; line-height: 0; }
+.math sup { vertical-align: .55em; }
+.math sub { vertical-align: -.28em; }
+
+.m-text { font-family: var(--font-sans); font-size: .94em; }
+.m-accent { position: relative; }
 
 /* Quiz widget */
 .quiz {
