@@ -99,6 +99,17 @@ t('escaped characters', () => {
   assert.ok(math.render('50\\%').includes('50%'));
 });
 
+t('inherited object members are not treated as symbols', () => {
+  // A bare SYMBOLS[name] lookup would return Object.prototype.toString here
+  // and splice a function into the output.
+  for (const name of ['toString', 'constructor', 'valueOf', 'hasOwnProperty']) {
+    const html = math.render('\\' + name);
+    assert.ok(!/function|native code|\[object/.test(html),
+      `${name} leaked a prototype member: ${html}`);
+    assert.ok(html.includes(name), html);
+  }
+});
+
 t('unknown command degrades to readable text', () => {
   const html = math.render('\\notarealcommand');
   assert.ok(!html.includes('\\'), html);
